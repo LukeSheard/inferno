@@ -39,10 +39,10 @@ fixtureDirs.forEach(dir => {
 	});
 });
 
-console.log('-------------------------');
-console.log('All fixtures were built!');
-console.log('Now ensure all frames display a welcome message:');
-console.log('  npm install -g serve');
-console.log('  serve ../..');
-console.log('  open http://localhost:5000/fixtures/packaging/');
-console.log('-------------------------');
+console.log(`-------------------------
+All fixtures were built!');
+Now ensure all frames display a welcome message:');
+  npm install -g serve');
+  serve ../..');
+  open http://localhost:5000/fixtures/packaging/');
+-------------------------`);
