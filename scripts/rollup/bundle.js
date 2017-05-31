@@ -15,31 +15,16 @@ const moduleGlobals = fs.readdirSync(ROOT)
 		return acc;
 	}, {});
 
-function createOptions(filename, format, rollupConfig) {
-	return {
+module.exports = function(filename, format, rollupConfig) {
+	const options = {
 		dest: `dist/${filename}`,
-		// exports: 'named',
 		format: format,
 		globals: Object.assign({}, moduleGlobals, rollupConfig.moduleGlobals || {}),
 		moduleName: rollupConfig.moduleName,
 		sourceMap: false
 	};
-}
 
-module.exports = function(NODE_ENV, pkgJSON, ES6 = false) {
-	const {
-		name,
-		rollup: rollupConfig
-	} = pkgJSON;
-
-	const filename = `index${ES6 ? '.es' : ''}${NODE_ENV === 'production' ? '.min' : ''}.js`;
-	const format = ES6 ? 'es' : 'umd';
-
-	const options = createOptions(filename, format, rollupConfig);
-
-	return function(bundle) {
-		bundle.write(options);
-
-		return `${name} at ${format} is complete`;
+	return function({ write }) {
+		return write(options);
 	};
 };

@@ -1,5 +1,5 @@
 {
-  "name": "systemjs-builder-test",
+  "name": "systemjs-builder-dev-test",
   "private": true,
   "dependencies": {
     "systemjs-builder": "^0.15.34"

@@ -12,6 +12,10 @@ if (pkgJSON.private || !pkgJSON.rollup) {
 	return;
 }
 
+/*
+	 Make the dist directory if it doesn't already exist
+*/
+
 try {
 	fs.mkdirSync(join(cwd, 'dist'));
 } catch (e) {
@@ -20,18 +24,20 @@ try {
 	}
 }
 
-console.log(`========================
-	${pkgJSON.name}
-`)
+const DEV_UMD  = createRollup(cwd, pkgJSON, 'development');
+const PROD_UMD = createRollup(cwd, pkgJSON, 'production');
+const DEV_ES   = createRollup(cwd, pkgJSON, 'development', true);
 
-const rollupUMDDev = createRollup(cwd, pkgJSON, 'development');
-const bundleUMDDev = createBundle('development', pkgJSON);
-rollupUMDDev.then(bundleUMDDev).catch(console.error);
+const UMD_DEV_Bundle   = createBundle('inferno.js', 'UMD', pkgJSON.rollup);
+const UMD_PROD_Bundle  = createBundle('inferno.js', 'UMD', pkgJSON.rollup);
+const NODE_PROD_Bundle = createBundle('index.js', 'UMD', pkgJSON.rollup);
+const ES_DEV_Bundle    = createBundle('index.es.js', 'ES', pkgJSON.rollup);
 
-const rollupUMDProd = createRollup(cwd, pkgJSON, 'production');
-const bundleUMDProd = createBundle('production', pkgJSON);
-rollupUMDProd.then(bundleUMDProd).catch(console.error);
-
-const rollupES  = createRollup(cwd, pkgJSON, NODE_ENV, true);
-const bundleES  = createBundle(NODE_ENV, pkgJSON, true);
-rollupES.then(bundleES).catch(console.error);
+Promise.all([
+	DEV_UMD(UMD_DEV_Bundle),
+	PROD_UMD(UMD_PROD_Bundle),
+	DEV_UMD(NODE_PROD_Bundle),
+	DEV_ES(ES_DEV_Bundle),
+]).then(() => {
+	
+});

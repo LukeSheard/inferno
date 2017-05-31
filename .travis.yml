@@ -43,9 +43,10 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
+  - npm run lint
+  - npm test -- --ci --coverage --runInBand
   - npm run build
-  - npm test
   - npm run test:package
 
 after_script:
-  - npm run test:unit:publish
+  - npm run test:publish

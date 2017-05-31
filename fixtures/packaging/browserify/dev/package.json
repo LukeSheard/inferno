@@ -1,5 +1,5 @@
 {
-  "name": "webpack-test",
+  "name": "browserify-dev-test",
   "private": true,
   "dependencies": {
     "browserify": "^13.3.0"

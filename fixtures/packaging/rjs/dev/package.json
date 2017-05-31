@@ -1,5 +1,5 @@
 {
-  "name": "rjs-test",
+  "name": "rjs-dev-test",
   "private": true,
   "dependencies": {
     "requirejs": "^2.3.2"

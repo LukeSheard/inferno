@@ -32,6 +32,6 @@
 		"removeComments": false
 	},
 	"include": [
-		"packages/*/src/**/*"
+		"./**"
 	]
 }

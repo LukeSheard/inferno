@@ -39,8 +39,8 @@ module.exports = {
 		'<rootDir>/scripts/jest/requestAnimationFrame.ts'
 	],
 	'testMatch': [
-		'**/packages/*/tests/**/*spec.js?(x)',
-		'**/packages/*/tests/**/*spec.ts?(x)'
+		'<rootDir>/packages/*/tests/**/*spec.js?(x)',
+		'<rootDir>/packages/*/tests/**/*spec.ts?(x)'
 	],
 	'transform': {
 		'^.+\\.jsx?$': 'babel-jest',
