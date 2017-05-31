@@ -5,6 +5,8 @@
 
 // MIT license
 
+declare var global: any;
+
 (function() {
 	let lastTime = 0;
 	let vendors = ['ms', 'moz', 'webkit', 'o'];
