@@ -1,7 +1,6 @@
 .DS_Store
 .npm-debug.log*
-.rpt2_cache
-.rpt2_cache-es
+.rpt2_cache*
 
 *.log
 

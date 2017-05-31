@@ -1,35 +1,40 @@
-const fs = require('fs');
+const { mkdir } = require('fs');
 const { join } = require('path');
 
-const createBundle = require('./bundle');
-const createRollup = require('./rollup');
-
-const cwd      = process.cwd();
-const pkgJSON  = require(join(cwd, 'package.json'));
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const cwd = process.cwd();
+const pkgJSON = require(join(cwd, 'package.json'));
 
 if (pkgJSON.private || !pkgJSON.rollup) {
 	return;
 }
 
-try {
-	fs.mkdirSync(join(cwd, 'dist'));
-} catch (e) {
-	if (e.code !== 'EEXIST') {
+mkdir(join(cwd, 'dist'), (err) => {
+	if (err && err.code !== 'EEXIST') {
 		throw Error(e);
 	}
-}
 
-console.log(`========================
-	${pkgJSON.name}
-`)
+	const options = require('minimist')(process.argv.slice(2), {
+		boolean: ['replace', 'optimize', 'uglify'],
+		default: {
+			env: 'development',
+			format: 'umd',
+			name: pkgJSON.name,
+			optimize: true,
+			replace: true,
+			uglify: true,
+		}
+	});
 
-const rollupUMDDev = createRollup(cwd, pkgJSON, NODE_ENV);
-const bundleUMDDev = createBundle(NODE_ENV, pkgJSON);
-rollupUMDDev.then(bundleUMDDev).catch(console.error);
+	const createRollup = require('./rollup');
+	const createBundle = require('./bundle');
 
+	const rollup = createRollup(options);
+	const bundle = createBundle(options);
 
-const rollupES  = createRollup(cwd, pkgJSON, NODE_ENV, true);
-const bundleES  = createBundle(NODE_ENV, pkgJSON, true);
-rollupES.then(bundleES).catch(console.error);
-
+	rollup.then(bundle).then(res => {
+		console.log(`${pkgJSON.name} DONE @ ${options.format}`);
+	}).catch(err => {
+		console.error(`${pkgJSON.name} FAILED @ ${options.format}`);
+		throw new Error(err);
+	});
+});
