@@ -41,11 +41,11 @@ install:
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
+  - npm run build
 
 script:
   - npm run lint
   - npm test -- --ci --coverage --runInBand
-  - npm run build
   - npm run test:package
 
 after_script:

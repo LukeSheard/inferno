@@ -33,11 +33,18 @@ const UMD_PROD_Bundle  = createBundle('inferno.js', 'UMD', pkgJSON.rollup);
 const NODE_PROD_Bundle = createBundle('index.js', 'UMD', pkgJSON.rollup);
 const ES_DEV_Bundle    = createBundle('index.es.js', 'ES', pkgJSON.rollup);
 
+console.log(`=================================
+	STARTING ${pkgJSON.name}
+`);
+
 Promise.all([
 	DEV_UMD(UMD_DEV_Bundle),
 	PROD_UMD(UMD_PROD_Bundle),
 	DEV_UMD(NODE_PROD_Bundle),
 	DEV_ES(ES_DEV_Bundle),
 ]).then(() => {
-	
+	console.log(`BUILT`);
+}).catch((err) => {
+	console.error(`FAILED`);
+	console.error(err);
 });
