@@ -36,3 +36,6 @@ test/data/result.json
 .npm-debug.log*
 
 .rpt2_cache
+.rpt2_cache-es
+
+package-lock.json

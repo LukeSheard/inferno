@@ -5,20 +5,21 @@
     <script>
       System.config({
         paths: {
-          react: '../../../build/dist/react.production.min.js',
-          'react-dom': '../../../build/dist/react-dom.production.min.js'
+          inferno: '../../../../packages/inferno/dist/index.min.js',
+		      'inferno-create-element': '../../../../packages/inferno-create-element/dist/index.min.js',
+		      'inferno-shared': '../../../../packages/inferno-shared/dist/index.min.js',
         }
       });
 
       Promise.all([
-        System.import("react"),
-        System.import("react-dom")
+        System.import("inferno"),
+        System.import("inferno-create-element")
       ]).then(function (deps) {
-        var React = deps[0];
-        var ReactDOM = deps[1];
+        var Inferno = deps[0];
+        var createElement = deps[1];
 
-        ReactDOM.render(
-          React.createElement('h1', null, 'Hello World!'),
+        Inferno.render(
+          createElement('h1', null, 'Hello World!'),
           document.getElementById('container')
         );
       });

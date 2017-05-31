@@ -1,11 +1,12 @@
 <html>
   <body>
-    <script src="../../../build/dist/react.production.min.js"></script>
-    <script src="../../../build/dist/react-dom.production.min.js"></script>
+    <script src="../../../packages/inferno-shared/dist/index.min.js"></script>
+    <script src="../../../packages/inferno/dist/index.min.js"></script>
+    <script src="../../../packages/inferno-create-element/dist/index.min.js"></script>
     <div id="container"></div>
     <script>
-      ReactDOM.render(
-        React.createElement('h1', null, 'Hello World!'),
+      Inferno.render(
+        Inferno.createElement('h1', null, 'Hello World!'),
         document.getElementById('container')
       );
     </script>

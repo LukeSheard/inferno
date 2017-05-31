@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import Inferno from 'inferno';
+import createElement from 'inferno-create-element';
 
-ReactDOM.render(
-  React.createElement('h1', null, 'Hello World!'),
-  document.getElementById('container')
+Inferno.render(
+	createElement('h1', null, 'Hello World!'),
+	document.getElementById('container')
 );

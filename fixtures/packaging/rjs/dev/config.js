@@ -1,10 +1,11 @@
 module.exports = {
-  baseUrl: '.',
-  name: 'input',
-  out: 'output.js',
-  optimize: 'none',
-  paths: {
-    react: '../../../../build/dist/react.development',
-    'react-dom': '../../../../build/dist/react-dom.development',
-  },
+	baseUrl: '.',
+	name: 'input',
+	optimize: 'none',
+	out: 'output.js',
+	paths: {
+		inferno: '../../../../packages/inferno/dist/index',
+		'inferno-create-element': '../../../../packages/inferno-create-element/dist/index',
+		'inferno-shared': '../../../../packages/inferno-shared/dist/index',
+	},
 };

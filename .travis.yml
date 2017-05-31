@@ -43,9 +43,9 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - npm run topology
-  - npm test
   - npm run build
+  - npm test
+  - npm run test:package
 
 after_script:
   - npm run test:unit:publish

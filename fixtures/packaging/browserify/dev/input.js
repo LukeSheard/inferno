@@ -1,7 +1,7 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+var Inferno = require('inferno');
+var createElement = require('inferno-create-element');
 
-ReactDOM.render(
-  React.createElement('h1', null, 'Hello World!'),
-  document.getElementById('container')
+Inferno.render(
+	Inferno.createElement('h1', null, 'Hello World!'),
+	document.getElementById('container')
 );

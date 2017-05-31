@@ -5,14 +5,15 @@
     <script>
       requirejs.config({
         paths: {
-          react: '../../../build/dist/react.production.min',
-          'react-dom': '../../../build/dist/react-dom.production.min'
+          inferno: '../../../packages/inferno/dist/index.min',
+          'inferno-create-element': '../../../packages/inferno-create-element/dist/index.min',
+          'inferno-shared': '../../../packages/inferno-shared/dist/index.min',
         }
       });
 
-      require(['react', 'react-dom'], function(React, ReactDOM) {
-        ReactDOM.render(
-          React.createElement('h1', null, 'Hello World!'),
+      require(['inferno', 'inferno-create-element'], function(Inferno, createElement) {
+        Inferno.render(
+          createElement('h1', null, 'Hello World!'),
           document.getElementById('container')
         );
       });

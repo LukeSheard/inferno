@@ -1,6 +1,7 @@
 System.config({
-  paths: {
-    react: '../../../../build/dist/react.production.min.js',
-    'react-dom': '../../../../build/dist/react-dom.production.min.js',
-  },
+	paths: {
+		inferno: '../../../../packages/inferno/dist/index.min.js',
+		'inferno-create-element': '../../../../packages/inferno-create-element/dist/index.min.js',
+		'inferno-shared': '../../../../packages/inferno-shared/dist/index.js',
+	},
 });
