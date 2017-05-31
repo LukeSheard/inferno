@@ -24,26 +24,34 @@ try {
 	}
 }
 
-const DEV_UMD  = createRollup(cwd, pkgJSON, 'development');
-const PROD_UMD = createRollup(cwd, pkgJSON, 'production');
-const DEV_ES   = createRollup(cwd, pkgJSON, 'development', true);
 
-const UMD_DEV_Bundle   = createBundle('inferno.js', 'umd', pkgJSON.rollup);
-const UMD_PROD_Bundle  = createBundle('inferno.js', 'umd', pkgJSON.rollup);
+const UMD_DEV_Bundle  = createBundle('inferno.js', 'umd', pkgJSON.rollup);
+const UMD_PROD_Bundle = createBundle('inferno.js', 'umd', pkgJSON.rollup);
 const NODE_PROD_Bundle = createBundle('index.js', 'umd', pkgJSON.rollup);
-const ES_DEV_Bundle    = createBundle('index.es.js', 'es', pkgJSON.rollup);
+const ES_DEV_Bundle = createBundle('index.es.js', 'es', pkgJSON.rollup);
 
 console.log(`=================================
 	STARTING ${pkgJSON.name}
 `);
 
+const DEV_UMD = createRollup(cwd, pkgJSON, 'development');
 Promise.all([
 	DEV_UMD(UMD_DEV_Bundle),
-	PROD_UMD(UMD_PROD_Bundle),
 	DEV_UMD(NODE_PROD_Bundle),
-	DEV_ES(ES_DEV_Bundle),
 ]).then(() => {
+	const PROD_UMD = createRollup(cwd, pkgJSON, 'production');
+
+	return PROD_UMD(NODE_PROD_Bundle);
+}).then(() => {
+	const DEV_ES = createRollup(cwd, pkgJSON, 'development', true);
+
+	return DEV_ES(ES_DEV_Bundle);
+}).then(() => {
 	console.log(`BUILT`);
 }).catch((err) => {
 	console.error(err);
 });
+
+
+
+
