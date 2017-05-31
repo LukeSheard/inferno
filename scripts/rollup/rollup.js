@@ -6,7 +6,7 @@ const createPlugins = require('./plugins');
 module.exports = function(cwd, pkgJSON, NODE_ENV = 'development', ES6 = false) {
 	const {
 		version,
-		rollupConfig = {},
+		rollup: rollupConfig = {},
 		dependencies = {},
 	} = pkgJSON;
 

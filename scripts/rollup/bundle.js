@@ -21,6 +21,7 @@ function createOptions(filename, format, rollupConfig) {
 		// exports: 'named',
 		format: format,
 		globals: Object.assign({}, moduleGlobals, rollupConfig.moduleGlobals || {}),
+		indent: true,
 		moduleName: rollupConfig.moduleName,
 		sourceMap: false
 	};
