@@ -21,7 +21,9 @@ module.exports = function(version, NODE_ENV, ES6) {
 			include: 'node_modules/**'
 		}),
 		tsPlugin({
+			abortOnError: false,
 			cacheRoot: `.rpt2_cache${ES6 ? '-es' : ''}`,
+			check: false,
 			clean: true,
 			exclude: [
 				'*.d.ts',

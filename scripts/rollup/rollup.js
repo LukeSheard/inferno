@@ -17,11 +17,9 @@ module.exports = function(cwd, pkgJSON, NODE_ENV = 'development', ES6 = false) {
 	const external = Object.keys(dependencies || {}).filter(n => !(rollupConfig.bundledDependencies || []).includes(n));
 	const plugins  = createPlugins(version, NODE_ENV, ES6);
 
-	return (createBundle) => {
-		return rollup({
-			entry: join(cwd, 'src/index.ts'),
-			external,
-			plugins,
-		}).then(createBundle);
-	};
+	return rollup({
+		entry: join(cwd, 'src/index.ts'),
+		external,
+		plugins,
+	});
 };
