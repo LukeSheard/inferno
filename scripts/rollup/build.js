@@ -49,7 +49,7 @@ Promise.all([
 }).then(() => {
 	console.log(`BUILT`);
 }).catch((err) => {
-	console.error(err);
+	throw Error(err);
 });
 
 
