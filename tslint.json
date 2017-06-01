@@ -5,6 +5,7 @@
 		"indent": [ true, "tabs" ],
 		"max-line-length": [false],
 		"no-bitwise": false,
+		"no-console": [false],
 		"no-conditional-assignment": false,
 		"no-debugger": false,
 		"no-empty": false,

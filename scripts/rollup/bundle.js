@@ -32,5 +32,9 @@ module.exports = function(options) {
 		sourceMap: false
 	};
 
+	if (options.format === 'cjs') {
+		bundleOptions.exports = 'named';
+	}
+
 	return ({ write }) => write(bundleOptions);
 };

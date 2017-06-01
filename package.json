@@ -16,9 +16,11 @@
     "url": "git+ssh://git@github.com/infernojs/inferno.git"
   },
   "scripts": {
-    "clean:dist": "lerna exec -- rimraf dist",
-    "build": "npm-run-all clean:dist build:**",
+    "clean": "lerna exec -- rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "npm-run-all --parallel build:**",
     "rollup": "lerna exec --concurrency 1 -- cross-env node ../../scripts/rollup/build.js",
+    "build:typings": "tsc && lerna exec -- node ../../scripts/typings/build.js",
     "build:es": "npm run rollup -- --format=es --optimize=false --name=index.es --uglify=false",
     "build:node": "npm run rollup -- --format=cjs --replace=false --name=index --uglify=false",
     "build:umd:dev": "npm run rollup",
@@ -57,6 +59,7 @@
     "concat-stream": "^1.6.0",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
+    "dts-bundle": "^0.7.2",
     "jest": "^20.0.4",
     "lerna": "^2.0.0-rc.5",
     "minimist": "^1.2.0",
@@ -82,8 +85,5 @@
     "typescript": "^2.3.4",
     "union-type": "^0.4.0",
     "webpack": "^2.6.1"
-  },
-  "dependencies": {
-    "dts-bundle": "^0.7.2"
   }
 }

@@ -31,12 +31,10 @@ mkdir(join(cwd, 'dist'), (err) => {
 	const rollup = createRollup(options);
 	const bundle = createBundle(options);
 
-	console.log(options);
-
-	rollup.catch().then(bundle).then(res => {
-		console.log(`${pkgJSON.name} DONE @ ${options.format}`);
-	}).catch(err => {
-		console.error(`${pkgJSON.name} FAILED @ ${options.format}`);
-		throw new Error(err);
+	rollup.catch().then(bundle).then(() => {
+		console.log(`${pkgJSON.name} in ${options.format} is DONE`);
+	}).catch((buildErr) => {
+		console.error(buildErr);
+		process.exit(1);
 	});
 });

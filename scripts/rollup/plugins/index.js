@@ -43,10 +43,6 @@ module.exports = function(version, options) {
 		replaceValues['process.env.NODE_ENV'] = JSON.stringify(options.env);
 	}
 
-	plugins.push(
-		replacePlugin(replaceValues)
-	);
-
 	if (options.uglify) {
 		plugins.push(
 			uglify({
@@ -69,6 +65,10 @@ module.exports = function(version, options) {
 			})
 		);
 	}
+
+	plugins.push(
+		replacePlugin(replaceValues)
+	);
 
 	if (options.optimize) {
 		plugins.push(optJSPlugin);
