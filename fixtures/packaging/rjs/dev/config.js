@@ -4,8 +4,8 @@ module.exports = {
 	optimize: 'none',
 	out: 'output.js',
 	paths: {
-		inferno: '../../../../packages/inferno/dist/index',
-		'inferno-create-element': '../../../../packages/inferno-create-element/dist/index',
-		'inferno-shared': '../../../../packages/inferno-shared/dist/index',
+		inferno: '../../../../packages/inferno/dist/inferno',
+		'inferno-create-element': '../../../../packages/inferno-create-element/dist/inferno-create-element',
+		'inferno-shared': '../../../../packages/inferno-shared/dist/inferno-shared',
 	},
 };

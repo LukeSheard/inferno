@@ -14,12 +14,13 @@
 			"inferno-vnode-flags": [ "packages/inferno-vnode-flags/src" ]
 		},
 		"allowSyntheticDefaultImports": true,
+		"declaration": true,
 		"target": "es6",
-		"module": "es2015",
+		"module": "commonjs",
 		"allowJs": false,
 		"moduleResolution": "node",
 		"preserveConstEnums": true,
-		"outDir": "dist",
+		"outDir": "build",
 		"sourceMap": false,
 		"lib": [
 			"es6",

@@ -5,6 +5,7 @@
 		"**/.DS_Store": true,
 		"**/*.log": true,
 		"**/node_modules": true,
-		"**/.rpt2_cache*": true
+		"**/.rpt2_cache*": true,
+		"**/build": false
 	}
 }

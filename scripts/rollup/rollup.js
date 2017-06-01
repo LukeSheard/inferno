@@ -19,11 +19,6 @@ module.exports = function(options) {
 	return rollup({
 		entry: join(cwd, 'src/index.ts'),
 		external,
-		onwarn: function(warning) {
-			if (warning.url !== 'https://github.com/rollup/rollup/wiki/JavaScript-API#exports') {
-				console.error(warning.toString());
-			}
-		},
 		plugins,
 	});
 };

@@ -7,8 +7,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			'inferno': 'inferno/dist/index',
-			'inferno-create-element': 'inferno-create-element/dist/index',
+			'inferno': 'inferno/dist/inferno',
+			'inferno-create-element': 'inferno-create-element/dist/inferno-create-element',
 		},
 		root: path.resolve('../../../../packages'),
 	},

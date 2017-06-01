@@ -31,7 +31,9 @@ mkdir(join(cwd, 'dist'), (err) => {
 	const rollup = createRollup(options);
 	const bundle = createBundle(options);
 
-	rollup.then(bundle).then(res => {
+	console.log(options);
+
+	rollup.catch().then(bundle).then(res => {
 		console.log(`${pkgJSON.name} DONE @ ${options.format}`);
 	}).catch(err => {
 		console.error(`${pkgJSON.name} FAILED @ ${options.format}`);

@@ -82,5 +82,8 @@
     "typescript": "^2.3.4",
     "union-type": "^0.4.0",
     "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "dts-bundle": "^0.7.2"
   }
 }

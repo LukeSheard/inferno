@@ -1,9 +1,13 @@
+.idea
+.vscode
+
 .DS_Store
 .npm-debug.log*
 .rpt2_cache*
 
 *.log
 
+build
 coverage
 node_modules
 
