@@ -8,6 +8,6 @@
 		"**/.rpt2_cache*": true,
 		"**/build": true,
 		"**/coverage": true,
-		"**/dist/**": true
+		"**/dist/**": false
 	}
 }

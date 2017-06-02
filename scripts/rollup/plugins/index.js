@@ -36,7 +36,7 @@ module.exports = function(version, options) {
 	];
 
 	const replaceValues = {
-		VERSION: options.version,
+		VERSION: JSON.stringify(options.version),
 	};
 
 	if (options.replace) {

@@ -22,6 +22,7 @@ mkdir(join(cwd, 'dist'), (err) => {
 			optimize: true,
 			replace: true,
 			uglify: true,
+			version: pkgJSON.version
 		}
 	});
 
