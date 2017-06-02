@@ -6,6 +6,8 @@
 		"**/*.log": true,
 		"**/node_modules": true,
 		"**/.rpt2_cache*": true,
-		"**/build": false
+		"**/build": true,
+		"**/coverage": true,
+		"**/dist/**": true
 	}
 }
