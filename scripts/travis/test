@@ -1,7 +1,9 @@
-#!/usr/env/bin bash
+#!/usr/bin/env bash
+
+npm run test -- --coverage
 
 function upload {
   npm run coveralls
 }
 
-trap upload jest --coverage
+trap upload EXIT
