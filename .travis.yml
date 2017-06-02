@@ -4,6 +4,7 @@ node_js:
   - '6'
 
 cache:
+  yarn: true
   directories:
     - node_modules
 
@@ -40,15 +41,14 @@ before_script:
 
 jobs:
   include:
-    - stage: Test
       script: npm run lint
-    - stage: Test
       script: ./scripts/travis/test.sh
-    - stage: Build
+    - stage: build
       script:
         - npm run build
         - npm run test:package
-    - stage: Deploy
-      script: 
+    - stage: deploy
+      script:
+        - npm run build
         - ./scripts/travis/check-version.js
         - echo "Would deploy here"
