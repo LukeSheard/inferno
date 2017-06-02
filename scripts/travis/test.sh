@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-npm run test -- --coverage
+npm run test:ci
 
 function upload {
   npm run coveralls

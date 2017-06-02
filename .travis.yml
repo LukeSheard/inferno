@@ -39,7 +39,7 @@ jobs:
     - stage: Test
       script: npm run lint
     - stage: Test
-      script: npm run test:ci
+      script: ./scripts/travis/test.sh
     - stage: Build
       script:
         - npm run build

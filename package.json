@@ -29,7 +29,7 @@
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx packages/*/src/**/*.js packages/*/src/**/*.jsx",
     "rollup": "lerna exec --concurrency 1 -- cross-env node ../../scripts/rollup/build.js",
     "test": "jest",
-    "test:ci": "./scripts/travis/test",
+    "test:ci": "jest --coverage --runInBand",
     "test:react": "jest --config fixtures/react-suite/jest.config.js",
     "test:package": "node fixtures/packaging/build-all.js",
     "uninstall": "lerna clean && rm -rf node_modules"
