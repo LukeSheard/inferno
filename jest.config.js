@@ -1,21 +1,22 @@
 module.exports = {
-	'collectCoverageFrom': [
+	collectCoverageFrom: [
 		'packages/*/src/**/*.ts',
 		'!**/*.ts.js'
 	],
-	'coverageReporters': [
+	coverageDirectory: 'coverage',
+	coverageReporters: [
 		'html',
 		'lcov',
 		'text'
 	],
-	'moduleFileExtensions': [
+	moduleFileExtensions: [
 		'ts',
 		'tsx',
 		'js',
 		'jsx',
 		'json'
 	],
-	'moduleNameMapper': {
+	moduleNameMapper: {
 		'^inferno$': '<rootDir>/packages/inferno/src',
 		'^inferno-component': '<rootDir>/packages/inferno-component/src',
 		'^inferno-create-class': '<rootDir>/packages/inferno-create-class/src',
@@ -27,7 +28,7 @@ module.exports = {
 		'^inferno-vnode-flags': '<rootDir>/packages/inferno-vnode-flags/src',
 		'^inferno/core/VNodes': '<rootDir>/packages/inferno/src/core/VNodes'
 	},
-	'projects': [
+	projects: [
 		'<rootDir>/packages/inferno',
 		'<rootDir>/packages/inferno-component',
 		'<rootDir>/packages/inferno-create-class',
@@ -38,11 +39,11 @@ module.exports = {
 	setupFiles: [
 		'<rootDir>/scripts/jest/requestAnimationFrame.ts'
 	],
-	'testMatch': [
+	testMatch: [
 		'<rootDir>/packages/*/tests/**/*spec.js?(x)',
 		'<rootDir>/packages/*/tests/**/*spec.ts?(x)'
 	],
-	'transform': {
+	transform: {
 		'^.+\\.jsx?$': 'babel-jest',
 		'^.+\\.tsx?$': '<rootDir>/node_modules/ts-jest/preprocessor.js'
 	}
