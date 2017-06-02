@@ -2,6 +2,7 @@ language: node_js
 
 node_js:
   - '6'
+  - '8'
 
 notifications:
   email:
@@ -30,11 +31,6 @@ addons:
       - google-chrome-stable
       - google-chrome-beta
 
-before_install:
-  - "nvm use $TRAVIS_NODE_VERSION"
-  # Repo for newer Node.js versions
-  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-
 install:
   - npm install
 
@@ -42,11 +38,18 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
-script:
-  - npm run build
-  - npm run lint
-  - npm test -- --ci --coverage --runInBand
-  - npm run test:package
+jobs:
+  include:
+    - stage: Build
+      script: npm run build
+    - stage: Test
+      script: npm run lint
+    - stage: Test
+      script: npm test -- --ci --coverage --runInBand
+    - stage: Test
+      script: npm run test:package
+    - stage: Check Versions
+      script: ./scripts/release/check-version.js
 
 after_script:
   - npm run test:publish

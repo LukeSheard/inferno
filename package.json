@@ -24,7 +24,6 @@
     "build:node": "npm run rollup -- --format=cjs --replace=false --name=index --uglify=false",
     "build:umd:dev": "npm run rollup",
     "build:umd:prod": "npm run rollup -- --env=production",
-    "check-version": "node scripts/tasks/check-version.js",
     "postinstall": "lerna bootstrap",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx packages/*/src/**/*.js packages/*/src/**/*.jsx",
     "rollup": "lerna exec --concurrency 1 -- cross-env node ../../scripts/rollup/build.js",
