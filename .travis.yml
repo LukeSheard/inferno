@@ -36,13 +36,15 @@ before_script:
 
 jobs:
   include:
-    - stage: Build
-      script: npm run build
     - stage: Test
       script: npm run lint
     - stage: Test
       script: npm run test:ci
-    - stage: Test
-      script: npm run test:package
-    - stage: Check Versions
-      script: ./scripts/travis/check-version.js
+    - stage: Build
+      script:
+        - npm run build
+        - npm run test:package
+    - stage: Deploy
+      script: 
+        - ./scripts/travis/check-version.js
+        - echo "Would deploy here"
