@@ -27,7 +27,7 @@
     "build:umd:prod": "npm run rollup -- --env=production",
     "postinstall": "lerna bootstrap",
     "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx packages/*/src/**/*.js packages/*/src/**/*.jsx",
-    "rollup": "lerna exec --concurrency 1 -- cross-env node ../../scripts/rollup/build.js",
+    "rollup": "lerna exec -- cross-env node ../../scripts/rollup/build.js",
     "test": "jest",
     "test:ci": "jest --coverage --runInBand",
     "test:react": "jest --config fixtures/react-suite/jest.config.js",
