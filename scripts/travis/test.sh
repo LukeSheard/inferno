@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Perform Tests and snap exit code
-npm test
+npm test -- --coverage
 EXIT_CODE=$?
 
 echo ""
