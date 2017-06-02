@@ -1,0 +1,7 @@
+#!/usr/env/bin bash
+
+function upload {
+  npm run coveralls
+}
+
+trap upload jest --coverage

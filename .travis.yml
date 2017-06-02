@@ -2,7 +2,6 @@ language: node_js
 
 node_js:
   - '6'
-  - '8'
 
 notifications:
   email:
@@ -14,7 +13,7 @@ sudo: required
 dist: trusty
 
 env:
-  - CXX=g++-4.8
+  - CXX=g++-4.8z
 addons:
   firefox: "latest"
   apt:
@@ -46,4 +45,4 @@ jobs:
     - stage: Test
       script: npm run test:package
     - stage: Check Versions
-      script: ./scripts/release/check-version.js
+      script: ./scripts/travis/check-version.js
