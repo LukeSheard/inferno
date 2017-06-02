@@ -7,7 +7,6 @@
 		"**/node_modules": true,
 		"**/.rpt2_cache*": true,
 		"**/build": true,
-		"**/coverage": true,
-		"**/dist/**": false
+		"**/coverage": true
 	}
 }

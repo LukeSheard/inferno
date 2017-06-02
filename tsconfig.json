@@ -33,7 +33,6 @@
 		"removeComments": false
 	},
 	"include": [
-		"scripts/typings/version.d.ts",
 		"packages/*/src/**/*"
 	]
 }

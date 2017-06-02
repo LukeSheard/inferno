@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-npm run test:ci
+# Perform Tests and snap exit code
+npm test
+EXIT_CODE=$?
 
-function upload {
-  npm run coveralls
-}
+echo ""
+echo "Uploading Coverage..."
+(npm run coveralls 2> /dev/null ) || true
 
-trap upload EXIT
+exit $EXIT_CODE

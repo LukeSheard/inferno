@@ -36,7 +36,7 @@ module.exports = function(version, options) {
 	];
 
 	const replaceValues = {
-		VERSION: JSON.stringify(options.version),
+		'process.env.INFERNO_VERSION': JSON.stringify(options.version),
 	};
 
 	if (options.replace) {
