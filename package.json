@@ -34,7 +34,8 @@
     ]
   },
   "precommit": {
-    "run": "precommit"
+    "run": "precommit",
+    "template": ".github/COMMIT_TEMPLATE.md"
   },
   "scripts": {
     "clean": "lerna exec -- rimraf dist",
