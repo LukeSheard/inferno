@@ -31,5 +31,8 @@
 		"noUnusedLocals": true,
 		"strictNullChecks": true,
 		"removeComments": false
-	}
+	},
+	"include": [
+		"packages/*/src/**/*"
+	]
 }
