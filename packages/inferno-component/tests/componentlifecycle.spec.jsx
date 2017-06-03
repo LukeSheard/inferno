@@ -18,14 +18,14 @@ describe('Component lifecycle', () => {
 
 	it('componentWillUpdate Should have nextProp in params and old variants in instance', () => {
 		let callCount = 0;
-		class Com extends Component<any, any> {
-			public componentWillUpdate(nextProps, nextState) {
+		class Com extends Component {
+			componentWillUpdate(nextProps, nextState) {
 				callCount++;
 				expect(this.props.value).toEqual(1);
 				expect(nextProps.value).toEqual(2);
 			}
 
-			public render() {
+			render() {
 				return <div>{this.props.value}</div>;
 			}
 		}
@@ -41,8 +41,8 @@ describe('Component lifecycle', () => {
 
 	it('shouldComponentUpdate Should have nextProp in params and old variants in instance', () => {
 		let callCount = 0;
-		class Com extends Component<any, any> {
-			public shouldComponentUpdate(nextProps, nextState) {
+		class Com extends Component {
+			shouldComponentUpdate(nextProps, nextState) {
 				callCount++;
 				expect(this.props.value).toEqual(1);
 				expect(nextProps.value).toEqual(2);
@@ -50,7 +50,7 @@ describe('Component lifecycle', () => {
 				return true;
 			}
 
-			public render() {
+			render() {
 				return <div>{this.props.value}</div>;
 			}
 		}
@@ -67,10 +67,10 @@ describe('Component lifecycle', () => {
 
 	it('Should not fail if componentDidUpdate is undefined #922', () => {
 		let callCount = 0;
-		let c: any = null;
+		let c = null;
 
-		class Com extends Component<any, any> {
-			public componentDidUpdate(nextProps, nextState) {
+		class Com extends Component {
+			componentDidUpdate(nextProps, nextState) {
 				callCount++;
 				expect(this.props.value).toEqual(1);
 				expect(nextProps.value).toEqual(2);
@@ -78,7 +78,7 @@ describe('Component lifecycle', () => {
 				return true;
 			}
 
-			public render() {
+			render() {
 				return <div>{this.props.value}</div>;
 			}
 		}

@@ -27,7 +27,7 @@ module.exports = function(options) {
 		globals: Object.assign(moduleGlobals, rollupConfig.moduleGlobals),
 		indent: true,
 		moduleName: rollupConfig.moduleName,
-		sourceMap: false
+		sourceMap: false,
 	};
 
 	if (options.format === 'cjs') {

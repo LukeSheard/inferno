@@ -236,7 +236,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" /> Female
 					<input type="radio" name="gender" value="other" /> Other
 				</div>,
-				container
+				container,
 			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
@@ -260,7 +260,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" /> Female
 					<input type="radio" name="gender" value="other" /> Other
 				</div>,
-				container
+				container,
 			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
@@ -276,7 +276,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" checked value="female" /> Female
 					<input type="radio" name="gender" value="other" /> Other
 				</div>,
-				container
+				container,
 			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
@@ -296,7 +296,7 @@ describe('HTML Form Elements', () => {
 					<input onClick={spy2} type="radio" name="gender" value="female" checked={true} />
 					<input onClick={spy3} type="radio" id="test" name="gender" value="other" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			expect(container.firstChild.childNodes[1].checked).toEqual(true);
@@ -329,7 +329,7 @@ describe('HTML Form Elements', () => {
 					<input onClick={spy2} type="radio" name="gender" value="female" checked={false} />
 					<input onClick={spy3} type="radio" name="gender" value="other" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			expect(spy1.callCount).toEqual(0);
@@ -353,7 +353,7 @@ describe('HTML Form Elements', () => {
 					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
 					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
 				</div>,
-				container
+				container,
 			);
 
 			expect(spy1.callCount).toEqual(0);
@@ -373,7 +373,7 @@ describe('HTML Form Elements', () => {
 					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
 					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
 				</div>,
-				container
+				container,
 			);
 
 			expect(spy1.callCount).toEqual(0);
@@ -401,7 +401,7 @@ describe('HTML Form Elements', () => {
 					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
 					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
 				</div>,
-				container
+				container,
 			);
 
 			expect(node.childNodes[0].checked).toEqual(true);
@@ -416,7 +416,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" checked={true} />
 					<input type="radio" id="test" name="gender" value="other" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			let node = container.firstChild;
@@ -431,7 +431,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" checked={false} />
 					<input type="radio" id="test" name="gender" value="other" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;
@@ -445,7 +445,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" checked={false} />
 					<input type="radio" id="test" name="gender" value="other" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;
@@ -458,7 +458,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" checked={false} />
 					<input type="radio" id="test" name="gender" value="other" checked={true} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;
@@ -473,7 +473,7 @@ describe('HTML Form Elements', () => {
 					<input type="radio" name="gender" value="female" checked={false} />
 					<input type="radio" name="gender" value="dqw" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;
@@ -487,7 +487,7 @@ describe('HTML Form Elements', () => {
 				<div>
 					<input type="radio" name="gender" value="female" checked={false} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;
@@ -498,7 +498,7 @@ describe('HTML Form Elements', () => {
 				<div>
 					<input type="radio" name="gender" value="female" checked={true} />
 				</div>,
-				container
+				container,
 			);
 
 			node = container.firstChild;

@@ -1,6 +1,6 @@
+import { render } from 'inferno';
 import Component from 'inferno-component';
 import { innerHTML } from 'inferno-utils';
-import { render } from 'inferno';
 
 /* These must be in their own files for test to reproduce */
 import { ParentFirstCommon } from './data/common-render/parentfirstcommon';
@@ -50,11 +50,11 @@ describe('Components (JSX) #2', () => {
 		class ComponentBWithStateChange extends Component {
 			componentWillMount() {
 				this.setStateSync({
-					text: 'newText'
+					text: 'newText',
 				});
 
 				this.setStateSync({
-					text: 'newText2'
+					text: 'newText2',
 				});
 			}
 
@@ -123,13 +123,13 @@ describe('Components (JSX) #2', () => {
 
 			_update() {
 				this.setStateSync({
-					data: 'bar'
+					data: 'bar',
 				});
 			}
 
 			componentWillMount() {
 				this.setStateSync({
-					data: 'foo'
+					data: 'foo',
 				});
 			}
 
@@ -193,13 +193,13 @@ describe('Components (JSX) #2', () => {
 
 			_update() {
 				this.setStateSync({
-					data: 'bar'
+					data: 'bar',
 				});
 			}
 
 			componentWillMount() {
 				this.setStateSync({
-					data: 'foo'
+					data: 'foo',
 				});
 			}
 
@@ -289,7 +289,7 @@ describe('Components (JSX) #2', () => {
 			}
 
 			static defaultProps = {
-				foo: 'bar'
+				foo: 'bar',
 			};
 		}
 

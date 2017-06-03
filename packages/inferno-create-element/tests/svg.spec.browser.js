@@ -38,9 +38,9 @@ describe('SVG (non-jsx)', () => {
 					version: '1.1',
 					baseProfile: 'full',
 					width: '200',
-					height: val1
+					height: val1,
 				},
-				null
+				null,
 			);
 
 		render(template(200), container);
@@ -96,7 +96,7 @@ describe('SVG (non-jsx)', () => {
 	it('should unset a namespaced attributes #2', () => {
 		const template = val =>
 			createElement('image', {
-				'xlink:href': val
+				'xlink:href': val,
 			});
 
 		render(template(null), container);
@@ -110,7 +110,7 @@ describe('SVG (non-jsx)', () => {
 		const template = val =>
 			createElement('svg', {
 				xmlns: 'http://www.w3.org/2000/svg',
-				'xlink:href': val
+				'xlink:href': val,
 			});
 
 		render(template(null), container);
@@ -160,9 +160,9 @@ describe('SVG (non-jsx)', () => {
 				createElement(
 					'svg',
 					{
-						xmlns: 'http://www.w3.org/2000/svg'
+						xmlns: 'http://www.w3.org/2000/svg',
 					},
-					_child
+					_child,
 				);
 
 		child = () => createElement('circle', null);
@@ -176,11 +176,11 @@ describe('SVG (non-jsx)', () => {
 			createElement(
 				'circle',
 				{
-					xmlns: 'http://www.w3.org/2000/svg'
+					xmlns: 'http://www.w3.org/2000/svg',
 				},
 				createElement('circle', {
-					xmlns: 'http://www.w3.org/2000/svg'
-				})
+					xmlns: 'http://www.w3.org/2000/svg',
+				}),
 			);
 
 		render(template(child()), container);
@@ -197,9 +197,9 @@ describe('SVG (non-jsx)', () => {
 					'circle',
 					null,
 					createElement('g', {
-						xmlns: 'http://www.w3.org/2000/svg'
-					})
-				)
+						xmlns: 'http://www.w3.org/2000/svg',
+					}),
+				),
 			);
 
 		render(template(child()), container);
@@ -215,25 +215,29 @@ describe('SVG (non-jsx)', () => {
 			createElement(
 				'circle',
 				null,
-				createElement('circle', null, createElement('g', null, createElement('g', null, createElement('circle', null))))
+				createElement(
+					'circle',
+					null,
+					createElement('g', null, createElement('g', null, createElement('circle', null))),
+				),
 			);
 
 		render(template(null), container);
 		render(template(child()), container);
 		expect(container.firstChild.firstChild.firstChild.firstChild.firstChild.namespaceURI).toEqual(
-			'http://www.w3.org/2000/svg'
+			'http://www.w3.org/2000/svg',
 		);
 		render(template(null), container);
 		render(template(child()), container);
 		expect(container.firstChild.firstChild.firstChild.firstChild.firstChild.namespaceURI).toEqual(
-			'http://www.w3.org/2000/svg'
+			'http://www.w3.org/2000/svg',
 		);
 	});
 
 	it('should set class attribute', () => {
 		const template = val =>
 			createElement('image', {
-				class: val
+				class: val,
 			});
 
 		render(template('foo'), container);
@@ -261,7 +265,7 @@ describe('SVG (non-jsx)', () => {
 				version: '1.1',
 				baseProfile: 'full',
 				width: val1,
-				height: val2
+				height: val2,
 			});
 
 		render(template(200, 200), container);
@@ -289,7 +293,7 @@ describe('SVG (non-jsx)', () => {
 		const template = () =>
 			createElement('svg', {
 				xmlns: 'http://www.w3.org/2000/svg',
-				viewBox: '0 0 50 20'
+				viewBox: '0 0 50 20',
 			});
 
 		render(template(), container);
@@ -320,9 +324,9 @@ describe('SVG (non-jsx)', () => {
 			createElement(
 				'div',
 				{
-					xmlns: 'http://www.w3.org/2000/svg'
+					xmlns: 'http://www.w3.org/2000/svg',
 				},
-				createElement('svg', null)
+				createElement('svg', null),
 			);
 
 		render(template(), container);
@@ -336,8 +340,8 @@ describe('SVG (non-jsx)', () => {
 				'div',
 				null,
 				createElement('svg', {
-					xmlns: 'http://www.w3.org/2000/svg'
-				})
+					xmlns: 'http://www.w3.org/2000/svg',
+				}),
 			);
 
 		render(template(), container);
@@ -350,7 +354,7 @@ describe('SVG (non-jsx)', () => {
 		const template = () =>
 			createElement('svg', {
 				xmlns: 'http://www.w3.org/2000/svg',
-				className: 'class1 class2'
+				className: 'class1 class2',
 			});
 
 		render(template(), container);
@@ -361,7 +365,7 @@ describe('SVG (non-jsx)', () => {
 		const template = val =>
 			createElement('svg', {
 				xmlns: 'http://www.w3.org/2000/svg',
-				className: val
+				className: val,
 			});
 
 		render(template('class1 class2'), container);
@@ -377,7 +381,7 @@ describe('SVG (non-jsx)', () => {
 			createElement('svg', {
 				xmlns: 'http://www.w3.org/2000/svg',
 				class: 'test',
-				className: 'class1 class2'
+				className: 'class1 class2',
 			});
 
 		render(template(), container);

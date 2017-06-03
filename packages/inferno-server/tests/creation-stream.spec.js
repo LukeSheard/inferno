@@ -1,7 +1,7 @@
-import { streamAsStaticMarkup } from 'inferno-server';
 import { render } from 'inferno';
 import createClass from 'inferno-create-class';
 import createElement from 'inferno-create-element';
+import { streamAsStaticMarkup } from 'inferno-server';
 
 import concatStream from 'concat-stream';
 import Component from 'inferno-component';
@@ -34,7 +34,7 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 			},
 			render() {
 				return createElement('a', null, this.context.hello);
-			}
+			},
 		});
 		return streamPromise(createElement(TestComponent, null)).then(function(output) {
 			expect(output).toEqual('<a data-infernoroot>world</a>');
@@ -48,13 +48,13 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 					super(props, context);
 
 					this.state = {
-						foo: 'bar'
+						foo: 'bar',
 					};
 				}
 
 				componentWillMount() {
 					this.setState({
-						foo: 'bar2'
+						foo: 'bar2',
 					});
 				}
 
@@ -68,13 +68,13 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 					super(props, context);
 
 					this.state = {
-						foo: 'bar'
+						foo: 'bar',
 					};
 				}
 
 				componentWillMount() {
 					this.setState({
-						foo: 'bar2'
+						foo: 'bar2',
 					});
 				}
 
@@ -100,7 +100,7 @@ function streamPromise(dom) {
 		streamAsStaticMarkup(dom).on('error', rej).pipe(
 			concatStream(function(buffer) {
 				res(buffer.toString('utf-8'));
-			})
+			}),
 		);
 	});
 }

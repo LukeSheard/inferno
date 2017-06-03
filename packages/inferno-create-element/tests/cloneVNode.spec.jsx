@@ -37,7 +37,7 @@ describe('cloneVNode (JSX)', () => {
 				onComponentShouldUpdate={noop}
 				onComponentWillUpdate={noop}
 			/>,
-			{ children: [<span />] }
+			{ children: [<span />] },
 		);
 		render(node, container);
 		expect(container.innerHTML).toEqual(innerHTML('<div><span></span></div>'));

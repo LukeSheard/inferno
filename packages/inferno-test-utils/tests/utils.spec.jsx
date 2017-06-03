@@ -5,7 +5,7 @@ import {
 	sortAttributes,
 	style,
 	triggerEvent,
-	validateNodeTree
+	validateNodeTree,
 } from 'inferno-utils';
 
 // import { render } from 'inferno';
@@ -18,10 +18,10 @@ describe('Utils', () => {
 		it('should return sorted attributes on HTML strings', () => {
 			expect(
 				sortAttributes(
-					'<div zAttribute="test" aAttribute="inferno" bAttribute="running">Inferno <span fAttribute="huh" cAttr="last">is cool!</span></div>'
-				)
+					'<div zAttribute="test" aAttribute="inferno" bAttribute="running">Inferno <span fAttribute="huh" cAttr="last">is cool!</span></div>',
+				),
 			).toEqual(
-				'<div aAttribute="inferno" bAttribute="running" zAttribute="test">Inferno <span cAttr="last" fAttribute="huh">is cool!</span></div>'
+				'<div aAttribute="inferno" bAttribute="running" zAttribute="test">Inferno <span cAttr="last" fAttribute="huh">is cool!</span></div>',
 			);
 		});
 	});
@@ -112,7 +112,7 @@ describe('Utils', () => {
 	describe('triggerEvent', () => {
 		const spyDispatch = jest.fn();
 		const element = {
-			dispatchEvent: spyDispatch
+			dispatchEvent: spyDispatch,
 		};
 
 		it('should trigger event on click', () => {
@@ -120,7 +120,7 @@ describe('Utils', () => {
 
 			const mockInitEvent = jest.fn();
 			const event = {
-				initEvent: mockInitEvent
+				initEvent: mockInitEvent,
 			};
 
 			const mockCreateEvent = jest.spyOn(document, 'createEvent');

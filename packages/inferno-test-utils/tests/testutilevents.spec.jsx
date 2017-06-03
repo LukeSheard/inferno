@@ -5,7 +5,7 @@ describe('TestUtils events', () => {
 	it('Should work with Synthetic events', () => {
 		const mockClick = jest.fn();
 
-		class FooBar extends Component<any, any> {
+		class FooBar extends Component {
 			render() {
 				return (
 					<div onClick={mockClick}>
@@ -17,7 +17,7 @@ describe('TestUtils events', () => {
 		const tree = renderIntoDocument(<FooBar />);
 
 		const vnode = findRenderedVNodeWithType(tree, 'div');
-		(vnode.dom as any).click();
+		vnode.dom.click();
 
 		expect(mockClick).toHaveBeenCalledTimes(1);
 	});
@@ -25,7 +25,7 @@ describe('TestUtils events', () => {
 	it('Should work with native events', () => {
 		const mockClick = jest.fn();
 
-		class FooBar extends Component<any, any> {
+		class FooBar extends Component {
 			render() {
 				return (
 					<div onclick={mockClick}>
@@ -37,7 +37,7 @@ describe('TestUtils events', () => {
 		const tree = renderIntoDocument(<FooBar />);
 
 		const vnode = findRenderedVNodeWithType(tree, 'div');
-		(vnode.dom as any).click();
+		vnode.dom.click();
 
 		expect(mockClick).toHaveBeenCalledTimes(1);
 	});

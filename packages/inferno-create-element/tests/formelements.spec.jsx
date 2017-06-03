@@ -1,4 +1,4 @@
-import { render, linkEvent } from 'inferno';
+import { linkEvent, render } from 'inferno';
 import Component from 'inferno-component';
 import sinon from 'sinon';
 
@@ -135,7 +135,7 @@ describe('FormElements', () => {
 					super(props, context);
 
 					this.state = {
-						a: 0
+						a: 0,
 					};
 
 					this._method = this._method.bind(this);
@@ -148,9 +148,9 @@ describe('FormElements', () => {
 				_method() {
 					this.setState(
 						{
-							a: this.props.value
+							a: this.props.value,
 						},
-						this.test
+						this.test,
 					);
 				}
 
@@ -448,7 +448,7 @@ describe('FormElements', () => {
 					super(props);
 
 					this.state = {
-						value: 'A'
+						value: 'A',
 					};
 
 					updater = e => {
@@ -512,7 +512,7 @@ describe('FormElements', () => {
 						<option value="a">a</option>
 						<option selected={true} value="b">b</option>
 					</select>,
-					container
+					container,
 				);
 
 				expect(container.firstChild.children[0].selected).toEqual(false);
@@ -527,7 +527,7 @@ describe('FormElements', () => {
 							<option selected={true} value="b">b</option>
 						</select>
 					</div>,
-					container
+					container,
 				);
 
 				expect(container.querySelector('select').children[0].selected).toEqual(false);

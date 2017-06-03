@@ -13,9 +13,9 @@ module.exports = Object.assign({}, baseConfig, {
 		'^inferno-test-utils': '<rootDir>/fixtures/react-suite/packages/inferno-test-utils',
 		'^inferno-utils': '<rootDir>/packages/inferno-utils/src',
 		'^inferno-vnode-flags': '<rootDir>/fixtures/react-suite/packages/inferno-vnode-flags',
-		'^inferno/core/VNodes': '<rootDir>/fixtures/react-suite/packages/inferno/core-vnodes'
+		'^inferno/core/VNodes': '<rootDir>/fixtures/react-suite/packages/inferno/core-vnodes',
 	},
 	rootDir: join(__dirname, '../../'),
 	testMatch: ['<rootDir>/packages/*/tests/**/*spec.js?(x)', '<rootDir>/packages/*/tests/**/*spec.ts?(x)'],
-	testPathIgnorePatterns: ['/node_modules/', '/inferno-server/']
+	testPathIgnorePatterns: ['/node_modules/', '/inferno-server/'],
 });

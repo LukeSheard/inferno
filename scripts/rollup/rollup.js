@@ -20,6 +20,6 @@ module.exports = function(options) {
 				return;
 			}
 		},
-		plugins
+		plugins,
 	});
 };
