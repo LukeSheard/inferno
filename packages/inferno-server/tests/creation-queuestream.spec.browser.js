@@ -219,7 +219,7 @@ describe('SSR Creation Queue Streams - (non-JSX)', () => {
 			const vDom = test.template('foo');
 			return streamPromise(vDom).then(function(output) {
 				if (typeof test.result === 'object') {
-					expect(output[0]).to.deep.equal(test.result[0]);
+					expect(output[0]).toEqual(test.result[0]);
 					expect(output[1]).toEqual(test.result[1]);
 				} else {
 					const container = document.createElement('div');
