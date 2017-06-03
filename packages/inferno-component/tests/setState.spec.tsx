@@ -25,8 +25,7 @@ describe('setState', () => {
 		expect(render.bind(render, <TestComponent />, container)).toThrow(Error);
 	});
 
-	it('callback should be fired after state has changed', (done) => {
-
+	it('callback should be fired after state has changed', done => {
 		class TestComponent extends Component<any, any> {
 			constructor(props) {
 				super(props);
@@ -71,15 +70,14 @@ describe('setState', () => {
 
 			render() {
 				const value = this.state.value;
-				return <TestComponent value={value}/>;
+				return <TestComponent value={value} />;
 			}
 		}
 
 		render(<BaseComp />, container);
 	});
 
-	it('Should not fail if componentDidUpdate is not defined', (done) => {
-
+	it('Should not fail if componentDidUpdate is not defined', done => {
 		class TestComponent extends Component<any, any> {
 			constructor(props) {
 				super(props);
@@ -123,7 +121,7 @@ describe('setState', () => {
 
 			render() {
 				const value = this.state.value;
-				return <TestComponent value={value}/>;
+				return <TestComponent value={value} />;
 			}
 		}
 
@@ -132,7 +130,7 @@ describe('setState', () => {
 
 	// Should work as Per react: https://jsfiddle.net/f12u8xzb/
 	// React does not get stuck
-	it('Should not get stuck in infinite loop #1', (done) => {
+	it('Should not get stuck in infinite loop #1', done => {
 		let doSomething;
 
 		class Parent extends Component<any, any> {
@@ -164,11 +162,9 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						{
-							this.state.active ? (
-								<Child foo={this.state.foo} callback={this._setBar}/>
-							) : <Child foo={this.state.foo} callback={this._setActive}/>
-						}
+						{this.state.active
+							? <Child foo={this.state.foo} callback={this._setBar} />
+							: <Child foo={this.state.foo} callback={this._setActive} />}
 					</div>
 				);
 			}
@@ -204,7 +200,7 @@ describe('setState', () => {
 
 	// Render should work as per React
 	// https://jsfiddle.net/qb4ootgm/
-	it('Should not fail during rendering', (done) => {
+	it('Should not fail during rendering', done => {
 		let doSomething;
 
 		class Parent extends Component<any, any> {
@@ -236,9 +232,9 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
 					</div>
 				);
 			}
@@ -277,7 +273,7 @@ describe('setState', () => {
 	});
 
 	// https://jsfiddle.net/c6q9bvez/
-	it('Should not fail during rendering #2', (done) => {
+	it('Should not fail during rendering #2', done => {
 		let doSomething;
 
 		class Parent extends Component<any, any> {
@@ -308,9 +304,9 @@ describe('setState', () => {
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo} callback={this._setActive}/>
-						<ChildBar foo={this.state.foo} onComponentWillMount={this._setBar}/>
-						<ChildBar foo={this.state.foo}/>
+						<Child foo={this.state.foo} callback={this._setActive} />
+						<ChildBar foo={this.state.foo} onComponentWillMount={this._setBar} />
+						<ChildBar foo={this.state.foo} />
 					</div>
 				);
 			}
@@ -356,7 +352,7 @@ describe('setState', () => {
 		}, 45);
 	});
 
-	it('Should have new state in render when changing state during componentWillReceiveProps', (done) => {
+	it('Should have new state in render when changing state during componentWillReceiveProps', done => {
 		let changeFoo;
 
 		class Parent extends Component<any, any> {
@@ -379,7 +375,7 @@ describe('setState', () => {
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo}/>
+						<Child foo={this.state.foo} />
 					</div>
 				);
 			}
@@ -401,16 +397,17 @@ describe('setState', () => {
 
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.foo !== this.state.foo) {
-					this.setState({
-						foo: nextProps.foo
-					}, this.callback);
+					this.setState(
+						{
+							foo: nextProps.foo
+						},
+						this.callback
+					);
 				}
 			}
 
 			render() {
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -436,7 +433,7 @@ describe('setState', () => {
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo}/>
+						<Child foo={this.state.foo} />
 					</div>
 				);
 			}
@@ -453,31 +450,44 @@ describe('setState', () => {
 			}
 
 			componentWillMount() {
-				this.setState({
-					foo: '1'
-				}, spy);
-				this.setState({
-					foo: '2'
-				}, spy);
+				this.setState(
+					{
+						foo: '1'
+					},
+					spy
+				);
+				this.setState(
+					{
+						foo: '2'
+					},
+					spy
+				);
 
-				this.setState({
-					foo: '3'
-				}, spy);
+				this.setState(
+					{
+						foo: '3'
+					},
+					spy
+				);
 
-				this.setState({
-					foo: '3'
-				}, spy);
+				this.setState(
+					{
+						foo: '3'
+					},
+					spy
+				);
 
-				this.setState({
-					foo: '4'
-				}, spy);
+				this.setState(
+					{
+						foo: '4'
+					},
+					spy
+				);
 			}
 
 			render() {
 				renderCount++;
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -490,7 +500,7 @@ describe('setState', () => {
 
 	// Should work as Per react: https://jsfiddle.net/f12u8xzb/
 	// React does not get stuck
-	it('Should not get stuck in infinite loop #1 sync', (done) => {
+	it('Should not get stuck in infinite loop #1 sync', done => {
 		let doSomething;
 
 		class Parent extends Component<any, any> {
@@ -522,11 +532,9 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						{
-							this.state.active ? (
-								<Child foo={this.state.foo} callback={this._setBar}/>
-							) : <Child foo={this.state.foo} callback={this._setActive}/>
-						}
+						{this.state.active
+							? <Child foo={this.state.foo} callback={this._setBar} />
+							: <Child foo={this.state.foo} callback={this._setActive} />}
 					</div>
 				);
 			}
@@ -562,7 +570,7 @@ describe('setState', () => {
 
 	// Render should work as per React
 	// https://jsfiddle.net/qb4ootgm/
-	it('Should not fail during rendering sync', (done) => {
+	it('Should not fail during rendering sync', done => {
 		let doSomething;
 
 		class Parent extends Component<any, any> {
@@ -594,9 +602,9 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
 					</div>
 				);
 			}
@@ -655,9 +663,7 @@ describe('setState', () => {
 			}
 
 			render() {
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -683,21 +689,25 @@ describe('setState', () => {
 			}
 
 			componentWillMount() {
-				this.setState({
-					a: ++cnt
-				}, this.doTest);
+				this.setState(
+					{
+						a: ++cnt
+					},
+					this.doTest
+				);
 			}
 
 			componentDidMount() {
-				this.setState({
-					a: ++cnt
-				}, this.doTest);
+				this.setState(
+					{
+						a: ++cnt
+					},
+					this.doTest
+				);
 			}
 
 			render() {
-				return (
-					<div>1</div>
-				);
+				return <div>1</div>;
 			}
 		}
 

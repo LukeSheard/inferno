@@ -1,4 +1,3 @@
-
 import { internal_normalize as normalize } from 'inferno';
 
 describe('normalizeProps', () => {
@@ -10,8 +9,7 @@ describe('normalizeProps', () => {
 			flags: 0,
 			key: null,
 			props: {
-				ref: () => {
-				}
+				ref: () => {}
 			},
 			ref: null,
 			type: null

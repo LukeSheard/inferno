@@ -11,7 +11,7 @@ import {
 // import { render } from 'inferno';
 // import { renderToString } from 'inferno-server';
 
-const styleStringToArray = (styleString) => styleString.split(';').map((s) => s.trim());
+const styleStringToArray = styleString => styleString.split(';').map(s => s.trim());
 
 describe('Utils', () => {
 	describe('sortAttributes', () => {
@@ -58,9 +58,9 @@ describe('Utils', () => {
 
 	describe('style', () => {
 		it('should map an array', () => {
-			const CSS = [ '1', 'position: relative;', '3' ];
+			const CSS = ['1', 'position: relative;', '3'];
 
-			const expected = [ '', 'position: relative;', '' ];
+			const expected = ['', 'position: relative;', ''];
 			const actual = style(CSS);
 
 			expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
@@ -86,7 +86,6 @@ describe('Utils', () => {
 		});
 	});
 	describe('validateNodeTree', () => {
-
 		it('should return true if called with falsy arguments', () => {
 			expect(validateNodeTree(false)).toEqual(true);
 			expect(validateNodeTree(null)).toEqual(true);
@@ -121,7 +120,7 @@ describe('Utils', () => {
 
 			const mockInitEvent = jest.fn();
 			const event = {
-				initEvent: mockInitEvent,
+				initEvent: mockInitEvent
 			};
 
 			const mockCreateEvent = jest.spyOn(document, 'createEvent');

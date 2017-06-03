@@ -20,7 +20,9 @@ describe('rendering routine', () => {
 		try {
 			render(div, document.body);
 		} catch (e) {
-			expect(e.message).toEqual('Inferno Error: you cannot render() to the "document.body". Use an empty element as a container instead.');
+			expect(e.message).toEqual(
+				'Inferno Error: you cannot render() to the "document.body". Use an empty element as a container instead.'
+			);
 		}
 	});
 

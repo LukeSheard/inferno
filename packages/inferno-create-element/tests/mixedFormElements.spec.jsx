@@ -1,4 +1,3 @@
-
 import { render } from 'inferno';
 import { innerHTML } from 'inferno-utils';
 import sinon from 'sinon';
@@ -6,12 +5,12 @@ import sinon from 'sinon';
 describe('HTML Form Elements', () => {
 	let container;
 
-	beforeEach(function () {
+	beforeEach(function() {
 		container = document.createElement('div');
 		document.body.appendChild(container);
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		render(null, container);
 		container.innerHTML = '';
 		document.body.removeChild(container);
@@ -22,7 +21,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = 'Hey Inferno';
 
-			render(<textarea defaultValue="Hey Inferno" value={null}/>, container);
+			render(<textarea defaultValue="Hey Inferno" value={null} />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey Inferno');
 		});
@@ -31,7 +30,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = 'Hey Inferno';
 
-			render(<textarea defaultValue="Hey Inferno"/>, container);
+			render(<textarea defaultValue="Hey Inferno" />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey Inferno');
 		});
@@ -39,7 +38,7 @@ describe('HTML Form Elements', () => {
 		it('Should not use defaultValue when actual value is empty string', () => {
 			const expectedTextArea = document.createElement('textarea');
 
-			render(<textarea defaultValue="Hey Inferno" value=""/>, container);
+			render(<textarea defaultValue="Hey Inferno" value="" />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('');
 		});
@@ -48,7 +47,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = '1';
 
-			render(<textarea defaultValue="Hey Inferno" value={1}/>, container);
+			render(<textarea defaultValue="Hey Inferno" value={1} />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('1');
 		});
@@ -57,7 +56,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = '[object Object]';
 
-			render(<textarea defaultValue="Hey Inferno" value={{ a: 1 }}/>, container);
+			render(<textarea defaultValue="Hey Inferno" value={{ a: 1 }} />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('[object Object]');
 		});
@@ -66,7 +65,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = 'false';
 
-			render(<textarea defaultValue={false}/>, container);
+			render(<textarea defaultValue={false} />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('false');
 		});
@@ -77,7 +76,7 @@ describe('HTML Form Elements', () => {
 			const expectedInput = document.createElement('input');
 			expectedInput.defaultValue = 'Hey Inferno';
 
-			render(<input defaultValue="Hey Inferno" value={null}/>, container);
+			render(<input defaultValue="Hey Inferno" value={null} />, container);
 
 			expect(container.innerHTML).toEqual(expectedInput.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey Inferno');
@@ -87,7 +86,7 @@ describe('HTML Form Elements', () => {
 			const expectedInput = document.createElement('input');
 			expectedInput.defaultValue = 'Hey Inferno';
 
-			render(<input defaultValue="Hey Inferno"/>, container);
+			render(<input defaultValue="Hey Inferno" />, container);
 			expect(container.innerHTML).toEqual(expectedInput.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey Inferno');
 		});
@@ -96,7 +95,7 @@ describe('HTML Form Elements', () => {
 			const expectedInput = document.createElement('input');
 			expectedInput.value = '';
 
-			render(<input defaultValue="Hey Inferno" value=""/>, container);
+			render(<input defaultValue="Hey Inferno" value="" />, container);
 			expect(container.innerHTML).toEqual(expectedInput.outerHTML);
 			expect(container.firstChild.value).toEqual('');
 		});
@@ -105,7 +104,7 @@ describe('HTML Form Elements', () => {
 			const expectedInput = document.createElement('input');
 			expectedInput.value = '1';
 
-			render(<input defaultValue="Hey Inferno" value={1}/>, container);
+			render(<input defaultValue="Hey Inferno" value={1} />, container);
 			expect(container.innerHTML).toEqual(expectedInput.outerHTML);
 			expect(container.firstChild.value).toEqual('1');
 		});
@@ -114,39 +113,24 @@ describe('HTML Form Elements', () => {
 			const expectedInput = document.createElement('input');
 			expectedInput.value = '[object Object]';
 
-			render(<input defaultValue="Hey Inferno" value={{ a: 1 }}/>, container);
+			render(<input defaultValue="Hey Inferno" value={{ a: 1 }} />, container);
 			expect(container.innerHTML).toEqual(expectedInput.outerHTML);
 			expect(container.firstChild.value).toEqual('[object Object]');
 		});
 
 		it('Should be possible to create input with type color', () => {
-			render(<input type="color"/>, container);
+			render(<input type="color" />, container);
 			expect(container.firstChild.getAttribute('type')).toEqual('color');
 		});
 
 		it('Should be possible to create input with type range', () => {
-			function change() {
-			}
+			function change() {}
 
-			render(
-				<input
-					min={0}
-					max={255}
-					value={75}
-					onChange={change}
-					type="range"
-				/>, container);
+			render(<input min={0} max={255} value={75} onChange={change} type="range" />, container);
 			expect(container.firstChild.getAttribute('type')).toEqual('range');
 			expect(container.firstChild.value).toEqual('75');
 
-			render(
-				<input
-					min={0}
-					max={255}
-					value={11}
-					onChange={change}
-					type="range"
-				/>, container);
+			render(<input min={0} max={255} value={11} onChange={change} type="range" />, container);
 
 			container.firstChild.oninput({}); // causes exception
 			expect(container.firstChild.getAttribute('type')).toEqual('range');
@@ -156,7 +140,7 @@ describe('HTML Form Elements', () => {
 
 	describe('After external change', () => {
 		it('Should update input check property', () => {
-			render(<input type="checkbox" checked={true}/>, container);
+			render(<input type="checkbox" checked={true} />, container);
 			expect(container.innerHTML).toEqual(innerHTML('<input type="checkbox">'));
 			expect(container.firstChild.checked).toEqual(true);
 
@@ -173,7 +157,7 @@ describe('HTML Form Elements', () => {
 			// New Render
 			//
 
-			render(<input type="checkbox" checked={true}/>, container);
+			render(<input type="checkbox" checked={true} />, container);
 			expect(container.innerHTML).toEqual(innerHTML('<input type="checkbox">'));
 			expect(container.firstChild.checked).toEqual(true);
 		});
@@ -182,7 +166,7 @@ describe('HTML Form Elements', () => {
 			const expectedTextArea = document.createElement('textarea');
 			expectedTextArea.value = 'Hey People';
 
-			render(<textarea value="Hey People"/>, container);
+			render(<textarea value="Hey People" />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey People');
 
@@ -199,7 +183,7 @@ describe('HTML Form Elements', () => {
 			// New Render
 			//
 
-			render(<textarea value="Hey People"/>, container);
+			render(<textarea value="Hey People" />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey People');
 
@@ -209,13 +193,13 @@ describe('HTML Form Elements', () => {
 
 			expectedTextArea.value = 'Hey People again';
 
-			render(<textarea value="Hey People again"/>, container);
+			render(<textarea value="Hey People again" />, container);
 			expect(container.innerHTML).toEqual(expectedTextArea.outerHTML);
 			expect(container.firstChild.value).toEqual('Hey People again');
 		});
 
 		it('Should update text input value', () => {
-			render(<input type="text" value="Hey People"/>, container);
+			render(<input type="text" value="Hey People" />, container);
 			expect(container.innerHTML).toEqual(innerHTML('<input type="text">'));
 			expect(container.firstChild.value).toEqual('Hey People');
 
@@ -232,7 +216,7 @@ describe('HTML Form Elements', () => {
 			// New Render
 			//
 
-			render(<input type="text" value="Hey People"/>, container);
+			render(<input type="text" value="Hey People" />, container);
 			expect(container.innerHTML).toEqual(innerHTML('<input type="text">'));
 			expect(container.firstChild.value).toEqual('Hey People');
 
@@ -240,7 +224,7 @@ describe('HTML Form Elements', () => {
 			// New Render, new value
 			//
 
-			render(<input type="text" value="Hey People again"/>, container);
+			render(<input type="text" value="Hey People again" />, container);
 			expect(container.innerHTML).toEqual(innerHTML('<input type="text">'));
 			expect(container.firstChild.value).toEqual('Hey People again');
 		});
@@ -248,10 +232,12 @@ describe('HTML Form Elements', () => {
 		it('Should update radio button', () => {
 			render(
 				<div>
-					<input type="radio" name="gender" value="male" checked/> Male
-					<input type="radio" name="gender" value="female"/> Female
-					<input type="radio" name="gender" value="other"/> Other
-				</div>, container);
+					<input type="radio" name="gender" value="male" checked /> Male
+					<input type="radio" name="gender" value="female" /> Female
+					<input type="radio" name="gender" value="other" /> Other
+				</div>,
+				container
+			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
 			expect(container.firstChild.firstChild.checked).toEqual(true);
@@ -270,10 +256,12 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="male" checked/> Male
-					<input type="radio" name="gender" value="female"/> Female
-					<input type="radio" name="gender" value="other"/> Other
-				</div>, container);
+					<input type="radio" name="gender" value="male" checked /> Male
+					<input type="radio" name="gender" value="female" /> Female
+					<input type="radio" name="gender" value="other" /> Other
+				</div>,
+				container
+			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
 			expect(container.firstChild.firstChild.checked).toEqual(true, 'this fails');
@@ -284,15 +272,17 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="male"/> Male
-					<input type="radio" name="gender" checked value="female"/> Female
-					<input type="radio" name="gender" value="other"/> Other
-				</div>, container);
+					<input type="radio" name="gender" value="male" /> Male
+					<input type="radio" name="gender" checked value="female" /> Female
+					<input type="radio" name="gender" value="other" /> Other
+				</div>,
+				container
+			);
 
 			expect(container.firstChild.firstChild.value).toEqual('male');
 			expect(container.firstChild.firstChild.checked).toEqual(false);
-			expect(container.firstChild.children[ 1 ].value).toEqual('female');
-			expect(container.firstChild.children[ 1 ].checked).toEqual(true);
+			expect(container.firstChild.children[1].value).toEqual('female');
+			expect(container.firstChild.children[1].checked).toEqual(true);
 		});
 
 		it('Should not trigger onClick twice when using synthetic onClick on radio', () => {
@@ -302,13 +292,14 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input onClick={spy1} type="radio" name="gender" value="male" checked={false}/>
-					<input onClick={spy2} type="radio" name="gender" value="female" checked={true}/>
-					<input onClick={spy3} type="radio" id="test" name="gender" value="other" checked={false}/>
-				</div>, container);
+					<input onClick={spy1} type="radio" name="gender" value="male" checked={false} />
+					<input onClick={spy2} type="radio" name="gender" value="female" checked={true} />
+					<input onClick={spy3} type="radio" id="test" name="gender" value="other" checked={false} />
+				</div>,
+				container
+			);
 
-
-			expect(container.firstChild.childNodes[ 1 ].checked).toEqual(true);
+			expect(container.firstChild.childNodes[1].checked).toEqual(true);
 
 			//
 			// Exernal change verification
@@ -324,9 +315,9 @@ describe('HTML Form Elements', () => {
 
 			let node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(true);
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(true);
 
 			//
 			// New Render
@@ -334,10 +325,12 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input onClick={spy1} type="radio" name="gender" value="male" checked={true}/>
-					<input onClick={spy2} type="radio" name="gender" value="female" checked={false}/>
-					<input onClick={spy3} type="radio" name="gender" value="other" checked={false}/>
-				</div>, container);
+					<input onClick={spy1} type="radio" name="gender" value="male" checked={true} />
+					<input onClick={spy2} type="radio" name="gender" value="female" checked={false} />
+					<input onClick={spy3} type="radio" name="gender" value="other" checked={false} />
+				</div>,
+				container
+			);
 
 			expect(spy1.callCount).toEqual(0);
 			expect(spy2.callCount).toEqual(0);
@@ -346,9 +339,9 @@ describe('HTML Form Elements', () => {
 			node = container.firstChild;
 
 			// Change to first being checked
-			expect(node.childNodes[ 0 ].checked).toEqual(true);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(true);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(false);
 
 			//
 			// New Render, new value
@@ -356,10 +349,12 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input onClick={spy1} type="radio" name="gender" checked={false} value="male"/>
-					<input onClick={spy2} type="radio" name="gender" checked={false} value="female"/>
-					<input onClick={spy3} type="radio" name="gender" checked={false} value="other"/>
-				</div>, container);
+					<input onClick={spy1} type="radio" name="gender" checked={false} value="male" />
+					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
+					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
+				</div>,
+				container
+			);
 
 			expect(spy1.callCount).toEqual(0);
 			expect(spy2.callCount).toEqual(0);
@@ -368,17 +363,18 @@ describe('HTML Form Elements', () => {
 			node = container.firstChild;
 
 			// Change to first being checked
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
-
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(false);
 
 			render(
 				<div>
-					<input onClick={spy1} type="radio" id="test" name="gender" checked={false} value="male"/>
-					<input onClick={spy2} type="radio" name="gender" checked={false} value="female"/>
-					<input onClick={spy3} type="radio" name="gender" checked={false} value="other"/>
-				</div>, container);
+					<input onClick={spy1} type="radio" id="test" name="gender" checked={false} value="male" />
+					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
+					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
+				</div>,
+				container
+			);
 
 			expect(spy1.callCount).toEqual(0);
 			expect(spy2.callCount).toEqual(0);
@@ -391,9 +387,9 @@ describe('HTML Form Elements', () => {
 			node = container.firstChild;
 
 			// Change to first being checked
-			expect(node.childNodes[ 0 ].checked).toEqual(true);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(true);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(false);
 
 			expect(spy1.callCount).toEqual(1);
 			expect(spy2.callCount).toEqual(0);
@@ -401,99 +397,113 @@ describe('HTML Form Elements', () => {
 
 			render(
 				<div>
-					<input onClick={spy1} type="radio" id="test" name="gender" checked={true} value="male"/>
-					<input onClick={spy2} type="radio" name="gender" checked={false} value="female"/>
-					<input onClick={spy3} type="radio" name="gender" checked={false} value="other"/>
-				</div>, container);
+					<input onClick={spy1} type="radio" id="test" name="gender" checked={true} value="male" />
+					<input onClick={spy2} type="radio" name="gender" checked={false} value="female" />
+					<input onClick={spy3} type="radio" name="gender" checked={false} value="other" />
+				</div>,
+				container
+			);
 
-			expect(node.childNodes[ 0 ].checked).toEqual(true);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(true);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(false);
 		});
-
 
 		it('Should change others radio inputs should have single one checked', () => {
 			render(
 				<div>
-					<input type="radio" name="gender" value="male" checked={false}/>
-					<input type="radio" name="gender" value="female" checked={true}/>
-					<input type="radio" id="test" name="gender" value="other" checked={false}/>
-				</div>, container);
+					<input type="radio" name="gender" value="male" checked={false} />
+					<input type="radio" name="gender" value="female" checked={true} />
+					<input type="radio" id="test" name="gender" value="other" checked={false} />
+				</div>,
+				container
+			);
 
 			let node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(true);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(true);
+			expect(node.childNodes[2].checked).toEqual(false);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="male" checked={true}/>
-					<input type="radio" name="gender" value="female" checked={false}/>
-					<input type="radio" id="test" name="gender" value="other" checked={false}/>
-				</div>, container);
+					<input type="radio" name="gender" value="male" checked={true} />
+					<input type="radio" name="gender" value="female" checked={false} />
+					<input type="radio" id="test" name="gender" value="other" checked={false} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(true);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(true);
+			expect(node.childNodes[1].checked).toEqual(false);
+			expect(node.childNodes[2].checked).toEqual(false);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="female" checked={false}/>
-					<input type="radio" id="test" name="gender" value="other" checked={false}/>
-				</div>, container);
+					<input type="radio" name="gender" value="female" checked={false} />
+					<input type="radio" id="test" name="gender" value="other" checked={false} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(false);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="female" checked={false}/>
-					<input type="radio" id="test" name="gender" value="other" checked={true}/>
-				</div>, container);
+					<input type="radio" name="gender" value="female" checked={false} />
+					<input type="radio" id="test" name="gender" value="other" checked={true} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(true);
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(true);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="female" checked={false}/>
-					<input type="radio" id="test" name="gender" value="other" checked={true}/>
-					<input type="radio" name="gender" value="female" checked={false}/>
-					<input type="radio" name="gender" value="dqw" checked={false}/>
-				</div>, container);
+					<input type="radio" name="gender" value="female" checked={false} />
+					<input type="radio" id="test" name="gender" value="other" checked={true} />
+					<input type="radio" name="gender" value="female" checked={false} />
+					<input type="radio" name="gender" value="dqw" checked={false} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
-			expect(node.childNodes[ 1 ].checked).toEqual(true);
-			expect(node.childNodes[ 2 ].checked).toEqual(false);
-			expect(node.childNodes[ 3 ].checked).toEqual(false);
-
+			expect(node.childNodes[0].checked).toEqual(false);
+			expect(node.childNodes[1].checked).toEqual(true);
+			expect(node.childNodes[2].checked).toEqual(false);
+			expect(node.childNodes[3].checked).toEqual(false);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="female" checked={false}/>
-				</div>, container);
+					<input type="radio" name="gender" value="female" checked={false} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(false);
+			expect(node.childNodes[0].checked).toEqual(false);
 
 			render(
 				<div>
-					<input type="radio" name="gender" value="female" checked={true}/>
-				</div>, container);
+					<input type="radio" name="gender" value="female" checked={true} />
+				</div>,
+				container
+			);
 
 			node = container.firstChild;
 
-			expect(node.childNodes[ 0 ].checked).toEqual(true);
+			expect(node.childNodes[0].checked).toEqual(true);
 		});
 	});
 });

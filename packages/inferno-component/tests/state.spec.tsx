@@ -58,8 +58,7 @@ describe('state', () => {
 	});
 
 	describe('setting state', () => {
-
-		it('setStateSync should apply state during componentWillReceiveProps', (done) => {
+		it('setStateSync should apply state during componentWillReceiveProps', done => {
 			const node = createVNode(VNodeFlags.ComponentClass, TestCWRP, null, null, { done }, null);
 			render(node, container);
 			node.props.foo = 1;
@@ -68,9 +67,8 @@ describe('state', () => {
 	});
 
 	describe('didUpdate and setState', () => {
-		it.skip('order', (done) => {
+		it.skip('order', done => {
 			class Test extends Component<any, any> {
-
 				constructor(props, context) {
 					super(props, context);
 
@@ -81,7 +79,7 @@ describe('state', () => {
 
 				componentWillReceiveProps(nextProps) {
 					console.log('CWRP', nextProps.scrollTop);
-					if (nextProps.scrollTop !== 0){
+					if (nextProps.scrollTop !== 0) {
 						this.setState({ testScrollTop: nextProps.scrollTop });
 					}
 				}
@@ -91,14 +89,12 @@ describe('state', () => {
 					expect(this.state.testScrollTop).toEqual(200);
 				}
 
-				render(){
-					return (<div>aa</div>);
+				render() {
+					return <div>aa</div>;
 				}
-
 			}
 
-			class Example extends Component<any, any>{
-
+			class Example extends Component<any, any> {
 				constructor(props, context) {
 					super(props, context);
 					this.state = {
@@ -106,11 +102,11 @@ describe('state', () => {
 					};
 				}
 
-				render(){
-					return (<Test scrollTop={this.state.exampleScrollTop}/>);
+				render() {
+					return <Test scrollTop={this.state.exampleScrollTop} />;
 				}
 
-				componentDidMount(){
+				componentDidMount() {
 					setTimeout(() => {
 						this.setState({ exampleScrollTop: 200 });
 
@@ -121,10 +117,7 @@ describe('state', () => {
 				}
 			}
 
-			render(
-				<Example name="World" />,
-				document.getElementById('container')
-			);
+			render(<Example name="World" />, document.getElementById('container'));
 		});
 	});
 });

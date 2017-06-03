@@ -26,16 +26,14 @@ describe('Component lifecycle', () => {
 			}
 
 			public render() {
-				return (
-					<div>{this.props.value}</div>
-				);
+				return <div>{this.props.value}</div>;
 			}
 		}
 
-		render(<Com value={1}/>, container);
+		render(<Com value={1} />, container);
 		expect(innerHTML(container.innerHTML)).toEqual(innerHTML('<div>1</div>'));
 
-		render(<Com value={2}/>, container);
+		render(<Com value={2} />, container);
 
 		expect(callCount).toEqual(1);
 		expect(innerHTML(container.innerHTML)).toEqual(innerHTML('<div>2</div>'));
@@ -53,17 +51,15 @@ describe('Component lifecycle', () => {
 			}
 
 			public render() {
-				return (
-					<div>{this.props.value}</div>
-				);
+				return <div>{this.props.value}</div>;
 			}
 		}
 
-		render(<Com value={1}/>, container);
+		render(<Com value={1} />, container);
 
 		expect(innerHTML(container.innerHTML)).toEqual(innerHTML('<div>1</div>'));
 
-		render(<Com value={2}/>, container);
+		render(<Com value={2} />, container);
 
 		expect(callCount).toEqual(1);
 		expect(innerHTML(container.innerHTML)).toEqual(innerHTML('<div>2</div>'));
@@ -83,18 +79,16 @@ describe('Component lifecycle', () => {
 			}
 
 			public render() {
-				return (
-					<div>{this.props.value}</div>
-				);
+				return <div>{this.props.value}</div>;
 			}
 		}
 
 		// eslint-disable-next-line no-return-assign
-		render(<Com ref={(inst) => c = inst} value={1}/>, container);
+		render(<Com ref={inst => (c = inst)} value={1} />, container);
 
 		c.componentDidUpdate = undefined;
 
 		// eslint-disable-next-line no-return-assign
-		render(<Com ref={(inst) => c = inst} value={2}/>, container);
+		render(<Com ref={inst => (c = inst)} value={2} />, container);
 	});
 });

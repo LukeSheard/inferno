@@ -97,7 +97,9 @@ function attachEventToDocument(name, delegatedRoots: IDelegate) {
 						return eventData.dom;
 					}
 				});
-			} catch (e) {/* safari7 and phantomJS will crash */}
+			} catch (e) {
+				/* safari7 and phantomJS will crash */
+			}
 
 			dispatchEvent(event, event.target, delegatedRoots.items, count, event.type === 'click', eventData);
 		}

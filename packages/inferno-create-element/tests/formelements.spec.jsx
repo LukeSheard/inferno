@@ -1,4 +1,3 @@
-
 import { render, linkEvent } from 'inferno';
 import Component from 'inferno-component';
 import sinon from 'sinon';
@@ -6,7 +5,7 @@ import sinon from 'sinon';
 describe('FormElements', () => {
 	let container;
 
-	beforeEach(function () {
+	beforeEach(function() {
 		container = document.createElement('div');
 	});
 
@@ -19,35 +18,35 @@ describe('FormElements', () => {
 			render() {
 				return (
 					<div>
-						<input type="text" value={this.props.value}/>
+						<input type="text" value={this.props.value} />
 					</div>
 				);
 			}
 		}
 
 		it('Should set value as text on render', () => {
-			render(<TextBox value={1}/>, container);
+			render(<TextBox value={1} />, container);
 			expect(container.querySelector('input').value).toEqual('1');
 		});
 
 		it('Should override changed value on next render', () => {
-			render(<TextBox value={1}/>, container);
+			render(<TextBox value={1} />, container);
 			let input = container.querySelector('input');
 			expect(input.value).toEqual('1');
 			input.value = '2'; // Simulate user typing '2'
 			expect(input.value).toEqual('2');
-			render(<TextBox value={3}/>, container);
+			render(<TextBox value={3} />, container);
 			input = container.querySelector('input');
 			expect(input.value).toEqual('3');
 		});
 
 		it('Should override changed value on next render even when value is same as on prev render', () => {
-			render(<TextBox value={1}/>, container);
+			render(<TextBox value={1} />, container);
 			let input = container.querySelector('input');
 			expect(input.value).toEqual('1');
 			input.value = '2'; // Simulate user typing '2'
 			expect(input.value).toEqual('2');
-			render(<TextBox value={1}/>, container);
+			render(<TextBox value={1} />, container);
 			input = container.querySelector('input');
 			expect(input.value).toEqual('1');
 		});
@@ -65,15 +64,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" oninput={this._method} value="test"/>
-					);
+					return <input type="text" oninput={this._method} value="test" />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -83,7 +80,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -106,15 +103,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" onInput={this._method} value="test"/>
-					);
+					return <input type="text" onInput={this._method} value="test" />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -124,7 +119,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -151,21 +146,22 @@ describe('FormElements', () => {
 				}
 
 				_method() {
-					this.setState({
-						a: this.props.value
-					}, this.test);
+					this.setState(
+						{
+							a: this.props.value
+						},
+						this.test
+					);
 				}
 
 				render() {
-					return (
-						<input type="text" onInput={this._method} value="test"/>
-					);
+					return <input type="text" onInput={this._method} value="test" />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -175,7 +171,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -190,7 +186,6 @@ describe('FormElements', () => {
 			class Example extends Component {
 				constructor(props, context) {
 					super(props, context);
-
 				}
 
 				static _method(me) {
@@ -198,15 +193,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" onInput={linkEvent(this, Example._method)} value="test"/>
-					);
+					return <input type="text" onInput={linkEvent(this, Example._method)} value="test" />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -216,7 +209,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -230,7 +223,6 @@ describe('FormElements', () => {
 			class Example extends Component {
 				constructor(props, context) {
 					super(props, context);
-
 				}
 
 				static _method(me) {
@@ -238,15 +230,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" onInput={linkEvent(this, Example._method)}/>
-					);
+					return <input type="text" onInput={linkEvent(this, Example._method)} />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -256,7 +246,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -279,15 +269,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" onInput={this._method}/>
-					);
+					return <input type="text" onInput={this._method} />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -297,7 +285,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('input', true, true);
@@ -311,7 +299,6 @@ describe('FormElements', () => {
 			class Example extends Component {
 				constructor(props, context) {
 					super(props, context);
-
 				}
 
 				static _method(me) {
@@ -319,15 +306,13 @@ describe('FormElements', () => {
 				}
 
 				render() {
-					return (
-						<input type="text" onChange={linkEvent(this, Example._method)} value="test"/>
-					);
+					return <input type="text" onChange={linkEvent(this, Example._method)} value="test" />;
 				}
 			}
 
 			const spy = sinon.spy();
 
-			render(<Example callback={spy} value={1}/>, container);
+			render(<Example callback={spy} value={1} />, container);
 
 			let event = document.createEvent('Event');
 			event.initEvent('change', true, true);
@@ -337,7 +322,7 @@ describe('FormElements', () => {
 			expect(spy.args[0][0]).toEqual(1); // Verify initial props are correct
 
 			// Then update component
-			render(<Example callback={spy} value={2}/>, container);
+			render(<Example callback={spy} value={2} />, container);
 
 			event = document.createEvent('Event');
 			event.initEvent('change', true, true);
@@ -357,19 +342,19 @@ describe('FormElements', () => {
 			render() {
 				return (
 					<div>
-						<input type="checkbox" checked={this.props.checked}/>
+						<input type="checkbox" checked={this.props.checked} />
 					</div>
 				);
 			}
 		}
 
 		it('Should set checked on render', () => {
-			render(<CheckBox checked={true}/>, container);
+			render(<CheckBox checked={true} />, container);
 			expect(container.querySelector('input').checked).toEqual(true);
 		});
 
 		it('Should set checked on render #2', () => {
-			render(<CheckBox checked={false}/>, container);
+			render(<CheckBox checked={false} />, container);
 			expect(container.querySelector('input').checked).toEqual(false);
 		});
 
@@ -379,33 +364,33 @@ describe('FormElements', () => {
 		});
 
 		it('Should override changed value on next render', () => {
-			render(<CheckBox checked={false}/>, container);
+			render(<CheckBox checked={false} />, container);
 			let input = container.querySelector('input');
 			expect(input.checked).toEqual(false);
 			input.checked = false; // Simulate user clicking checkbox twice
-			render(<CheckBox checked={true}/>, container);
+			render(<CheckBox checked={true} />, container);
 			input = container.querySelector('input');
 			expect(input.checked).toEqual(true);
 		});
 
 		it('Should override changed value on next render even when value is same as on prev render', () => {
-			render(<CheckBox checked={false}/>, container);
+			render(<CheckBox checked={false} />, container);
 			let input = container.querySelector('input');
 			expect(input.checked).toEqual(false);
 			input.checked = true; // Simulate user clicking checkbox
 			expect(input.checked).toEqual(true);
-			render(<CheckBox checked={false}/>, container);
+			render(<CheckBox checked={false} />, container);
 			input = container.querySelector('input');
 			expect(input.checked).toEqual(false);
 		});
 
 		it('Should override changed value on next render even when value is same as on prev render #1', () => {
-			render(<CheckBox checked={true}/>, container);
+			render(<CheckBox checked={true} />, container);
 			let input = container.querySelector('input');
 			expect(input.checked).toEqual(true);
 			input.checked = false; // Simulate user clicking checkbox
 			expect(input.checked).toEqual(false);
-			render(<CheckBox checked={true}/>, container);
+			render(<CheckBox checked={true} />, container);
 			input = container.querySelector('input');
 			expect(input.checked).toEqual(true);
 		});
@@ -433,25 +418,25 @@ describe('FormElements', () => {
 			}
 
 			it('Should pre select option by value', () => {
-				render(<SelectList value="B"/>, container);
+				render(<SelectList value="B" />, container);
 				const selectList = container.querySelector('select');
-				expect(selectList.childNodes[ 0 ].selected).toEqual(false);
-				expect(selectList.childNodes[ 1 ].selected).toEqual(true);
-				expect(selectList.childNodes[ 2 ].selected).toEqual(false);
+				expect(selectList.childNodes[0].selected).toEqual(false);
+				expect(selectList.childNodes[1].selected).toEqual(true);
+				expect(selectList.childNodes[2].selected).toEqual(false);
 			});
 
 			it('Should change value based on value property', () => {
-				render(<SelectList value="B"/>, container);
+				render(<SelectList value="B" />, container);
 				let selectList = container.querySelector('select');
-				expect(selectList.childNodes[ 0 ].selected).toEqual(false);
-				expect(selectList.childNodes[ 1 ].selected).toEqual(true);
-				expect(selectList.childNodes[ 2 ].selected).toEqual(false);
+				expect(selectList.childNodes[0].selected).toEqual(false);
+				expect(selectList.childNodes[1].selected).toEqual(true);
+				expect(selectList.childNodes[2].selected).toEqual(false);
 
-				render(<SelectList value="C"/>, container);
+				render(<SelectList value="C" />, container);
 				selectList = container.querySelector('select');
-				expect(selectList.childNodes[ 0 ].selected).toEqual(false);
-				expect(selectList.childNodes[ 1 ].selected).toEqual(false);
-				expect(selectList.childNodes[ 2 ].selected).toEqual(true);
+				expect(selectList.childNodes[0].selected).toEqual(false);
+				expect(selectList.childNodes[1].selected).toEqual(false);
+				expect(selectList.childNodes[2].selected).toEqual(true);
 			});
 		});
 
@@ -466,17 +451,13 @@ describe('FormElements', () => {
 						value: 'A'
 					};
 
-					updater = (e) => {
+					updater = e => {
 						this.setState(e);
 					};
 				}
 
 				buildOptionsDynamically() {
-					return [
-						<option value="A">A</option>,
-						<option value="B">B</option>,
-						<option value="C">C</option>
-					];
+					return [<option value="A">A</option>, <option value="B">B</option>, <option value="C">C</option>];
 				}
 
 				render() {
@@ -490,19 +471,19 @@ describe('FormElements', () => {
 				}
 			}
 
-			it('Should pre select option by value on update', (done) => {
+			it('Should pre select option by value on update', done => {
 				render(<SelectList />, container);
 				let selectList = container.querySelector('select');
-				expect(selectList.childNodes[ 0 ].selected).toEqual(true);
-				expect(selectList.childNodes[ 1 ].selected).toEqual(false);
-				expect(selectList.childNodes[ 2 ].selected).toEqual(false);
+				expect(selectList.childNodes[0].selected).toEqual(true);
+				expect(selectList.childNodes[1].selected).toEqual(false);
+				expect(selectList.childNodes[2].selected).toEqual(false);
 
 				updater({ value: 'B' });
 				setTimeout(() => {
 					selectList = container.querySelector('select');
-					expect(selectList.childNodes[ 0 ].selected).toEqual(false);
-					expect(selectList.childNodes[ 1 ].selected).toEqual(true);
-					expect(selectList.childNodes[ 2 ].selected).toEqual(false);
+					expect(selectList.childNodes[0].selected).toEqual(false);
+					expect(selectList.childNodes[1].selected).toEqual(true);
+					expect(selectList.childNodes[2].selected).toEqual(false);
 					done();
 				}, 10);
 			});
@@ -515,15 +496,7 @@ describe('FormElements', () => {
 						return false;
 					}
 					render() {
-						return (
-							<input
-								name="test"
-								type="range"
-								min={50}
-								max={500}
-								step={5}
-								defaultValue={260}/>
-						);
+						return <input name="test" type="range" min={50} max={500} step={5} defaultValue={260} />;
 					}
 				}
 				render(<TestInputRange />, container);
@@ -534,27 +507,31 @@ describe('FormElements', () => {
 
 		describe('Non-controlled select element', () => {
 			it('Should have 2nd option selected', () => {
-				render((
+				render(
 					<select>
 						<option value="a">a</option>
 						<option selected={true} value="b">b</option>
-					</select>
-				), container);
+					</select>,
+					container
+				);
 
 				expect(container.firstChild.children[0].selected).toEqual(false);
 				expect(container.firstChild.children[1].selected).toEqual(true);
 			});
 
 			it('should render specified default selected option', () => {
-				render(<div>
-					<select>
-						<option value="a">a</option>
-						<option selected={true} value="b">b</option>
-					</select>
-				</div>, container);
+				render(
+					<div>
+						<select>
+							<option value="a">a</option>
+							<option selected={true} value="b">b</option>
+						</select>
+					</div>,
+					container
+				);
 
-				expect(container.querySelector('select').children[ 0 ].selected).toEqual(false);
-				expect(container.querySelector('select').children[ 1 ].selected).toEqual(true);
+				expect(container.querySelector('select').children[0].selected).toEqual(false);
+				expect(container.querySelector('select').children[1].selected).toEqual(true);
 			});
 		});
 	});
