@@ -4,9 +4,7 @@ const { join } = require('path');
 const ROOT = join(__dirname, '../../packages');
 
 const cwd = process.cwd();
-const {
-	rollup: rollupConfig = {}
-} = require(join(cwd, 'package.json'));
+const { rollup: rollupConfig = {} } = require(join(cwd, 'package.json'));
 
 const moduleGlobals = readdirSync(ROOT)
 	.filter(path => lstatSync(join(ROOT, path)).isDirectory())

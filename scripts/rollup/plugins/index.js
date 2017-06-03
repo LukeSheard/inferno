@@ -14,8 +14,8 @@ module.exports = function(version, options) {
 		aliasPlugin,
 		builtins(),
 		nodeResolve({
-			extensions: [ '.ts', '.js', '.json' ],
-			jsnext: true,
+			extensions: ['.ts', '.js', '.json'],
+			jsnext: true
 		}),
 		commonjs({
 			include: 'node_modules/**'
@@ -25,18 +25,13 @@ module.exports = function(version, options) {
 			cacheRoot: `.rpt2_cache_${options.env}`,
 			check: false,
 			clean: true,
-			exclude: [
-				'*.d.ts',
-				'**/*.d.ts',
-				'*.spec*',
-				'**/*.spec*',
-			],
+			exclude: ['*.d.ts', '**/*.d.ts', '*.spec*', '**/*.spec*']
 		}),
-		bublePlugin(),
+		bublePlugin()
 	];
 
 	const replaceValues = {
-		'process.env.INFERNO_VERSION': JSON.stringify(options.version),
+		'process.env.INFERNO_VERSION': JSON.stringify(options.version)
 	};
 
 	if (options.replace) {
@@ -66,14 +61,11 @@ module.exports = function(version, options) {
 		);
 	}
 
-	plugins.push(
-		replacePlugin(replaceValues)
-	);
+	plugins.push(replacePlugin(replaceValues));
 
 	if (options.optimize) {
 		plugins.push(optJSPlugin);
 	}
-
 
 	return plugins;
 };

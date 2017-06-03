@@ -25,12 +25,7 @@ jobs:
   include:
     - script: npm run lint
     - script: ./scripts/travis/test.sh
-    - stage: build
+    - stage: Build
       script:
         - npm run build
         - npm run test:package
-    - stage: deploy
-      script:
-        - npm run build
-        - ./scripts/travis/check-version.js
-        - echo "Would deploy here"
