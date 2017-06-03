@@ -17,22 +17,18 @@
   },
   "lint-staged": {
     "*.js": [
-      "echo $1",
       "./scripts/tasks/prettier.sh",
       "git add"
     ],
     "*.ts": [
-      "echo $1",
       "./scripts/tasks/prettier.sh",
       "git add"
     ],
     "*.jsx": [
-      "echo $1",
       "./scripts/tasks/prettier.sh",
       "git add"
     ],
     "*.tsx": [
-      "echo $1",
       "./scripts/tasks/prettier.sh",
       "git add"
     ]
