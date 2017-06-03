@@ -31,6 +31,9 @@ export declare const LifecycleClass: _LifecycleClass;
 
 const version: string = process.env.INFERNO_VERSION;
 
+
+
+
 // we duplicate it so it plays nicely with different module loading systems
 export default {
 	getFlagsForElementVnode,

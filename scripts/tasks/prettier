@@ -1,0 +1,1 @@
+prettier --use-tabs --single-quote --print-width=120 --write "$@"
