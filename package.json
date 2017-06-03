@@ -16,10 +16,22 @@
     "url": "git+ssh://git@github.com/infernojs/inferno.git"
   },
   "lint-staged": {
-    "*.js": [ "./scripts/tasks/prettier", "git add" ],
-    "*.ts": [ "./scripts/tasks/prettier", "git add" ],
-    "*.jsx": [ "./scripts/tasks/prettier", "git add" ],
-    "*.tsx": [ "./scripts/tasks/prettier", "git add" ]
+    "*.js": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.ts": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.jsx": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.tsx": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ]
   },
   "scripts": {
     "clean": "lerna exec -- rimraf dist",
@@ -32,13 +44,13 @@
     "build:umd:dev": "npm run rollup",
     "build:umd:prod": "npm run rollup -- --env=production",
     "precommit": "lint-staged",
-    "prettier": "npm-run-all -l prettier:**",
-    "prettier:packages:src": "./scripts/tasks/prettier packages/*/src/**/*.{js,jsx,ts,tsx}",
-    "prettier:packages:tests": "./scripts/tasks/prettier packages/*/tests/**/*.{js,jsx,ts,tsx}",
-    "prettier:fixtures": "./scripts/tasks/prettier fixtures/**/*.{js,jsx,ts,tsx}",
-    "prettier:scripts": "./scripts/tasks/prettier scripts/**/*.{js,jsx,ts,tsx}",
+    "prettier": "npm-run-all prettier:**",
+    "prettier:packages:js": "./scripts/tasks/prettier.sh packages/*/{src,tests}/**/*.{js,jsx}",
+    "prettier:packages:ts": "./scripts/tasks/prettier.sh --parser=typescript packages/*/{src,tests}/**/*.{ts,tsx}",
+    "prettier:fixtures": "./scripts/tasks/prettier.sh fixtures/**/*.{js,jsx}",
+    "prettier:scripts": "./scripts/tasks/prettier.sh scripts/**/*.{js,jsx}",
     "postinstall": "lerna bootstrap",
-    "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx packages/*/src/**/*.js packages/*/src/**/*.jsx",
+    "lint": "./scripts/tasks/lint.sh",
     "rollup": "lerna exec -- cross-env node ../../scripts/rollup/build.js",
     "test": "jest",
     "test:react": "jest --config fixtures/react-suite/jest.config.js",

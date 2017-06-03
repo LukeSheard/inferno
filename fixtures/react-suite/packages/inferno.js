@@ -17,4 +17,4 @@ export function cloneVNode(vNodeToClone, props?, ..._children) {
 }
 
 export const EMPTY_OBJ = {};
-export function NO_OP() {}
+export const NO_OP = () => ({});
