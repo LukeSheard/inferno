@@ -16,6 +16,5 @@ try {
 	});
 	console.log(`${pkgJSON.name} in typings is DONE`);
 } catch (e) {
-	console.log(e);
-	process.exit(1);
+	throw Error(e);
 }
