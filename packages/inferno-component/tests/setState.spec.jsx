@@ -13,11 +13,11 @@ describe('setState', () => {
 	});
 
 	it('should throw an error when setState is called in constructor', () => {
-		class TestComponent extends Component<any, any> {
+		class TestComponent extends Component {
 			constructor(props, ctx) {
 				super(props, ctx);
 				this.setState({
-					state: 'Something'
+					state: 'Something',
 				});
 			}
 		}
@@ -25,13 +25,12 @@ describe('setState', () => {
 		expect(render.bind(render, <TestComponent />, container)).toThrow(Error);
 	});
 
-	it('callback should be fired after state has changed', (done) => {
-
-		class TestComponent extends Component<any, any> {
+	it('callback should be fired after state has changed', done => {
+		class TestComponent extends Component {
 			constructor(props) {
 				super(props);
 				this.state = {
-					value: props.value
+					value: props.value,
 				};
 				this.checkSetState = this.checkSetState.bind(this);
 			}
@@ -47,9 +46,9 @@ describe('setState', () => {
 			componentWillReceiveProps(nextProps) {
 				this.setState(
 					{
-						value: nextProps.value
+						value: nextProps.value,
 					},
-					this.checkSetState
+					this.checkSetState,
 				);
 			}
 
@@ -58,33 +57,32 @@ describe('setState', () => {
 			}
 		}
 
-		class BaseComp extends Component<any, any> {
+		class BaseComp extends Component {
 			state = {
-				value: '__OLDVALUE__'
+				value: '__OLDVALUE__',
 			};
 
 			componentDidMount() {
 				this.setState({
-					value: '__NEWVALUE__'
+					value: '__NEWVALUE__',
 				});
 			}
 
 			render() {
 				const value = this.state.value;
-				return <TestComponent value={value}/>;
+				return <TestComponent value={value} />;
 			}
 		}
 
 		render(<BaseComp />, container);
 	});
 
-	it('Should not fail if componentDidUpdate is not defined', (done) => {
-
-		class TestComponent extends Component<any, any> {
+	it('Should not fail if componentDidUpdate is not defined', done => {
+		class TestComponent extends Component {
 			constructor(props) {
 				super(props);
 				this.state = {
-					value: props.value
+					value: props.value,
 				};
 			}
 
@@ -99,9 +97,9 @@ describe('setState', () => {
 			componentWillReceiveProps(nextProps) {
 				this.setState(
 					{
-						value: nextProps.value
+						value: nextProps.value,
 					},
-					this.checkSetState
+					this.checkSetState,
 				);
 			}
 
@@ -110,20 +108,20 @@ describe('setState', () => {
 			}
 		}
 
-		class BaseComp extends Component<any, any> {
+		class BaseComp extends Component {
 			state = {
-				value: '__OLDVALUE__'
+				value: '__OLDVALUE__',
 			};
 
 			componentDidMount() {
 				this.setState({
-					value: '__NEWVALUE__'
+					value: '__NEWVALUE__',
 				});
 			}
 
 			render() {
 				const value = this.state.value;
-				return <TestComponent value={value}/>;
+				return <TestComponent value={value} />;
 			}
 		}
 
@@ -132,16 +130,16 @@ describe('setState', () => {
 
 	// Should work as Per react: https://jsfiddle.net/f12u8xzb/
 	// React does not get stuck
-	it('Should not get stuck in infinite loop #1', (done) => {
+	it('Should not get stuck in infinite loop #1', done => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
 					active: false,
-					foo: 'b'
+					foo: 'b',
 				};
 
 				this._setBar = this._setBar.bind(this);
@@ -150,13 +148,13 @@ describe('setState', () => {
 
 			_setBar() {
 				this.setState({
-					foo: 'bar'
+					foo: 'bar',
 				});
 			}
 
 			_setActive() {
 				this.setState({
-					active: true
+					active: true,
 				});
 			}
 
@@ -164,17 +162,15 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						{
-							this.state.active ? (
-								<Child foo={this.state.foo} callback={this._setBar}/>
-							) : <Child foo={this.state.foo} callback={this._setActive}/>
-						}
+						{this.state.active
+							? <Child foo={this.state.foo} callback={this._setBar} />
+							: <Child foo={this.state.foo} callback={this._setActive} />}
 					</div>
 				);
 			}
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 			}
@@ -204,16 +200,16 @@ describe('setState', () => {
 
 	// Render should work as per React
 	// https://jsfiddle.net/qb4ootgm/
-	it('Should not fail during rendering', (done) => {
+	it('Should not fail during rendering', done => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
 					active: false,
-					foo: 'b'
+					foo: 'b',
 				};
 
 				this._setBar = this._setBar.bind(this);
@@ -222,13 +218,13 @@ describe('setState', () => {
 
 			_setBar() {
 				this.setState({
-					foo: 'bar'
+					foo: 'bar',
 				});
 			}
 
 			_setActive() {
 				this.setState({
-					active: true
+					active: true,
 				});
 			}
 
@@ -236,15 +232,15 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
 					</div>
 				);
 			}
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 			}
@@ -252,7 +248,7 @@ describe('setState', () => {
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.foo !== 'bar') {
 					this.setState({
-						foo: 'bbaarr'
+						foo: 'bbaarr',
 					});
 
 					this.props.callback();
@@ -277,16 +273,16 @@ describe('setState', () => {
 	});
 
 	// https://jsfiddle.net/c6q9bvez/
-	it('Should not fail during rendering #2', (done) => {
+	it('Should not fail during rendering #2', done => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
 					active: false,
-					foo: 'b'
+					foo: 'b',
 				};
 
 				this._setBar = this._setBar.bind(this);
@@ -295,22 +291,22 @@ describe('setState', () => {
 
 			_setBar() {
 				this.setState({
-					foo: 'bar'
+					foo: 'bar',
 				});
 			}
 
 			_setActive() {
 				this.setState({
-					active: true
+					active: true,
 				});
 			}
 
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo} callback={this._setActive}/>
-						<ChildBar foo={this.state.foo} onComponentWillMount={this._setBar}/>
-						<ChildBar foo={this.state.foo}/>
+						<Child foo={this.state.foo} callback={this._setActive} />
+						<ChildBar foo={this.state.foo} onComponentWillMount={this._setBar} />
+						<ChildBar foo={this.state.foo} />
 					</div>
 				);
 			}
@@ -324,7 +320,7 @@ describe('setState', () => {
 			);
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 			}
@@ -332,7 +328,7 @@ describe('setState', () => {
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.foo !== 'bar') {
 					this.setState({
-						foo: 'bbaarr'
+						foo: 'bbaarr',
 					});
 
 					this.props.callback();
@@ -356,15 +352,15 @@ describe('setState', () => {
 		}, 45);
 	});
 
-	it('Should have new state in render when changing state during componentWillReceiveProps', (done) => {
+	it('Should have new state in render when changing state during componentWillReceiveProps', done => {
 		let changeFoo;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
-					foo: 'bar'
+					foo: 'bar',
 				};
 
 				changeFoo = this.changeFoo.bind(this);
@@ -372,25 +368,25 @@ describe('setState', () => {
 
 			changeFoo() {
 				this.setState({
-					foo: 'bar2'
+					foo: 'bar2',
 				});
 			}
 
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo}/>
+						<Child foo={this.state.foo} />
 					</div>
 				);
 			}
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
-					foo: props.foo
+					foo: props.foo,
 				};
 			}
 
@@ -401,16 +397,17 @@ describe('setState', () => {
 
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.foo !== this.state.foo) {
-					this.setState({
-						foo: nextProps.foo
-					}, this.callback);
+					this.setState(
+						{
+							foo: nextProps.foo,
+						},
+						this.callback,
+					);
 				}
 			}
 
 			render() {
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -424,60 +421,73 @@ describe('setState', () => {
 	it('Should have new state in render when changing state during componentWillMount and render only once', () => {
 		const spy = jest.fn();
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
-					foo: 'bar'
+					foo: 'bar',
 				};
 			}
 
 			render() {
 				return (
 					<div>
-						<Child foo={this.state.foo}/>
+						<Child foo={this.state.foo} />
 					</div>
 				);
 			}
 		}
 
 		let renderCount = 0;
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
-					foo: props.foo
+					foo: props.foo,
 				};
 			}
 
 			componentWillMount() {
-				this.setState({
-					foo: '1'
-				}, spy);
-				this.setState({
-					foo: '2'
-				}, spy);
+				this.setState(
+					{
+						foo: '1',
+					},
+					spy,
+				);
+				this.setState(
+					{
+						foo: '2',
+					},
+					spy,
+				);
 
-				this.setState({
-					foo: '3'
-				}, spy);
+				this.setState(
+					{
+						foo: '3',
+					},
+					spy,
+				);
 
-				this.setState({
-					foo: '3'
-				}, spy);
+				this.setState(
+					{
+						foo: '3',
+					},
+					spy,
+				);
 
-				this.setState({
-					foo: '4'
-				}, spy);
+				this.setState(
+					{
+						foo: '4',
+					},
+					spy,
+				);
 			}
 
 			render() {
 				renderCount++;
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -490,16 +500,16 @@ describe('setState', () => {
 
 	// Should work as Per react: https://jsfiddle.net/f12u8xzb/
 	// React does not get stuck
-	it('Should not get stuck in infinite loop #1 sync', (done) => {
+	it('Should not get stuck in infinite loop #1 sync', done => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
 					active: false,
-					foo: 'b'
+					foo: 'b',
 				};
 
 				this._setBar = this._setBar.bind(this);
@@ -508,13 +518,13 @@ describe('setState', () => {
 
 			_setBar() {
 				this.setStateSync({
-					foo: 'bar'
+					foo: 'bar',
 				});
 			}
 
 			_setActive() {
 				this.setStateSync({
-					active: true
+					active: true,
 				});
 			}
 
@@ -522,17 +532,15 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						{
-							this.state.active ? (
-								<Child foo={this.state.foo} callback={this._setBar}/>
-							) : <Child foo={this.state.foo} callback={this._setActive}/>
-						}
+						{this.state.active
+							? <Child foo={this.state.foo} callback={this._setBar} />
+							: <Child foo={this.state.foo} callback={this._setActive} />}
 					</div>
 				);
 			}
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 			}
@@ -562,16 +570,16 @@ describe('setState', () => {
 
 	// Render should work as per React
 	// https://jsfiddle.net/qb4ootgm/
-	it('Should not fail during rendering sync', (done) => {
+	it('Should not fail during rendering sync', done => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
 					active: false,
-					foo: 'b'
+					foo: 'b',
 				};
 
 				this._setBar = this._setBar.bind(this);
@@ -580,13 +588,13 @@ describe('setState', () => {
 
 			_setBar() {
 				this.setStateSync({
-					foo: 'bar'
+					foo: 'bar',
 				});
 			}
 
 			_setActive() {
 				this.setStateSync({
-					active: true
+					active: true,
 				});
 			}
 
@@ -594,15 +602,15 @@ describe('setState', () => {
 				return (
 					<div>
 						<div>{this.state.foo}</div>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
-						<Child foo={this.state.foo} callback={this._setBar}/>
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
+						<Child foo={this.state.foo} callback={this._setBar} />
 					</div>
 				);
 			}
 		}
 
-		class Child extends Component<any, any> {
+		class Child extends Component {
 			constructor(props, context) {
 				super(props, context);
 			}
@@ -610,7 +618,7 @@ describe('setState', () => {
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.foo !== 'bar') {
 					this.setStateSync({
-						foo: 'bbaarr'
+						foo: 'bbaarr',
 					});
 
 					this.props.callback();
@@ -637,12 +645,12 @@ describe('setState', () => {
 	it('setState must be sync like React if no state changes are pending', () => {
 		let doSomething;
 
-		class Parent extends Component<any, any> {
+		class Parent extends Component {
 			constructor(props, context) {
 				super(props, context);
 
 				this.state = {
-					foo: 'b'
+					foo: 'b',
 				};
 
 				doSomething = this._setBar = this._setBar.bind(this);
@@ -650,14 +658,12 @@ describe('setState', () => {
 
 			_setBar(p) {
 				this.setState({
-					foo: p
+					foo: p,
 				});
 			}
 
 			render() {
-				return (
-					<div>{this.state.foo}</div>
-				);
+				return <div>{this.state.foo}</div>;
 			}
 		}
 
@@ -677,27 +683,31 @@ describe('setState', () => {
 	it('Set state callback should have context of caller component (forced) - as per React', () => {
 		let cnt = 0;
 
-		class Com extends Component<any, any> {
+		class Com extends Component {
 			doTest() {
 				expect(this.state.a).toEqual(cnt);
 			}
 
 			componentWillMount() {
-				this.setState({
-					a: ++cnt
-				}, this.doTest);
+				this.setState(
+					{
+						a: ++cnt,
+					},
+					this.doTest,
+				);
 			}
 
 			componentDidMount() {
-				this.setState({
-					a: ++cnt
-				}, this.doTest);
+				this.setState(
+					{
+						a: ++cnt,
+					},
+					this.doTest,
+				);
 			}
 
 			render() {
-				return (
-					<div>1</div>
-				);
+				return <div>1</div>;
 			}
 		}
 

@@ -1,10 +1,9 @@
-
 import { render } from 'inferno';
 import createElement from 'inferno-create-element';
 
 describe('patching keyed lists (non-jsx)', () => {
 	function createDataModels() {
-		let dataModels = [];
+		const dataModels = [];
 
 		dataModels.push(addGroupSingleChild(500));
 		dataModels.push(addGroupSingleChild(400));
@@ -17,22 +16,22 @@ describe('patching keyed lists (non-jsx)', () => {
 	}
 
 	function addGroupSingleChild(count) {
-		let dataModel = [];
+		const dataModel = [];
 		for (let i = 0; i < count; i++) {
 			dataModel.push({
 				key: i,
-				children: null
+				children: null,
 			});
 		}
 		return dataModel;
 	}
 
 	function shuffle(dataModel) {
-		for (let e, t, n = dataModel.length; n !== 0;) {
+		for (let e, t, n = dataModel.length; n !== 0; ) {
 			e = Math.floor(Math.random() * n--);
-			t = dataModel[ n ];
-			dataModel[ n ] = dataModel[ e ];
-			dataModel[ e ] = t;
+			t = dataModel[n];
+			dataModel[n] = dataModel[e];
+			dataModel[e] = t;
 		}
 	}
 
@@ -41,13 +40,13 @@ describe('patching keyed lists (non-jsx)', () => {
 		let i, e, n;
 
 		for (i = 0; i < nodes.length; i++) {
-			n = nodes[ i ];
+			n = nodes[i];
 			if (n.children !== null) {
 				e = document.createElement('div');
 				render(n.children, e);
 				// This code is here to make typescript happy... lol
 				for (let a = 0; a < e.children.length; a++) {
-					children.push(e.children[ a ]);
+					children.push(e.children[a]);
 				}
 				// We could just return e.children, but that conflicts with typescript types...
 				return children;
@@ -62,38 +61,38 @@ describe('patching keyed lists (non-jsx)', () => {
 	}
 
 	function createExpected(nodes) {
-		let c = document.createElement('div');
-		let e = document.createElement('div');
-		let children = createExpectedChildren(nodes);
+		const c = document.createElement('div');
+		const e = document.createElement('div');
+		const children = createExpectedChildren(nodes);
 		for (let i = 0; i < children.length; i++) {
-			e.appendChild(children[ i ]);
+			e.appendChild(children[i]);
 		}
 		c.appendChild(e);
 		return c.innerHTML;
 	}
 
-	let container = document.createElement('div');
+	const container = document.createElement('div');
 	let dataModels = null;
 
-	beforeEach(function () {
+	beforeEach(function() {
 		dataModels = createDataModels();
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		dataModels = null;
 	});
 
 	function renderTree(nodes) {
-		let children = new Array(nodes.length);
+		const children = new Array(nodes.length);
 		let i;
 		let n;
 
 		for (i = 0; i < nodes.length; i++) {
-			n = nodes[ i ];
+			n = nodes[i];
 			if (n.children !== null) {
-				children[ i ] = createElement('div', { key: n.key }, renderTree(n.children));
+				children[i] = createElement('div', { key: n.key }, renderTree(n.children));
 			} else {
-				children[ i ] = createElement('span', { key: n.key }, n.key);
+				children[i] = createElement('span', { key: n.key }, n.key);
 			}
 		}
 		return children;
@@ -104,119 +103,97 @@ describe('patching keyed lists (non-jsx)', () => {
 	}
 
 	it('should render various combinations', () => {
-		let dataModel = dataModels[ 0 ];
+		let dataModel = dataModels[0];
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
-		dataModel = dataModels[ 0 ];
+		dataModel = dataModels[0];
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
-		dataModel = dataModels[ 3 ];
+		dataModel = dataModels[3];
 		dataModel.reverse();
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 0 ];
+		dataModel = dataModels[0];
 		dataModel.reverse();
 		render(null, container);
 
-		dataModel = dataModels[ 0 ];
+		dataModel = dataModels[0];
 		dataModel.reverse();
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 1 ];
+		dataModel = dataModels[1];
 		dataModel.reverse();
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 3 ];
+		dataModel = dataModels[3];
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 1 ];
+		dataModel = dataModels[1];
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 4 ];
+		dataModel = dataModels[4];
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 2 ];
+		dataModel = dataModels[2];
 		dataModel.reverse();
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 3 ];
+		dataModel = dataModels[3];
 		dataModel.reverse();
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 
-		dataModel = dataModels[ 1 ];
+		dataModel = dataModels[1];
 		shuffle(dataModel);
 
 		renderModel(dataModel);
 
-		expect(container.innerHTML).toEqual(
-			createExpected(dataModel)
-		);
+		expect(container.innerHTML).toEqual(createExpected(dataModel));
 
 		render(null, container);
 	});

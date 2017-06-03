@@ -24,7 +24,7 @@ fs.readdir(PACKAGES_DIR, (err, paths) => {
 					'%s version does not match package.json. Expected %s, saw %s.',
 					pkgJSON.name,
 					INFERNO_VERSION,
-					pkgJSON.version
+					pkgJSON.version,
 				);
 			}
 		}

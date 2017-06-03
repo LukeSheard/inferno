@@ -5,23 +5,23 @@ import {
 	sortAttributes,
 	style,
 	triggerEvent,
-	validateNodeTree
+	validateNodeTree,
 } from 'inferno-utils';
 
 // import { render } from 'inferno';
 // import { renderToString } from 'inferno-server';
 
-const styleStringToArray = (styleString) => styleString.split(';').map((s) => s.trim());
+const styleStringToArray = styleString => styleString.split(';').map(s => s.trim());
 
 describe('Utils', () => {
 	describe('sortAttributes', () => {
 		it('should return sorted attributes on HTML strings', () => {
 			expect(
 				sortAttributes(
-					'<div zAttribute="test" aAttribute="inferno" bAttribute="running">Inferno <span fAttribute="huh" cAttr="last">is cool!</span></div>'
-				)
+					'<div zAttribute="test" aAttribute="inferno" bAttribute="running">Inferno <span fAttribute="huh" cAttr="last">is cool!</span></div>',
+				),
 			).toEqual(
-				'<div aAttribute="inferno" bAttribute="running" zAttribute="test">Inferno <span cAttr="last" fAttribute="huh">is cool!</span></div>'
+				'<div aAttribute="inferno" bAttribute="running" zAttribute="test">Inferno <span cAttr="last" fAttribute="huh">is cool!</span></div>',
 			);
 		});
 	});
@@ -58,9 +58,9 @@ describe('Utils', () => {
 
 	describe('style', () => {
 		it('should map an array', () => {
-			const CSS = [ '1', 'position: relative;', '3' ];
+			const CSS = ['1', 'position: relative;', '3'];
 
-			const expected = [ '', 'position: relative;', '' ];
+			const expected = ['', 'position: relative;', ''];
 			const actual = style(CSS);
 
 			expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
@@ -86,7 +86,6 @@ describe('Utils', () => {
 		});
 	});
 	describe('validateNodeTree', () => {
-
 		it('should return true if called with falsy arguments', () => {
 			expect(validateNodeTree(false)).toEqual(true);
 			expect(validateNodeTree(null)).toEqual(true);
@@ -113,7 +112,7 @@ describe('Utils', () => {
 	describe('triggerEvent', () => {
 		const spyDispatch = jest.fn();
 		const element = {
-			dispatchEvent: spyDispatch
+			dispatchEvent: spyDispatch,
 		};
 
 		it('should trigger event on click', () => {

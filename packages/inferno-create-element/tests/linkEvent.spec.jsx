@@ -1,4 +1,3 @@
-
 import { linkEvent, render } from 'inferno';
 import Component from 'inferno-component';
 
@@ -24,23 +23,23 @@ describe('linkEvent', () => {
 		}
 
 		function FunctionalComponent(props) {
-			return <button onClick={ linkEvent(props, handleOnClick) }/>;
+			return <button onClick={linkEvent(props, handleOnClick)} />;
 		}
 
 		class StatefulComponent extends Component {
 			render() {
-				return <button onClick={ linkEvent(this.props, handleOnClick) }/>;
+				return <button onClick={linkEvent(this.props, handleOnClick)} />;
 			}
 		}
 
 		it('should work correctly for functional components', () => {
-			render(<FunctionalComponent test="123"/>, container);
+			render(<FunctionalComponent test="123" />, container);
 			container.querySelector('button').click();
 			expect(test).toEqual('123');
 		});
 
 		it('should work correctly for stateful components', () => {
-			render(<StatefulComponent test="456"/>, container);
+			render(<StatefulComponent test="456" />, container);
 			container.querySelector('button').click();
 			expect(test).toEqual('456');
 		});
@@ -54,23 +53,23 @@ describe('linkEvent', () => {
 		}
 
 		function FunctionalComponent(props) {
-			return <button onclick={ linkEvent(props, handleOnClick) }/>;
+			return <button onclick={linkEvent(props, handleOnClick)} />;
 		}
 
 		class StatefulComponent extends Component {
 			render() {
-				return <button onclick={ linkEvent(this.props, handleOnClick) }/>;
+				return <button onclick={linkEvent(this.props, handleOnClick)} />;
 			}
 		}
 
 		it('should work correctly for functional components', () => {
-			render(<FunctionalComponent test="123"/>, container);
+			render(<FunctionalComponent test="123" />, container);
 			container.querySelector('button').click();
 			expect(test).toEqual('123');
 		});
 
 		it('should work correctly for stateful components', () => {
-			render(<StatefulComponent test="456"/>, container);
+			render(<StatefulComponent test="456" />, container);
 			container.querySelector('button').click();
 			expect(test).toEqual('456');
 		});
@@ -88,7 +87,7 @@ describe('linkEvent', () => {
 				elm.dispatchEvent(newEvent);
 			} else {
 				elm.oninput({
-					target: elm
+					target: elm,
 				});
 			}
 		}
@@ -99,24 +98,24 @@ describe('linkEvent', () => {
 		}
 
 		function FunctionalComponent(props) {
-			return <input type="text" onInput={ linkEvent(props, handleOnInput) } value=""/>;
+			return <input type="text" onInput={linkEvent(props, handleOnInput)} value="" />;
 		}
 
 		class StatefulComponent extends Component {
 			render() {
-				return <input type="text" onInput={ linkEvent(this.props, handleOnInput) } value=""/>;
+				return <input type="text" onInput={linkEvent(this.props, handleOnInput)} value="" />;
 			}
 		}
 
 		it('should work correctly for functional components', () => {
-			render(<FunctionalComponent test="123"/>, container);
+			render(<FunctionalComponent test="123" />, container);
 			simulateInput(container.querySelector('input'), '123');
 			expect(test).toEqual('123');
 			expect(event.target.nodeName).toEqual('INPUT');
 		});
 
 		it('should work correctly for stateful components', () => {
-			render(<StatefulComponent test="456"/>, container);
+			render(<StatefulComponent test="456" />, container);
 			simulateInput(container.querySelector('input'), '123');
 			expect(test).toEqual('456');
 			expect(event.target.nodeName).toEqual('INPUT');
@@ -136,22 +135,20 @@ describe('linkEvent', () => {
 		}
 
 		function FunctionalComponent(props) {
-			return <div>
-				<input
-					onfocus={ linkEvent('1234', handleOnFocus) }
-					onblur={ linkEvent('4321', handleOnBlur) }
-				/>
-			</div>;
+			return (
+				<div>
+					<input onfocus={linkEvent('1234', handleOnFocus)} onblur={linkEvent('4321', handleOnBlur)} />
+				</div>
+			);
 		}
 
 		class StatefulComponent extends Component {
 			render() {
-				return <div>
-					<input
-						onfocus={ linkEvent('1234', handleOnFocus) }
-						onblur={ linkEvent('4321', handleOnBlur) }
-					/>
-				</div>;
+				return (
+					<div>
+						<input onfocus={linkEvent('1234', handleOnFocus)} onblur={linkEvent('4321', handleOnBlur)} />
+					</div>
+				);
 			}
 		}
 
@@ -177,8 +174,8 @@ describe('linkEvent', () => {
 			}
 		}
 
-		it('should work correctly for functional components', (done) => {
-			render(<FunctionalComponent/>, container);
+		it('should work correctly for functional components', done => {
+			render(<FunctionalComponent />, container);
 			const input = container.querySelector('input');
 			simulateFocus(input);
 			requestAnimationFrame(() => {
@@ -191,8 +188,8 @@ describe('linkEvent', () => {
 			});
 		});
 
-		it('should work correctly for stateful components', (done) => {
-			render(<StatefulComponent/>, container);
+		it('should work correctly for stateful components', done => {
+			render(<StatefulComponent />, container);
 			const input = container.querySelector('input');
 			simulateFocus(input);
 			requestAnimationFrame(() => {

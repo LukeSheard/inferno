@@ -10,7 +10,7 @@ function updateChildOptionGroup(vNode, value) {
 
 		if (isArray(children)) {
 			for (let i = 0, len = children.length; i < len; i++) {
-				updateChildOption(children[ i ], value);
+				updateChildOption(children[i], value);
 			}
 		} else if (isVNode(children)) {
 			updateChildOption(children, value);
@@ -85,7 +85,7 @@ export function applyValue(vNode, dom, nextPropsOrEmpty, mounting: boolean) {
 		}
 		if (isArray(children)) {
 			for (let i = 0, len = children.length; i < len; i++) {
-				updateChildOptionGroup(children[ i ], value);
+				updateChildOptionGroup(children[i], value);
 			}
 		} else if (isVNode(children)) {
 			updateChildOptionGroup(children, value);

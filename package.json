@@ -15,18 +15,49 @@
     "type": "git",
     "url": "git+ssh://git@github.com/infernojs/inferno.git"
   },
+  "lint-staged": {
+    "*.js": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.ts": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.jsx": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ],
+    "*.tsx": [
+      "./scripts/tasks/prettier.sh",
+      "git add"
+    ]
+  },
+  "precommit": {
+    "run": [
+      "lint-staged",
+      "test"
+    ],
+    "template": ".github/COMMIT_TEMPLATE.md"
+  },
   "scripts": {
     "clean": "lerna exec -- rimraf dist",
     "coveralls": "coveralls < coverage/lcov.info",
     "prebuild": "npm run clean",
-    "build": "npm-run-all --parallel build:**",
+    "build": "npm-run-all -l --parallel build:**",
     "build:typings": "tsc && lerna exec -- node ../../scripts/typings/build.js",
     "build:es": "npm run rollup -- --format=es --optimize=false --name=index.es --uglify=false",
     "build:node": "npm run rollup -- --format=cjs --replace=false --name=index --uglify=false",
     "build:umd:dev": "npm run rollup",
     "build:umd:prod": "npm run rollup -- --env=production",
+    "lint": "echo \"Would Lint Here\"",
+    "lint-staged": "lint-staged",
+    "prettier": "npm-run-all --parallel prettier:**",
+    "prettier:packages:js": "./scripts/tasks/prettier.sh packages/*/{src,tests}/**/*.{js,jsx}",
+    "prettier:packages:ts": "./scripts/tasks/prettier.sh --parser=typescript packages/*/{src,tests}/**/*.{ts,tsx}",
+    "prettier:fixtures": "./scripts/tasks/prettier.sh fixtures/**/*.{js,jsx}",
+    "prettier:scripts": "./scripts/tasks/prettier.sh scripts/**/*.{js,jsx}",
     "postinstall": "lerna bootstrap",
-    "lint": "tslint packages/*/src/**/*.ts packages/*/src/**/*.tsx packages/*/src/**/*.js packages/*/src/**/*.jsx",
     "rollup": "lerna exec -- cross-env node ../../scripts/rollup/build.js",
     "test": "jest",
     "test:react": "jest --config fixtures/react-suite/jest.config.js",
@@ -59,13 +90,17 @@
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.0",
     "dts-bundle": "^0.7.2",
+    "husky": "^0.13.4",
     "jest": "^20.0.4",
     "lerna": "^2.0.0-rc.5",
+    "lint-staged": "^3.6.0",
     "minimist": "^1.2.0",
     "most": "^1.4.0",
     "most-subject": "^5.3.0",
     "npm-run-all": "^4.0.2",
     "optimize-js": "^1.0.3",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.4.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "rimraf": "^2.6.1",

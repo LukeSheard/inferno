@@ -19,28 +19,19 @@ describe('patching routine', () => {
 	it('Should do nothing if lastVNode strictly equals nextVnode', () => {
 		const yar = createVNode(2, 'div', null, '123', null, null, null, true);
 		const bar = createVNode(2, 'div', null, '123', null, null, null, true);
-		let foo = createVNode(2, 'div', null, [ bar, yar ], null, null, null, true);
+		let foo = createVNode(2, 'div', null, [bar, yar], null, null, null, true);
 
 		render(foo, container);
 		expect(container.innerHTML).toEqual('<div><div>123</div><div>123</div></div>');
 
-		foo = createVNode(2, 'div', null, [ bar, yar ], null, null, null, true);
+		foo = createVNode(2, 'div', null, [bar, yar], null, null, null, true);
 
 		render(foo, container);
 		expect(container.innerHTML).toEqual('<div><div>123</div><div>123</div></div>');
 	});
 
 	it('Should mount nextNode if lastNode crashed', () => {
-		const validNode = createVNode(
-			VNodeFlags.HtmlElement,
-			'span',
-			null,
-			createTextVNode('a'),
-			null,
-			null,
-			null,
-			false
-		);
+		const validNode = createVNode(VNodeFlags.HtmlElement, 'span', null, createTextVNode('a'), null, null, null, false);
 		const invalidNode = createVNode(0, 'span');
 
 		render(validNode, container);
@@ -60,20 +51,11 @@ describe('patching routine', () => {
 			VNodeFlags.HtmlElement,
 			'span',
 			null,
-			createVNode(
-				VNodeFlags.HtmlElement,
-				'span',
-				null,
-				createTextVNode('a'),
-				null,
-				null,
-				null,
-				false
-			),
+			createVNode(VNodeFlags.HtmlElement, 'span', null, createTextVNode('a'), null, null, null, false),
 			null,
 			null,
 			null,
-			false
+			false,
 		);
 
 		const invalidChildNode = createVNode(
@@ -84,7 +66,7 @@ describe('patching routine', () => {
 			null,
 			null,
 			null,
-			false
+			false,
 		);
 
 		render(validNode, container);

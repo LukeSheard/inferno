@@ -27,11 +27,7 @@ fs.readdir(PACKAGES_DIR, (err, paths) => {
 					fs.writeFileSync(pkgJSONPath, pkgJSONStr);
 				} catch (e) {
 					failedToUpdate = true;
-					console.error(
-						'Failed to update %s: %s',
-						pkgJSON.name,
-						e
-					);
+					console.error('Failed to update %s: %s', pkgJSON.name, e);
 				}
 			}
 		}
