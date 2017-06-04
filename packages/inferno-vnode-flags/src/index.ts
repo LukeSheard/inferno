@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Vnode-Flags
+ * @module inferno-vnode-flags
  */ /** TypeDoc Comment */
 
 const enum VNodeFlags {

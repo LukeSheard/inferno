@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Server
+ * @module inferno-server
  */ /** TypeDoc Comment */
 
 import { internal_isUnitlessNumber } from 'inferno';

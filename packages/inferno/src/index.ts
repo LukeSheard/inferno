@@ -1,5 +1,5 @@
 /**
- * @module Inferno
+ * @module inferno
  */ /** TypeDoc Comment */
 
 import { NO_OP, warning } from 'inferno-shared';

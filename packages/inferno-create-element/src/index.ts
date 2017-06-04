@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Create-Element
+ * @module inferno-create-element
  */ /** TypeDoc Comment */
 
 import { createVNode, getFlagsForElementVnode, InfernoChildren, Props, VNode } from 'inferno';

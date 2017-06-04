@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Shared
+ * @module inferno-shared
  */ /** TypeDoc Comment */
 
 export const NO_OP = '$NO_OP';

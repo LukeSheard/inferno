@@ -1,9 +1,12 @@
+const { join } = require('path');
+const cwd = process.cwd();
+
 module.exports = {
+	disableOutputCheck: true,
 	mode: 'modules',
 	name: 'Inferno',
-	out: './docs',
+	out: join(cwd, './docs'),
 	target: 'es6',
-	theme: 'node_modules/typedoc-clarity-theme/bin',
-	tsconfig: './tsconfig.json',
+	tsconfig: join(__dirname, './tsconfig.json'),
 	excludeNotExported: true
 };

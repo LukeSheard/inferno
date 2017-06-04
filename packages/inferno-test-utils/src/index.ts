@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Test-Utils
+ * @module inferno-test-utils
  */ /** TypeDoc Comment */
 
 import { InfernoChildren, InfernoInput, render, VNode } from 'inferno';

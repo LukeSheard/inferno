@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Utils
+ * @module inferno-utils
  */ /** TypeDoc Comment */
 
 import { isArray, isNullOrUndef, isStringOrNumber } from 'inferno-shared';

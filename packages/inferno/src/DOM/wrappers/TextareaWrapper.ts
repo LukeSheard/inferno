@@ -1,5 +1,5 @@
 /**
- * @module Inferno
+ * @module inferno
  */ /** TypeDoc Comment */
 
 import { isNullOrUndef } from 'inferno-shared';

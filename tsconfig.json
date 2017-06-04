@@ -30,7 +30,8 @@
 		"jsx": "preserve",
 		"noUnusedLocals": true,
 		"strictNullChecks": true,
-		"removeComments": false
+		"removeComments": false,
+		"rootDir": "."
 	},
 	"include": [
 		"packages/*/src",

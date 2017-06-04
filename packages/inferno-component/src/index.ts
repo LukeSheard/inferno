@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Component
+ * @module inferno-component
  */ /** TypeDoc Comment */
 
 // Make sure u use EMPTY_OBJ from 'inferno', otherwise it'll be a different reference

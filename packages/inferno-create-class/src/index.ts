@@ -1,5 +1,5 @@
 /**
- * @module Inferno-Create-Class
+ * @module inferno-create-class
  */ /** TypeDoc Comment */
 
 import Component, { ComponentLifecycle } from 'inferno-component';

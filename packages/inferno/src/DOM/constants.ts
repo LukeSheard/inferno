@@ -1,5 +1,5 @@
 /**
- * @module Inferno
+ * @module inferno
  */ /** TypeDoc Comment */
 
 export const xlinkNS = 'http://www.w3.org/1999/xlink';
