@@ -18,18 +18,22 @@
   "lint-staged": {
     "*.js": [
       "./scripts/tasks/prettier.sh",
+      "npm run lint",
       "git add"
     ],
     "*.ts": [
       "./scripts/tasks/prettier.sh",
+      "npm run lint",
       "git add"
     ],
     "*.jsx": [
       "./scripts/tasks/prettier.sh",
+      "npm run lint",
       "git add"
     ],
     "*.tsx": [
       "./scripts/tasks/prettier.sh",
+      "npm run lint",
       "git add"
     ]
   },
