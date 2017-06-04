@@ -3,6 +3,7 @@ const cwd = process.cwd();
 
 module.exports = {
 	disableOutputCheck: true,
+	excludePrivate: true,
 	mode: 'modules',
 	name: 'Inferno',
 	out: join(cwd, './docs'),
