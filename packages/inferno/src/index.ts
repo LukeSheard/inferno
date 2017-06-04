@@ -1,3 +1,7 @@
+/**
+ * @module Inferno
+ */ /** TypeDoc Comment */
+
 import { NO_OP, warning } from 'inferno-shared';
 import { LifecycleClass as _LifecycleClass } from 'inferno-shared';
 import _VNodeFlags from 'inferno-vnode-flags';
@@ -33,55 +37,41 @@ const version: string = process.env.INFERNO_VERSION;
 
 // we duplicate it so it plays nicely with different module loading systems
 export default {
-	getFlagsForElementVnode,
-	linkEvent,
-	// core shapes
-	createVNode,
-
-	// cloning
-	cloneVNode,
-
-	// used to shared common items between Inferno libs
-	NO_OP,
 	EMPTY_OBJ,
-
-	// DOM
-	render,
-	findDOMNode,
+	NO_OP,
+	cloneVNode,
 	createRenderer,
-	options,
-	version,
-
-	internal_patch,
+	createVNode,
+	findDOMNode,
+	getFlagsForElementVnode,
 	internal_DOMNodeMap,
 	internal_isUnitlessNumber,
-	internal_normalize
+	internal_normalize,
+	internal_patch,
+	linkEvent,
+	options,
+	render,
+	version,
 };
 
 export {
-	// Interfaces
-	Props,
-	VNode,
+	cloneVNode,
+	createRenderer,
+	createVNode,
+	EMPTY_OBJ,
+	findDOMNode,
+	getFlagsForElementVnode,
 	InfernoChildren,
 	InfernoInput,
-	// Public methods
-	getFlagsForElementVnode,
-	linkEvent,
-	// core shapes
-	createVNode,
-	// cloning
-	cloneVNode,
-	// used to shared common items between Inferno libs
-	NO_OP,
-	EMPTY_OBJ,
-	// DOM
-	render,
-	findDOMNode,
-	createRenderer,
-	options,
-	version,
-	internal_patch,
 	internal_DOMNodeMap,
 	internal_isUnitlessNumber,
-	internal_normalize
+	internal_normalize,
+	internal_patch,
+	linkEvent,
+	NO_OP,
+	options,
+	Props,
+	render,
+	version,
+	VNode,
 };
