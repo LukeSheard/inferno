@@ -18,28 +18,25 @@
   "lint-staged": {
     "*.js": [
       "./scripts/tasks/prettier.sh",
-      "npm run lint",
       "git add"
     ],
     "*.ts": [
       "./scripts/tasks/prettier.sh",
-      "npm run lint",
       "git add"
     ],
     "*.jsx": [
       "./scripts/tasks/prettier.sh",
-      "npm run lint",
       "git add"
     ],
     "*.tsx": [
       "./scripts/tasks/prettier.sh",
-      "npm run lint",
       "git add"
     ]
   },
   "precommit": {
     "run": [
       "lint-staged",
+      "lint",
       "test"
     ],
     "template": ".github/COMMIT_TEMPLATE.md"
@@ -49,13 +46,14 @@
     "coveralls": "coveralls < coverage/lcov.info",
     "prebuild": "npm run clean",
     "build": "npm-run-all --parallel build:**",
-    "build:docs": "typedoc --options ./typedoc.js",
-    "build:packages": "npm-run-all -l --parallel build:packages:**",
-    "build:packages:typings": "tsc && lerna exec -- node ../../scripts/typings/build.js",
-    "build:packages:es": "npm run rollup -- --format=es --optimize=false --name=index.es --uglify=false",
-    "build:packages:node": "npm run rollup -- --format=cjs --replace=false --name=index --uglify=false",
-    "build:packages:umd:dev": "npm run rollup",
-    "build:packages:umd:prod": "npm run rollup -- --env=production",
+    "prebuild:typings": "rimraf build",
+    "build:typings": "tsc && lerna exec -- node ../../scripts/typings/build.js",
+    "build:es": "npm run rollup -- --format=es --optimize=false --name=index.es --uglify=false",
+    "build:node": "npm run rollup -- --format=cjs --replace=false --name=index --uglify=false",
+    "build:umd:dev": "npm run rollup",
+    "build:umd:prod": "npm run rollup -- --env=production",
+    "predocs": "rimraf docs",
+    "docs": "typedoc --options ./typedoc.js",
     "lint": "tslint -p tsconfig.json --type-check",
     "lint-staged": "lint-staged",
     "prettier": "npm-run-all --parallel prettier:**",
