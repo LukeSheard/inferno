@@ -5,7 +5,7 @@ const { join } = require('path');
 const cwd = process.cwd();
 const pkgJSON = require(join(cwd, './package.json'));
 
-const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
 String.prototype.capitalize = function() {
 	return `${this.split('-').map(capitalize).join('-')}`;
@@ -18,14 +18,13 @@ const HEADER = `/**
 `;
 
 function prepend(filepath) {
-	prependFile(filepath, HEADER, (err) => {
+	prependFile(filepath, HEADER, err => {
 		if (err) {
 			console.error(filepath, err);
 		}
 	});
 }
 
-// options is optional
 glob(`${cwd}/src/**/*.ts`, function(err, files) {
 	if (err) {
 		console.error(er);

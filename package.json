@@ -33,13 +33,13 @@
       "git add"
     ]
   },
-  "precommit": {
+  "pre-commit": {
+    "silent": true,
     "run": [
       "lint-staged",
       "lint",
       "test"
-    ],
-    "template": ".github/COMMIT_TEMPLATE.md"
+    ]
   },
   "scripts": {
     "clean": "lerna exec -- rimraf dist",
