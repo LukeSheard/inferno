@@ -33,6 +33,7 @@
 		"removeComments": false
 	},
 	"include": [
-		"packages/*/src/**/*"
+		"packages/*/src",
+		"packages/*/tests"
 	]
 }
