@@ -1,4 +1,3 @@
-
 import { createVNode, render } from 'inferno';
 import { NO_OP } from 'inferno-shared';
 import VNodeFlags from 'inferno-vnode-flags';
@@ -6,12 +5,12 @@ import VNodeFlags from 'inferno-vnode-flags';
 describe('rendering routine', () => {
 	let container;
 
-	beforeEach(function () {
+	beforeEach(function() {
 		container = document.createElement('div');
 		document.body.appendChild(container);
 	});
 
-	afterEach(function () {
+	afterEach(function() {
 		render(null, container);
 		container.innerHTML = '';
 		document.body.removeChild(container);
@@ -23,8 +22,8 @@ describe('rendering routine', () => {
 			render(div, document.body);
 		} catch (e) {
 			expect(e.message).toEqual(
-                'Inferno Error: you cannot render() to the "document.body". Use an empty element as a container instead.'
-            );
+				'Inferno Error: you cannot render() to the "document.body". Use an empty element as a container instead.',
+			);
 		}
 	});
 

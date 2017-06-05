@@ -4,7 +4,6 @@ import Component from 'inferno-component';
 import createElement from 'inferno-create-element';
 import h from 'inferno-hyperscript';
 
-
 describe('isValidElement', () => {
 	it('Should not work with non-object', () => {
 		expect(isValidElement(33)).toBe(false);

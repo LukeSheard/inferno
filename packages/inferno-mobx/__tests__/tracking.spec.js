@@ -1,4 +1,3 @@
-
 import { trackComponents } from 'inferno-mobx/makeReactive';
 
 describe('MobX trackComponents()', () => {

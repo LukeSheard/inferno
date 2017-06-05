@@ -1,4 +1,3 @@
-
 import { isEmpty, mapSearchParams } from 'inferno-router/utils';
 
 describe('Router #utils', () => {
@@ -11,7 +10,7 @@ describe('Router #utils', () => {
 		expect(params.utf8).toBe('çava-oui');
 
 		params = mapSearchParams('arr[]=one&arr[]=two&arr[]=çava-oui');
-		expect(params.arr[ 2 ]).toBe('çava-oui');
+		expect(params.arr[2]).toBe('çava-oui');
 	});
 
 	it('it should return true for an empty object or array', () => {

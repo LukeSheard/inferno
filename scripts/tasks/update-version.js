@@ -5,7 +5,7 @@ const { join } = require('path');
 
 const PACKAGES_DIR = join(__dirname, '../../packages');
 const INFERNO_VERSION = require(join(__dirname, '../../package.json')).version;
-const PACKAGES = fs.readdirSync(PACKAGES_DIR).filter((path) => fs.statSync(join(PACKAGES_DIR, path)).isDirectory());
+const PACKAGES = fs.readdirSync(PACKAGES_DIR).filter(path => fs.statSync(join(PACKAGES_DIR, path)).isDirectory());
 
 function updateDependencies(name, deps) {
 	for (const dep in deps) {

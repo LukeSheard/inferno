@@ -17,7 +17,7 @@
 		"ordered-imports": [true],
 		"prefer-const": true,
 		"prefer-for-of": false,
-		"quotemark": [ true, "single", "jsx-double" ],
+		"quotemark": [false],
 		"trailing-comma": [true],
 		"variable-name": false
 	},
@@ -43,7 +43,7 @@
 		"ordered-imports": [true],
 		"prefer-const": true,
 		"prefer-for-of": false,
-		"quotemark": [ false ],
+		"quotemark": [false],
 		"trailing-comma": [true],
 		"variable-name": false
 	}
