@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import { isNull, isUndefined, LifecycleClass } from 'inferno-shared';
 import VNodeFlags from 'inferno-vnode-flags';
 import { Refs, VNode } from '../core/VNodes';
@@ -80,7 +76,7 @@ export function recycleComponent(vNode: VNode, lifecycle: LifecycleClass, contex
 					lifecycle,
 					context,
 					isSVG,
-					flags & VNodeFlags.ComponentClass,
+					(flags & VNodeFlags.ComponentClass) > 0,
 					true,
 				);
 

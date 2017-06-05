@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	combineFrom,
 	isArray,
@@ -292,7 +288,7 @@ export function createVoidVNode(): VNode {
 	return createVNode(VNodeFlags.Void, null);
 }
 
-export function createTextVNode(text: string | number, key?: any): VNode {
+export function createTextVNode(text: string | number, key): VNode {
 	return createVNode(VNodeFlags.Text, null, null, text, null, key);
 }
 

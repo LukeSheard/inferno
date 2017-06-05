@@ -1,7 +1,3 @@
-/**
- * @module inferno-vnode-flags
- */ /** TypeDoc Comment */
-
 const enum VNodeFlags {
 	Text = 1,
 	HtmlElement = 1 << 1,

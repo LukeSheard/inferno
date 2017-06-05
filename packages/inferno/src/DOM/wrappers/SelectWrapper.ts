@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import { isArray, isInvalid, isNullOrUndef } from 'inferno-shared';
 import { isVNode } from '../../core/VNodes';
 import { EMPTY_OBJ } from '../utils';
@@ -14,7 +10,7 @@ function updateChildOptionGroup(vNode, value) {
 
 		if (isArray(children)) {
 			for (let i = 0, len = children.length; i < len; i++) {
-				updateChildOption(children[i], value);
+				updateChildOption(children[ i ], value);
 			}
 		} else if (isVNode(children)) {
 			updateChildOption(children, value);
@@ -38,7 +34,7 @@ function updateChildOption(vNode, value) {
 }
 
 function onSelectChange(e) {
-	const vNode = this;
+	const vNode = this.vNode;
 	const props = vNode.props || EMPTY_OBJ;
 	const dom = vNode.dom;
 	const previousValue = props.value;
@@ -56,7 +52,7 @@ function onSelectChange(e) {
 	}
 	// the user may have updated the vNode from the above onInput events syncronously
 	// so we need to get it from the context of `this` again
-	const newVNode = this;
+	const newVNode = this.vNode;
 	const newProps = newVNode.props || EMPTY_OBJ;
 
 	// If render is going async there is no value change yet, it will come back to process input soon
@@ -70,9 +66,13 @@ function onSelectChange(e) {
 export function processSelect(vNode, dom, nextPropsOrEmpty, mounting: boolean, isControlled: boolean) {
 	applyValue(vNode, dom, nextPropsOrEmpty, mounting);
 
-	if (mounting && isControlled) {
-		dom.onchange = onSelectChange.bind(vNode);
-		dom.onchange.wrapped = true;
+	if (isControlled) {
+		dom.vNode = vNode; // TODO: Remove this when implementing Fiber's
+
+		if (mounting) {
+			dom.onchange = onSelectChange;
+			dom.onchange.wrapped = true;
+		}
 	}
 }
 
@@ -89,7 +89,7 @@ export function applyValue(vNode, dom, nextPropsOrEmpty, mounting: boolean) {
 		}
 		if (isArray(children)) {
 			for (let i = 0, len = children.length; i < len; i++) {
-				updateChildOptionGroup(children[i], value);
+				updateChildOptionGroup(children[ i ], value);
 			}
 		} else if (isVNode(children)) {
 			updateChildOptionGroup(children, value);

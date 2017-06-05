@@ -1,0 +1,50 @@
+{
+  "name": "inferno-router",
+  "version": "3.4.1",
+  "license": "MIT",
+  "description": "Provides routing functionality for Inferno",
+  "author": {
+    "name": "Dominic Gannaway",
+    "email": "dg@domgan.com"
+  },
+  "bugs": {
+    "url": "https://github.com/infernojs/inferno/issues"
+  },
+  "homepage": "https://github.com/infernojs/inferno#readme",
+  "main": "index.js",
+  "inferno:main": "dist-es/index.js",
+  "typings": "dist/index.d.ts",
+  "keywords": [
+    "babel",
+    "react",
+    "inferno",
+    "framework",
+    "interfaces",
+    "user interfaces",
+    "router"
+  ],
+  "repository": "https://github.com/infernojs/inferno",
+  "dependencies": {
+    "history": "^4.6.1",
+    "inferno": "3.4.0",
+    "inferno-component": "3.4.0",
+    "inferno-create-element": "3.4.0",
+    "inferno-shared": "3.1.1",
+    "inferno-vnode-flags": "^3.0.0",
+    "path-to-regexp": "^1.7.0",
+    "path-to-regexp-es6": "0.0.2"
+  },
+  "rollup": {
+    "bundledDependencies": [
+      "inferno-shared",
+      "path-to-regexp-es6"
+    ],
+    "moduleName": "Inferno.Router",
+    "moduleGlobals": {
+      "inferno": "Inferno",
+      "inferno-component": "Inferno.Component",
+      "inferno-create-element": "Inferno.createElement",
+      "path-to-regexp-es6": "Inferno.pathToRegexp"
+    }
+  }
+}

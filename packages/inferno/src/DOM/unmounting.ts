@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	isArray,
 	isFunction,
@@ -61,7 +57,6 @@ export function unmountComponent(
 	if (!isRecycling) {
 		if (isStatefulComponent) {
 			if (!instance._unmounted) {
-				instance._blockSetState = true;
 				if (!isNull(options.beforeUnmount)) {
 					options.beforeUnmount(vNode);
 				}

@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	isArray,
 	isFunction,
@@ -115,10 +111,13 @@ export function mountElement(
 	if (!isInvalid(children)) {
 		if (isStringOrNumber(children)) {
 			setTextContent(dom, children as string | number);
-		} else if (isArray(children)) {
-			mountArrayChildren(children, dom, lifecycle, context, isSVG);
-		} else if (isVNode(children as any)) {
-			mount(children as VNode, dom, lifecycle, context, isSVG);
+		} else {
+			const childrenIsSVG = isSVG === true && vNode.type !== 'foreignObject';
+			if (isArray(children)) {
+				mountArrayChildren(children, dom, lifecycle, context, childrenIsSVG);
+			} else if (isVNode(children as any)) {
+				mount(children as VNode, dom, lifecycle, context, childrenIsSVG);
+			}
 		}
 	}
 	if (!isNull(props)) {

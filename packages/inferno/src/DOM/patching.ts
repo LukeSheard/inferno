@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	combineFrom,
 	isArray,
@@ -57,21 +53,14 @@ export function patch(
 		const nextFlags = nextVNode.flags;
 
 		if (nextFlags & VNodeFlags.Component) {
+			const isClass = (nextFlags & VNodeFlags.ComponentClass) > 0;
+
 			if (lastFlags & VNodeFlags.Component) {
-				patchComponent(
-					lastVNode,
-					nextVNode,
-					parentDom,
-					lifecycle,
-					context,
-					isSVG,
-					nextFlags & VNodeFlags.ComponentClass,
-					isRecycling,
-				);
+				patchComponent(lastVNode, nextVNode, parentDom, lifecycle, context, isSVG, isClass, isRecycling);
 			} else {
 				replaceVNode(
 					parentDom,
-					mountComponent(nextVNode, null, lifecycle, context, isSVG, (nextFlags & VNodeFlags.ComponentClass) > 0),
+					mountComponent(nextVNode, null, lifecycle, context, isSVG, isClass),
 					lastVNode,
 					lifecycle,
 					isRecycling,
@@ -147,7 +136,18 @@ export function patchElement(
 		nextVNode.dom = dom;
 		isSVG = isSVG || (nextFlags & VNodeFlags.SvgElement) > 0;
 		if (lastChildren !== nextChildren) {
-			patchChildren(lastFlags, nextFlags, lastChildren, nextChildren, dom, lifecycle, context, isSVG, isRecycling);
+			const childrenIsSVG = isSVG === true && nextVNode.type !== 'foreignObject';
+			patchChildren(
+				lastFlags,
+				nextFlags,
+				lastChildren,
+				nextChildren,
+				dom,
+				lifecycle,
+				context,
+				childrenIsSVG,
+				isRecycling,
+			);
 		}
 
 		// inlined patchProps  -- starts --
@@ -178,8 +178,8 @@ export function patchElement(
 			if (lastPropsOrEmpty !== EMPTY_OBJ) {
 				for (const prop in lastPropsOrEmpty) {
 					// do not add a hasOwnProperty check here, it affects performance
-					if (isNullOrUndef(nextPropsOrEmpty[prop])) {
-						removeProp(prop, lastPropsOrEmpty[prop], dom);
+					if (isNullOrUndef(nextPropsOrEmpty[prop]) && !isNullOrUndef(lastPropsOrEmpty[prop])) {
+						removeProp(prop, lastPropsOrEmpty[prop], dom, nextFlags);
 					}
 				}
 			}
@@ -279,7 +279,7 @@ export function patchComponent(
 	lifecycle: LifecycleClass,
 	context,
 	isSVG: boolean,
-	isClass: number,
+	isClass: boolean,
 	isRecycling: boolean,
 ) {
 	const lastType = lastVNode.type;
@@ -313,7 +313,7 @@ export function patchComponent(
 				const lastState = hasComponentDidUpdate ? combineFrom(nextState, null) : nextState;
 				const lastProps = instance.props;
 				let childContext;
-				if (!isUndefined(instance.getChildContext)) {
+				if (!isNullOrUndef(instance.getChildContext)) {
 					childContext = instance.getChildContext();
 				}
 
@@ -357,7 +357,7 @@ export function patchComponent(
 				instance._vNode = nextVNode;
 				if (didUpdate) {
 					patch(lastInput, nextInput, parentDom, lifecycle, childContext, isSVG, isRecycling);
-					if (hasComponentDidUpdate) {
+					if (hasComponentDidUpdate && instance.componentDidUpdate) {
 						instance.componentDidUpdate(lastProps, lastState);
 					}
 					if (!isNull(options.afterUpdate)) {
@@ -906,9 +906,11 @@ export function patchStyle(lastAttrValue: string | Styles, nextAttrValue: string
 	}
 }
 
-function removeProp(prop: string, lastValue, dom) {
+function removeProp(prop: string, lastValue, dom, nextFlags: number) {
 	if (prop === 'value') {
-		dom.value = '';
+		// When removing value of select element, it needs to be set to null instead empty string, because empty string is valid value for option which makes that option selected
+		// MS IE/Edge don't follow html spec for textArea and input elements and we need to set empty string to value in those cases to avoid "null" and "undefined" texts
+		dom.value = nextFlags & VNodeFlags.SelectElement ? null : '';
 	} else if (prop === 'style') {
 		dom.removeAttribute('style');
 	} else if (isAttrAnEvent(prop)) {

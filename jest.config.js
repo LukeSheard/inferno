@@ -1,3 +1,21 @@
+const fs = require('fs');
+const path = require('path');
+const read = require('fs-readdir-recursive');
+
+const moduleNameMapper = fs.readdirSync(path.join(__dirname, 'packages')).reduce(function(map, package) {
+	const packageMap = read(path.join(__dirname, 'packages', package, 'src')).reduce(function(acc, filepath) {
+		const file = filepath.slice(0, -3).split('/');
+		if (file.slice(-1)[0] === 'index') {
+			file.splice(-1, 1);
+		}
+		const moduleName = file.length ? `/${file.join('/')}` : '';
+		return Object.assign(acc, {
+			[`^${package}${moduleName}$`]: `<rootDir>/packages/${package}/src/${filepath}`,
+		});
+	}, {});
+	return Object.assign(map, packageMap);
+}, {});
+
 module.exports = {
 	collectCoverageFrom: ['packages/*/src/**/*.ts', '!**/*.ts.js'],
 	coverageDirectory: 'coverage',
@@ -25,10 +43,10 @@ module.exports = {
 	],
 	setupFiles: ['<rootDir>/scripts/jest/requestAnimationFrame.ts', '<rootDir>/scripts/jest/globals.ts'],
 	testMatch: [
-		'<rootDir>/packages/*/tests/**/*spec.js?(x)',
-		'<rootDir>/packages/*/tests/**/*spec.ts?(x)',
-		'<rootDir>/packages/*/tests/**/*spec.browser.js?(x)',
-		'<rootDir>/packages/*/tests/**/*spec.browser.ts?(x)',
+		'<rootDir>/packages/*/__tests__/**/*spec.js?(x)',
+		'<rootDir>/packages/*/__tests__/**/*spec.ts?(x)',
+		'<rootDir>/packages/*/__tests__/**/*spec.browser.js?(x)',
+		'<rootDir>/packages/*/__tests__/**/*spec.browser.ts?(x)',
 	],
 	transform: {
 		'^.+\\.jsx?$': 'babel-jest',

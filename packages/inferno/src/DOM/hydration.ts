@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	isArray,
 	isNull,
@@ -29,7 +25,7 @@ import { componentToDOMNodeMap } from './rendering';
 import { createClassComponentInstance, createFunctionalComponentInput, EMPTY_OBJ, replaceChild } from './utils';
 import { isControlledFormElement, processElement } from './wrappers/processElement';
 
-export function normalizeChildNodes(parentDom) {
+function normalizeChildNodes(parentDom) {
 	let dom = parentDom.firstChild;
 
 	while (dom) {
@@ -92,7 +88,7 @@ function hydrateElement(
 	vNode: VNode,
 	dom: Element,
 	lifecycle: LifecycleClass,
-	context: object,
+	context: Object,
 	isSVG: boolean,
 ): Element {
 	const children = vNode.children;
@@ -117,6 +113,8 @@ function hydrateElement(
 	vNode.dom = dom;
 	if (children) {
 		hydrateChildren(children, dom, lifecycle, context, isSVG);
+	} else if (dom.firstChild !== null) {
+		dom.textContent = ''; // dom has content, but VNode has no children remove everything from DOM
 	}
 	if (props) {
 		let hasControlledValue = false;
@@ -132,13 +130,15 @@ function hydrateElement(
 			processElement(flags, vNode, dom, props, true, hasControlledValue);
 		}
 	}
-	if (isNullOrUndef(className)) {
-		dom.removeAttribute('class');
-	} else {
+	if (!isNullOrUndef(className)) {
 		if (isSVG) {
 			dom.setAttribute('class', className);
 		} else {
 			dom.className = className;
+		}
+	} else {
+		if (dom.className !== '') {
+			dom.removeAttribute('class');
 		}
 	}
 	if (ref) {
@@ -151,25 +151,13 @@ function hydrateChildren(
 	children: InfernoChildren,
 	parentDom: Element,
 	lifecycle: LifecycleClass,
-	context: object,
+	context: Object,
 	isSVG: boolean,
 ): void {
 	normalizeChildNodes(parentDom);
 	let dom = parentDom.firstChild;
 
-	if (isArray(children)) {
-		for (let i = 0, len = (children as Array<string | number | VNode>).length; i < len; i++) {
-			const child = children[i];
-
-			if (!isNull(child) && isObject(child)) {
-				if (!isNull(dom)) {
-					dom = (hydrate(child as VNode, dom as Element, lifecycle, context, isSVG) as Element).nextSibling;
-				} else {
-					mount(child as VNode, parentDom, lifecycle, context, isSVG);
-				}
-			}
-		}
-	} else if (isStringOrNumber(children)) {
+	if (isStringOrNumber(children)) {
 		if (dom && dom.nodeType === 3) {
 			if (dom.nodeValue !== children) {
 				dom.nodeValue = children as string;
@@ -178,10 +166,26 @@ function hydrateChildren(
 			parentDom.textContent = children as string;
 		}
 		dom = (dom as Element).nextSibling;
-	} else if (isObject(children)) {
+	} else if (isArray(children)) {
+		for (let i = 0, len = (children as Array<string | number | VNode>).length; i < len; i++) {
+			const child = children[i];
+
+			if (!isNull(child) && isObject(child)) {
+				if (!isNull(dom)) {
+					const nextSibling = dom.nextSibling;
+					hydrate(child as VNode, dom as Element, lifecycle, context, isSVG);
+					dom = nextSibling;
+				} else {
+					mount(child as VNode, parentDom, lifecycle, context, isSVG);
+				}
+			}
+		}
+	} else {
+		// It's VNode
 		hydrate(children as VNode, dom as Element, lifecycle, context, isSVG);
 		dom = (dom as Element).nextSibling;
 	}
+
 	// clear any other DOM nodes, there should be only a single entry for the root
 	while (dom) {
 		const nextSibling = dom.nextSibling;
@@ -212,23 +216,17 @@ function hydrateVoid(vNode: VNode, dom: Element): Element {
 	return dom;
 }
 
-function hydrate(
-	vNode: VNode,
-	dom: Element,
-	lifecycle: LifecycleClass,
-	context: object,
-	isSVG: boolean,
-): Element | undefined {
+function hydrate(vNode: VNode, dom: Element, lifecycle: LifecycleClass, context: Object, isSVG: boolean) {
 	const flags = vNode.flags;
 
 	if (flags & VNodeFlags.Component) {
-		return hydrateComponent(vNode, dom, lifecycle, context, isSVG, (flags & VNodeFlags.ComponentClass) > 0);
+		hydrateComponent(vNode, dom, lifecycle, context, isSVG, (flags & VNodeFlags.ComponentClass) > 0);
 	} else if (flags & VNodeFlags.Element) {
-		return hydrateElement(vNode, dom, lifecycle, context, isSVG);
+		hydrateElement(vNode, dom, lifecycle, context, isSVG);
 	} else if (flags & VNodeFlags.Text) {
-		return hydrateText(vNode, dom);
+		hydrateText(vNode, dom);
 	} else if (flags & VNodeFlags.Void) {
-		return hydrateVoid(vNode, dom);
+		hydrateVoid(vNode, dom);
 	} else {
 		if (process.env.NODE_ENV !== 'production') {
 			throwError(`hydrate() expects a valid VNode, instead it received an object with the type "${typeof vNode}".`);

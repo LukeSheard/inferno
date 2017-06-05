@@ -1,7 +1,3 @@
-/**
- * @module inferno
- */ /** TypeDoc Comment */
-
 import {
 	combineFrom,
 	isArray,
@@ -52,14 +48,14 @@ export function createClassComponentInstance(
 	instance._unmounted = false;
 	instance._pendingSetState = true;
 	instance._isSVG = isSVG;
-	if (!isUndefined(instance.componentWillMount)) {
+	if (!isNullOrUndef(instance.componentWillMount)) {
 		instance._blockRender = true;
 		instance.componentWillMount();
 		instance._blockRender = false;
 	}
 
 	let childContext;
-	if (!isUndefined(instance.getChildContext)) {
+	if (!isNullOrUndef(instance.getChildContext)) {
 		childContext = instance.getChildContext();
 	}
 
@@ -211,10 +207,10 @@ export function removeChild(parentDom: Element, dom: Element) {
 }
 
 export function removeAllChildren(dom: Element, children, lifecycle: LifecycleClass, isRecycling: boolean) {
-	dom.textContent = '';
 	if (!options.recyclingEnabled || (options.recyclingEnabled && !isRecycling)) {
 		removeChildren(null, children, lifecycle, isRecycling);
 	}
+	dom.textContent = '';
 }
 
 export function removeChildren(dom: Element | null, children, lifecycle: LifecycleClass, isRecycling: boolean) {
