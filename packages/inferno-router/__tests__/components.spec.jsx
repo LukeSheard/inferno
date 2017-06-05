@@ -2,7 +2,7 @@ import createMemoryHistory from 'history/createMemoryHistory';
 import { render } from 'inferno';
 import { IndexLink, IndexRoute, Link, Route, Router } from 'inferno-router';
 import { innerHTML } from 'inferno-utils';
-import { assert, spy } from 'sinon';
+import sinon from 'sinon';
 const browserHistory = createMemoryHistory();
 
 function TestComponent() {
@@ -125,7 +125,7 @@ describe('Router (jsx)', () => {
 			const obj = {
 				fn() {},
 			};
-			const sinonSpy = spy(obj, 'fn');
+			const sinonSpy = sinon.spy(obj, 'fn');
 
 			render(createRoutes(<Link to="/" onClick={obj.fn}>Link</Link>), container);
 
@@ -136,7 +136,7 @@ describe('Router (jsx)', () => {
 				target: {},
 			});
 
-			const calledOnce = assert.calledOnce;
+			const calledOnce = sinon.assert.calledOnce;
 			calledOnce(sinonSpy);
 		});
 
@@ -144,7 +144,7 @@ describe('Router (jsx)', () => {
 			const obj = {
 				fn() {},
 			};
-			const sinonSpy = spy(obj, 'fn');
+			const sinonSpy = sinon.spy(obj, 'fn');
 
 			render(createRoutes(<Link to="/" onClick={obj.fn}>Link</Link>), container);
 
@@ -155,16 +155,15 @@ describe('Router (jsx)', () => {
 				target: {},
 			});
 
-			const notCalled = assert.notCalled;
-			notCalled(sinonSpy);
+			sinon.assert.notCalled(sinonSpy);
 		});
 
 		it('should show warning when used without <Router />', () => {
-			const sinonSpy = spy(console, 'warn');
+			const sinonSpy = sinon.spy(console, 'warn');
 
 			render(<Link to="/">Link</Link>, container);
 
-			assert.called(sinonSpy);
+			sinon.assert.called(sinonSpy);
 
 			sinonSpy.restore();
 		});
@@ -209,7 +208,7 @@ describe('Router (jsx)', () => {
 
 	describe('#Route', () => {
 		it('should call onEnter when switching route through a click', done => {
-			const callbackSpy = spy();
+			const callbackSpy = sinon.spy();
 
 			render(
 				<Router url={'/test'} history={browserHistory}>
@@ -229,7 +228,7 @@ describe('Router (jsx)', () => {
 		});
 
 		it("shouldn't call onEnter if already on the page the href points to", done => {
-			const callbackSpy = spy();
+			const callbackSpy = sinon.spy();
 			render(
 				<Router url={'/test'} history={browserHistory}>
 					<IndexRoute component={() => <div>Good</div>} />
@@ -259,7 +258,7 @@ describe('Router (jsx)', () => {
 		});
 
 		it('should pass props and context through onEnter when switching route', done => {
-			const callback = spy();
+			const callback = sinon.spy();
 
 			render(
 				<Router url={'/test'} history={browserHistory}>
@@ -285,7 +284,7 @@ describe('Router (jsx)', () => {
 				cb(null, () => <div>...</div>);
 			};
 
-			const spy = spy(callback);
+			const spy = sinon.spy(callback);
 
 			render(
 				<Router url={'/test'} history={browserHistory}>
@@ -314,7 +313,7 @@ describe('Router (jsx)', () => {
 				cb(null, TestComponent);
 			}
 
-			const spy = spy(callback);
+			const spy = sinon.spy(callback);
 
 			render(
 				<Router url={'/test'} history={browserHistory}>

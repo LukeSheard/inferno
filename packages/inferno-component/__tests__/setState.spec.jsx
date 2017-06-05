@@ -1,5 +1,6 @@
 import { render } from 'inferno';
 import Component from 'inferno-component';
+import sinon from 'sinon';
 
 describe('setState', () => {
 	let container;

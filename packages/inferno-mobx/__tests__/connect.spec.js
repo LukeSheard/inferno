@@ -52,7 +52,7 @@ describe('MobX inject()', () => {
 	 };
 	 const tryInject = () => inject()(TestComponent);
 	 console.log(createElement(tryInject));
-	 //expect(tryInject).to.not.throw(Error);
+	 //expect(tryInject).to.notThrow()(Error);
 	 });*/
 
 	it('should fail if store is not provided', () => {

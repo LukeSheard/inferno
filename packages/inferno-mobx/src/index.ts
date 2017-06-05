@@ -1,7 +1,7 @@
 import connect from './connect';
 import EventEmitter from './EventEmitter';
 import inject from './inject';
-import { componentByNodeRegistery, renderReporter, trackComponents } from './makeReactive';
+import makeReactive, { componentByNodeRegistery, renderReporter, trackComponents } from './makeReactive';
 import Provider from './Provider';
 
 export default {
@@ -10,6 +10,7 @@ export default {
 	componentByNodeRegistery,
 	connect,
 	inject,
+	makeReactive,
 	observer: connect,
 	renderReporter,
 	trackComponents,
@@ -22,6 +23,7 @@ export {
 	connect as observer,
 	connect,
 	inject,
+	makeReactive,
 	renderReporter,
 	trackComponents,
 };

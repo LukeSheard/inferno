@@ -44,7 +44,7 @@
       "inferno": "Inferno",
       "inferno-component": "Inferno.Component",
       "inferno-create-element": "Inferno.createElement",
-      "path-to-regexp-es6": "Inferno.pathToRegexp"
+      "path-to-regexp": "Inferno.pathToRegexp"
     }
   }
 }

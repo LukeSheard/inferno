@@ -27,7 +27,7 @@ import {
 	scryRenderedVNodesWithType,
 	scryVNodesWithType,
 } from 'inferno-test-utils';
-import { assert, spy } from 'sinon';
+import sinon from 'sinon';
 
 const VNodeKeys = ['children', 'className', 'dom', 'flags', 'key', 'ref', 'props', 'type'];
 
@@ -336,16 +336,16 @@ describe('Test Utils', () => {
 		});
 
 		it('should call predicate for each VNode instance in a rendered tree', () => {
-			const predicate = spy();
-			assert.notCalled(predicate);
+			const predicate = sinon.spy();
+			sinon.assert.notCalled(predicate);
 			findAllInRenderedTree(tree, predicate);
 			// 0: section
 			// 1: FunctionalComponent
 			// 2: div
-			assert.callCount(predicate, 3);
-			assert.calledWithMatch(predicate, { type: 'section' });
-			assert.calledWithMatch(predicate, { type: FunctionalComponent });
-			assert.calledWithMatch(predicate, { type: 'div' });
+			sinon.assert.callCount(predicate, 3);
+			sinon.assert.calledWithMatch(predicate, { type: 'section' });
+			sinon.assert.calledWithMatch(predicate, { type: FunctionalComponent });
+			sinon.assert.calledWithMatch(predicate, { type: 'div' });
 		});
 
 		it('should call predicate in the correct order', () => {
@@ -358,14 +358,14 @@ describe('Test Utils', () => {
 			const predicate = sinon.spy();
 			const Hello = ({ who }) => <div>Hello, {who}!</div>;
 			const treeWithText = renderIntoDocument(<Hello who="world" />);
-			assert.notCalled(predicate);
+			sinon.assert.notCalled(predicate);
 			findAllInRenderedTree(treeWithText, predicate);
-			assert.callCount(predicate, 5);
-			assert.calledWithMatch(predicate, { type: Hello });
-			assert.calledWithMatch(predicate, { type: 'div' });
-			assert.calledWithMatch(predicate, { children: 'Hello, ' });
-			assert.calledWithMatch(predicate, { children: 'world' });
-			assert.calledWithMatch(predicate, { children: '!' });
+			sinon.assert.callCount(predicate, 5);
+			sinon.assert.calledWithMatch(predicate, { type: Hello });
+			sinon.assert.calledWithMatch(predicate, { type: 'div' });
+			sinon.assert.calledWithMatch(predicate, { children: 'Hello, ' });
+			sinon.assert.calledWithMatch(predicate, { children: 'world' });
+			sinon.assert.calledWithMatch(predicate, { children: '!' });
 		});
 	});
 
@@ -400,14 +400,14 @@ describe('Test Utils', () => {
 		});
 
 		it('should call predicate for each VNode instance in an non-rendered tree', () => {
-			const predicate = spy();
-			assert.notCalled(predicate);
+			const predicate = sinon.spy();
+			sinon.assert.notCalled(predicate);
 			findAllInVNodeTree(tree, predicate);
 			// 0: section
 			// 1: FunctionalComponent
-			assert.callCount(predicate, 2);
-			assert.calledWithMatch(predicate, { type: 'section' });
-			assert.calledWithMatch(predicate, { type: FunctionalComponent });
+			sinon.assert.callCount(predicate, 2);
+			sinon.assert.calledWithMatch(predicate, { type: 'section' });
+			sinon.assert.calledWithMatch(predicate, { type: FunctionalComponent });
 		});
 
 		it('should call predicate in the correct order', () => {
@@ -515,7 +515,7 @@ describe('Test Utils', () => {
 				expect(result).toHaveLength(length);
 				result.forEach(item => {
 					expect(item).toBeInstanceOf(Object);
-					expect(item).toEqual(expect.arrayContaining(VNodeKeys));
+					expect(Object.keys(item)).toEqual(expect.arrayContaining(VNodeKeys));
 					expect(isVNode(item)).toBe(true);
 				});
 			};
@@ -547,7 +547,7 @@ describe('Test Utils', () => {
 				expect(result).toHaveLength(length);
 				result.forEach(item => {
 					expect(item).toBeInstanceOf(Object);
-					expect(item).toEqual(expect.arrayContaining(VNodeKeys));
+					expect(Object.keys(item)).toEqual(expect.arrayContaining(VNodeKeys));
 					expect(isVNode(item)).toBe(true);
 				});
 			};
@@ -667,7 +667,6 @@ describe('Test Utils', () => {
 			const testValue = type => {
 				const result = findRenderedVNodeWithType(tree, type);
 				expect(result).toBeInstanceOf(Object);
-				expect(result).toEqual(expect.arrayContaining(VNodeKeys));
 				expect(isVNode(result)).toBe(true);
 				expect(result.type).toBe(type);
 			};
@@ -705,16 +704,6 @@ describe('Test Utils', () => {
 			const testValue = type => {
 				const result = findVNodeWithType(tree, type);
 				expect(result).toBeInstanceOf(Object);
-				expect(result).toEqual({
-					children: 'Hello',
-					className: null,
-					dom: null,
-					flags: 2,
-					key: null,
-					props: null,
-					ref: null,
-					type: 'h1',
-				});
 				expect(isVNode(result)).toBe(true);
 				expect(result.type).toBe(type);
 			};

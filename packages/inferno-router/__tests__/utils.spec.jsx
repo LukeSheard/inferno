@@ -1,4 +1,4 @@
-import { isEmpty, mapSearchParams } from 'inferno-router/utils';
+import { isEmpty, mapSearchParams } from '../src/utils';
 
 describe('Router #utils', () => {
 	it('it should map search params to object', () => {

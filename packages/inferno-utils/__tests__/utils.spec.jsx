@@ -1,4 +1,5 @@
-import { spy, stub } from 'sinon';
+import { render } from 'inferno';
+import { renderToString } from 'inferno-server';
 import {
 	createContainerWithHTML,
 	createStyler,
@@ -8,9 +9,7 @@ import {
 	triggerEvent,
 	validateNodeTree,
 } from 'inferno-utils';
-
-import { render } from 'inferno';
-import { renderToString } from 'inferno-server';
+import sinon from 'sinon';
 
 const styleStringToArray = styleString => styleString.split(';').map(s => s.trim());
 
@@ -36,14 +35,12 @@ describe('Utils', () => {
 	});
 
 	describe('createStyler', () => {
-		it('should return undefined if undefined', () => {
-			const CSS = undefined;
-			expect(createStyler(CSS)).toBe(CSS);
+		it('should return "" if undefined', () => {
+			expect(createStyler(undefined)).toBe('');
 		});
 
-		it('should return CSS if null', () => {
-			const CSS = null;
-			expect(createStyler(CSS)).toBe(CSS);
+		it('should return "" if null', () => {
+			expect(createStyler(null)).toBe('');
 		});
 
 		it('should create a valid CSS string', () => {
@@ -116,7 +113,7 @@ describe('Utils', () => {
 		const element = {
 			dispatchEvent(event) {},
 		};
-		const spyDispatch = spy(element, 'dispatchEvent');
+		const spyDispatch = sinon.spy(element, 'dispatchEvent');
 		let spyCreateMouseEvent;
 
 		afterEach(function() {
@@ -134,7 +131,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -156,7 +153,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -178,7 +175,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -200,7 +197,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -222,7 +219,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -244,7 +241,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -266,7 +263,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;
@@ -288,7 +285,7 @@ describe('Utils', () => {
 					expect(cancelable).toBe(true);
 				},
 			};
-			spyCreateMouseEvent = stub(document, 'createEvent').callsFake(eventInterface => {
+			spyCreateMouseEvent = sinon.stub(document, 'createEvent').callsFake(eventInterface => {
 				expect(eventInterface).toBe(triggeredEventType);
 
 				return event;

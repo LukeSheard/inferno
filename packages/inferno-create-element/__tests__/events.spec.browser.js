@@ -1,5 +1,6 @@
 import { render } from 'inferno';
 import createElement from 'inferno-create-element';
+import sinon from 'sinon';
 
 describe('Basic event tests', () => {
 	let container;

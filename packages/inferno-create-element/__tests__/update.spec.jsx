@@ -90,7 +90,7 @@ describe('Stateful Component updates', () => {
 					this.setState({
 						show: true,
 					}),
-				).to.throw;
+				).toThrow();
 			}
 
 			domagic() {

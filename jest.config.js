@@ -18,6 +18,7 @@ module.exports = {
 		'^inferno-mobx': '<rootDir>/packages/inferno-mobx/src',
 		'^inferno-redux': '<rootDir>/packages/inferno-redux/src',
 		'^inferno-router': '<rootDir>/packages/inferno-router/src',
+		'^inferno-router/utils': '<rootDir>/packages/inferno-router/src/utils',
 		'^inferno-server': '<rootDir>/packages/inferno-server/src',
 		'^inferno-shared': '<rootDir>/packages/inferno-shared/src',
 		'^inferno-test-utils': '<rootDir>/packages/inferno-test-utils/src',

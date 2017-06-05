@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import { combineFrom, isArray, toArray } from 'inferno-shared';
-import pathToRegExp from 'path-to-regexp-es6';
+import pathToRegExp from 'path-to-regexp';
 import {
 	decode,
 	emptyObject,
