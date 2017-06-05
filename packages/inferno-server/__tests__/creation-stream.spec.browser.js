@@ -1,7 +1,7 @@
 import { streamAsString } from 'inferno-server';
 import Component from 'inferno-component';
 
-import concatStream from 'concat-stream-es6';
+import concatStream from 'concat-stream';
 import createElement from 'inferno-create-element';
 
 class StatefulComponent extends Component {
@@ -112,7 +112,7 @@ describe('SSR Creation Streams - (non-JSX)', () => {
 			return streamPromise(vDom).then(function (output) {
 				document.body.appendChild(container);
 				container.innerHTML = output;
-				expect(output).to.equal(test.result);
+				expect(output).toBe(test.result);
 				document.body.removeChild(container);
 			});
 		});
@@ -175,7 +175,7 @@ describe('SSR Creation Streams - (non-JSX)', () => {
 				const container = document.createElement('div');
 				document.body.appendChild(container);
 				container.innerHTML = output;
-				expect(output).to.equal('<div>bar2<div>bar2</div></div>');
+				expect(output).toBe('<div>bar2<div>bar2</div></div>');
 				document.body.removeChild(container);
 			});
 		});

@@ -2,20 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const read = require('fs-readdir-recursive');
 
-const moduleNameMapper = fs.readdirSync(path.join(__dirname, 'packages')).reduce(function(map, package) {
-	const packageMap = read(path.join(__dirname, 'packages', package, 'src')).reduce(function(acc, filepath) {
-		const file = filepath.slice(0, -3).split('/');
-		if (file.slice(-1)[0] === 'index') {
-			file.splice(-1, 1);
-		}
-		const moduleName = file.length ? `/${file.join('/')}` : '';
-		return Object.assign(acc, {
-			[`^${package}${moduleName}$`]: `<rootDir>/packages/${package}/src/${filepath}`,
-		});
-	}, {});
-	return Object.assign(map, packageMap);
-}, {});
-
 module.exports = {
 	collectCoverageFrom: ['packages/*/src/**/*.ts', '!**/*.ts.js'],
 	coverageDirectory: 'coverage',
@@ -23,9 +9,15 @@ module.exports = {
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
 	moduleNameMapper: {
 		'^inferno$': '<rootDir>/packages/inferno/src',
+		'^inferno-compat': '<rootDir>/packages/inferno-compat/src',
 		'^inferno-component': '<rootDir>/packages/inferno-component/src',
 		'^inferno-create-class': '<rootDir>/packages/inferno-create-class/src',
 		'^inferno-create-element': '<rootDir>/packages/inferno-create-element/src',
+		'^inferno-devtools': '<rootDir>/packages/inferno-devtools/src',
+		'^inferno-hyperscript': '<rootDir>/packages/inferno-hyperscript/src',
+		'^inferno-mobx': '<rootDir>/packages/inferno-mobx/src',
+		'^inferno-redux': '<rootDir>/packages/inferno-redux/src',
+		'^inferno-router': '<rootDir>/packages/inferno-router/src',
 		'^inferno-server': '<rootDir>/packages/inferno-server/src',
 		'^inferno-shared': '<rootDir>/packages/inferno-shared/src',
 		'^inferno-test-utils': '<rootDir>/packages/inferno-test-utils/src',

@@ -3,7 +3,7 @@ import { render } from 'inferno';
 import createClass from 'inferno-create-class';
 import createElement from 'inferno-create-element';
 
-import concatStream from 'concat-stream-es6';
+import concatStream from 'concat-stream';
 import Component from 'inferno-component';
 
 describe('SSR Root Creation Streams - (non-JSX)', () => {
@@ -23,7 +23,7 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 		const test = (value) => createElement('a', null, true);
 
 		return streamPromise(test('foo')).catch((err) => {
-			expect(err.toString()).to.equal('Error: invalid component');
+			expect(err.toString()).toBe('Error: invalid component');
 		});
 	});
 
@@ -37,7 +37,7 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 			}
 		});
 		return streamPromise(createElement(TestComponent, null)).then(function (output) {
-			expect(output).to.equal('<a data-infernoroot>world</a>');
+			expect(output).toBe('<a data-infernoroot>world</a>');
 		});
 	});
 
@@ -95,7 +95,7 @@ describe('SSR Root Creation Streams - (non-JSX)', () => {
 				const container = document.createElement('div');
 				document.body.appendChild(container);
 				container.innerHTML = output;
-				expect(output).to.equal('<div data-infernoroot>bar2<div>bar2</div></div>');
+				expect(output).toBe('<div data-infernoroot>bar2<div>bar2</div></div>');
 				document.body.removeChild(container);
 			});
 		});

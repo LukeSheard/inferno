@@ -1,6 +1,5 @@
 
 import { render } from 'inferno';
-import { assert, spy } from 'sinon';
 import Component from 'inferno-component';
 import createClass from 'inferno-create-class';
 import createElement from 'inferno-create-element';
@@ -28,7 +27,8 @@ import {
 	scryRenderedDOMElementsWithTag,
 	scryRenderedVNodesWithType,
 	scryVNodesWithType
-} from '../dist-es';
+} from 'inferno-test-utils';
+import { assert, spy } from 'sinon';
 
 const VNodeKeys = [
 	'children',
@@ -80,180 +80,180 @@ describe('Test Utils', () => {
 	describe('isVNode', () => {
 
 		it('should return true for VNodes', () => {
-			expect(isVNode(createElement('div'))).to.be.true;
-			expect(isVNode(createElement(CreateClassComponent))).to.be.true;
-			expect(isVNode(createElement(ExtendClassComponent))).to.be.true;
-			expect(isVNode(createElement(FunctionalComponent))).to.be.true;
-			expect(isVNode(<CreateClassComponent/>)).to.be.true;
-			expect(isVNode(<ExtendClassComponent/>)).to.be.true;
-			expect(isVNode(<FunctionalComponent/>)).to.be.true;
-			expect(isVNode(<div/>)).to.be.true;
+			expect(isVNode(createElement('div'))).toBe(true);
+			expect(isVNode(createElement(CreateClassComponent))).toBe(true);
+			expect(isVNode(createElement(ExtendClassComponent))).toBe(true);
+			expect(isVNode(createElement(FunctionalComponent))).toBe(true);
+			expect(isVNode(<CreateClassComponent/>)).toBe(true);
+			expect(isVNode(<ExtendClassComponent/>)).toBe(true);
+			expect(isVNode(<FunctionalComponent/>)).toBe(true);
+			expect(isVNode(<div/>)).toBe(true);
 		});
 
 		it('should return false for non-VNodes', () => {
-			expect(isVNode(CreateClassComponent)).to.be.false;
-			expect(isVNode(ExtendClassComponent)).to.be.false;
-			expect(isVNode(FunctionalComponent)).to.be.false;
-			expect(isVNode(createDOMElement('div'))).to.be.false;
-			expect(isVNode('foo')).to.be.false;
-			expect(isVNode({})).to.be.false;
-			expect(isVNode([])).to.be.false;
-			expect(isVNode(10)).to.be.false;
-			expect(isVNode(undefined)).to.be.false;
-			expect(isVNode(null)).to.be.false;
+			expect(isVNode(CreateClassComponent)).toBe(false);
+			expect(isVNode(ExtendClassComponent)).toBe(false);
+			expect(isVNode(FunctionalComponent)).toBe(false);
+			expect(isVNode(createDOMElement('div'))).toBe(false);
+			expect(isVNode('foo')).toBe(false);
+			expect(isVNode({})).toBe(false);
+			expect(isVNode([])).toBe(false);
+			expect(isVNode(10)).toBe(false);
+			expect(isVNode(undefined)).toBe(false);
+			expect(isVNode(null)).toBe(false);
 		});
 	});
 
 	describe('isVNodeOfType', () => {
 
 		it('should return true for VNodes with a specified type', () => {
-			expect(isVNodeOfType(createElement('div'), 'div')).to.be.true;
-			expect(isVNodeOfType(createElement(FunctionalComponent), FunctionalComponent)).to.be.true;
-			expect(isVNodeOfType(createElement(CreateClassComponent), CreateClassComponent)).to.be.true;
-			expect(isVNodeOfType(createElement(ExtendClassComponent), ExtendClassComponent)).to.be.true;
+			expect(isVNodeOfType(createElement('div'), 'div')).toBe(true);
+			expect(isVNodeOfType(createElement(FunctionalComponent), FunctionalComponent)).toBe(true);
+			expect(isVNodeOfType(createElement(CreateClassComponent), CreateClassComponent)).toBe(true);
+			expect(isVNodeOfType(createElement(ExtendClassComponent), ExtendClassComponent)).toBe(true);
 		});
 
 		it('should return false for VNodes with a specified type', () => {
-			expect(isVNodeOfType(createElement('div'), 'h1')).to.be.false;
-			expect(isVNodeOfType(createElement(FunctionalComponent), CreateClassComponent)).to.be.false;
-			expect(isVNodeOfType(createElement(CreateClassComponent), ExtendClassComponent)).to.be.false;
-			expect(isVNodeOfType(createElement(ExtendClassComponent), FunctionalComponent)).to.be.false;
+			expect(isVNodeOfType(createElement('div'), 'h1')).toBe(false);
+			expect(isVNodeOfType(createElement(FunctionalComponent), CreateClassComponent)).toBe(false);
+			expect(isVNodeOfType(createElement(CreateClassComponent), ExtendClassComponent)).toBe(false);
+			expect(isVNodeOfType(createElement(ExtendClassComponent), FunctionalComponent)).toBe(false);
 		});
 	});
 
 	describe('isDOMVNode', () => {
 
 		it('should return true for VNodes of type string', () => {
-			expect(isDOMVNode(createElement('div'))).to.be.true;
-			expect(isDOMVNode(createElement('h1'))).to.be.true;
-			expect(isDOMVNode(createElement('p'))).to.be.true;
+			expect(isDOMVNode(createElement('div'))).toBe(true);
+			expect(isDOMVNode(createElement('h1'))).toBe(true);
+			expect(isDOMVNode(createElement('p'))).toBe(true);
 		});
 
 		it('should return false for VNodes of type function or class', () => {
-			expect(isDOMVNode(createElement(CreateClassComponent))).to.be.false;
-			expect(isDOMVNode(createElement(ExtendClassComponent))).to.be.false;
-			expect(isDOMVNode(createElement(FunctionalComponent))).to.be.false;
+			expect(isDOMVNode(createElement(CreateClassComponent))).toBe(false);
+			expect(isDOMVNode(createElement(ExtendClassComponent))).toBe(false);
+			expect(isDOMVNode(createElement(FunctionalComponent))).toBe(false);
 		});
 	});
 
 	describe('isDOMVNodeOfType', () => {
 
 		it('should return true for VNodes of specific string type', () => {
-			expect(isDOMVNodeOfType(createElement('div'), 'div')).to.be.true;
-			expect(isDOMVNodeOfType(createElement('h1'), 'h1')).to.be.true;
-			expect(isDOMVNodeOfType(createElement('p'), 'p')).to.be.true;
+			expect(isDOMVNodeOfType(createElement('div'), 'div')).toBe(true);
+			expect(isDOMVNodeOfType(createElement('h1'), 'h1')).toBe(true);
+			expect(isDOMVNodeOfType(createElement('p'), 'p')).toBe(true);
 		});
 
 		it('should return false for VNodes of incorrect type', () => {
-			expect(isDOMVNodeOfType(createElement('div'), 'foo')).to.be.false;
-			expect(isDOMVNodeOfType(createElement('div'), {})).to.be.false;
-			expect(isDOMVNodeOfType(createElement('div'), [])).to.be.false;
-			expect(isDOMVNodeOfType(createElement('div'), 10)).to.be.false;
-			expect(isDOMVNodeOfType(createElement('div'), undefined)).to.be.false;
-			expect(isDOMVNodeOfType(createElement('div'), null)).to.be.false;
+			expect(isDOMVNodeOfType(createElement('div'), 'foo')).toBe(false);
+			expect(isDOMVNodeOfType(createElement('div'), {})).toBe(false);
+			expect(isDOMVNodeOfType(createElement('div'), [])).toBe(false);
+			expect(isDOMVNodeOfType(createElement('div'), 10)).toBe(false);
+			expect(isDOMVNodeOfType(createElement('div'), undefined)).toBe(false);
+			expect(isDOMVNodeOfType(createElement('div'), null)).toBe(false);
 		});
 	});
 
 	describe('isFunctionalVNode', () => {
 
 		it('should return true for VNodes of stateless function type', () => {
-			expect(isFunctionalVNode(createElement(FunctionalComponent))).to.be.true;
+			expect(isFunctionalVNode(createElement(FunctionalComponent))).toBe(true);
 		});
 
 		it('should return false for VNodes of incorrect type', () => {
-			expect(isFunctionalVNode(createElement(CreateClassComponent))).to.be.false;
-			expect(isFunctionalVNode(createElement(ExtendClassComponent))).to.be.false;
-			expect(isFunctionalVNode(createElement('div'))).to.be.false;
+			expect(isFunctionalVNode(createElement(CreateClassComponent))).toBe(false);
+			expect(isFunctionalVNode(createElement(ExtendClassComponent))).toBe(false);
+			expect(isFunctionalVNode(createElement('div'))).toBe(false);
 		});
 	});
 
 	describe('isFunctionalVNodeOfType', () => {
 
 		it('should return true for VNodes of specific stateless function type', () => {
-			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), FunctionalComponent)).to.be.true;
+			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), FunctionalComponent)).toBe(true);
 		});
 
 		it('should return false for VNodes of incorrect type', () => {
-			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), AnotherFunctionalComponent)).to.be.false;
-			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), CreateClassComponent)).to.be.false;
-			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), ExtendClassComponent)).to.be.false;
+			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), AnotherFunctionalComponent)).toBe(false);
+			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), CreateClassComponent)).toBe(false);
+			expect(isFunctionalVNodeOfType(createElement(FunctionalComponent), ExtendClassComponent)).toBe(false);
 		});
 	});
 
 	describe('isClassVNode', () => {
 
 		it('should return true for VNodes of class type', () => {
-			expect(isClassVNode(createElement(CreateClassComponent))).to.be.true;
-			expect(isClassVNode(createElement(ExtendClassComponent))).to.be.true;
+			expect(isClassVNode(createElement(CreateClassComponent))).toBe(true);
+			expect(isClassVNode(createElement(ExtendClassComponent))).toBe(true);
 		});
 
 		it('should return false for VNodes of incorrect type', () => {
-			expect(isClassVNode(createElement(FunctionalComponent))).to.be.false;
-			expect(isClassVNode(createElement('div'))).to.be.false;
+			expect(isClassVNode(createElement(FunctionalComponent))).toBe(false);
+			expect(isClassVNode(createElement('div'))).toBe(false);
 		});
 	});
 
 	describe('isClassVNodeOfType', () => {
 
 		it('should return true for VNodes of specific class type', () => {
-			expect(isClassVNodeOfType(createElement(CreateClassComponent), CreateClassComponent)).to.be.true;
-			expect(isClassVNodeOfType(createElement(ExtendClassComponent), ExtendClassComponent)).to.be.true;
+			expect(isClassVNodeOfType(createElement(CreateClassComponent), CreateClassComponent)).toBe(true);
+			expect(isClassVNodeOfType(createElement(ExtendClassComponent), ExtendClassComponent)).toBe(true);
 		});
 
 		it('should return false for VNodes of incorrect type', () => {
-			expect(isClassVNodeOfType(createElement(CreateClassComponent), AnotherCreateClassComponent)).to.be.false;
-			expect(isClassVNodeOfType(createElement(CreateClassComponent), AnotherExtendClassComponent)).to.be.false;
-			expect(isClassVNodeOfType(createElement(CreateClassComponent), FunctionalComponent)).to.be.false;
+			expect(isClassVNodeOfType(createElement(CreateClassComponent), AnotherCreateClassComponent)).toBe(false);
+			expect(isClassVNodeOfType(createElement(CreateClassComponent), AnotherExtendClassComponent)).toBe(false);
+			expect(isClassVNodeOfType(createElement(CreateClassComponent), FunctionalComponent)).toBe(false);
 
-			expect(isClassVNodeOfType(createElement(ExtendClassComponent), AnotherCreateClassComponent)).to.be.false;
-			expect(isClassVNodeOfType(createElement(ExtendClassComponent), AnotherExtendClassComponent)).to.be.false;
-			expect(isClassVNodeOfType(createElement(ExtendClassComponent), FunctionalComponent)).to.be.false;
+			expect(isClassVNodeOfType(createElement(ExtendClassComponent), AnotherCreateClassComponent)).toBe(false);
+			expect(isClassVNodeOfType(createElement(ExtendClassComponent), AnotherExtendClassComponent)).toBe(false);
+			expect(isClassVNodeOfType(createElement(ExtendClassComponent), FunctionalComponent)).toBe(false);
 		});
 	});
 
 	describe('isDOMElement', () => {
 
 		it('should return true for DOMElements', () => {
-			expect(isDOMElement(createDOMElement('div'))).to.be.true;
-			expect(isDOMElement(createDOMElement('h1'))).to.be.true;
-			expect(isDOMElement(createDOMElement('p'))).to.be.true;
+			expect(isDOMElement(createDOMElement('div'))).toBe(true);
+			expect(isDOMElement(createDOMElement('h1'))).toBe(true);
+			expect(isDOMElement(createDOMElement('p'))).toBe(true);
 		});
 
 		it('should return false for non-DOMElements', () => {
-			expect(isDOMElement(createElement(CreateClassComponent))).to.be.false;
-			expect(isDOMElement(createElement(ExtendClassComponent))).to.be.false;
-			expect(isDOMElement(createElement(FunctionalComponent))).to.be.false;
-			expect(isDOMElement(createElement('div'))).to.be.false;
-			expect(isDOMElement(CreateClassComponent)).to.be.false;
-			expect(isDOMElement(ExtendClassComponent)).to.be.false;
-			expect(isDOMElement(FunctionalComponent)).to.be.false;
-			expect(isDOMElement('div')).to.be.false;
-			expect(isDOMElement(undefined)).to.be.false;
-			expect(isDOMElement(null)).to.be.false;
-			expect(isDOMElement({})).to.be.false;
-			expect(isDOMElement([])).to.be.false;
-			expect(isDOMElement(10)).to.be.false;
+			expect(isDOMElement(createElement(CreateClassComponent))).toBe(false);
+			expect(isDOMElement(createElement(ExtendClassComponent))).toBe(false);
+			expect(isDOMElement(createElement(FunctionalComponent))).toBe(false);
+			expect(isDOMElement(createElement('div'))).toBe(false);
+			expect(isDOMElement(CreateClassComponent)).toBe(false);
+			expect(isDOMElement(ExtendClassComponent)).toBe(false);
+			expect(isDOMElement(FunctionalComponent)).toBe(false);
+			expect(isDOMElement('div')).toBe(false);
+			expect(isDOMElement(undefined)).toBe(false);
+			expect(isDOMElement(null)).toBe(false);
+			expect(isDOMElement({})).toBe(false);
+			expect(isDOMElement([])).toBe(false);
+			expect(isDOMElement(10)).toBe(false);
 		});
 	});
 
 	describe('isDOMElementOfType', () => {
 
 		it('should return true for DOMElements of specific type', () => {
-			expect(isDOMElementOfType(createDOMElement('div'), 'div')).to.be.true;
-			expect(isDOMElementOfType(createDOMElement('div'), 'DIV')).to.be.true;
-			expect(isDOMElementOfType(createDOMElement('h1'), 'h1')).to.be.true;
-			expect(isDOMElementOfType(createDOMElement('h1'), 'H1')).to.be.true;
-			expect(isDOMElementOfType(createDOMElement('p'), 'p')).to.be.true;
-			expect(isDOMElementOfType(createDOMElement('p'), 'P')).to.be.true;
+			expect(isDOMElementOfType(createDOMElement('div'), 'div')).toBe(true);
+			expect(isDOMElementOfType(createDOMElement('div'), 'DIV')).toBe(true);
+			expect(isDOMElementOfType(createDOMElement('h1'), 'h1')).toBe(true);
+			expect(isDOMElementOfType(createDOMElement('h1'), 'H1')).toBe(true);
+			expect(isDOMElementOfType(createDOMElement('p'), 'p')).toBe(true);
+			expect(isDOMElementOfType(createDOMElement('p'), 'P')).toBe(true);
 		});
 
 		it('should return false for DOMElements of incorrect type', () => {
-			expect(isDOMElementOfType(createDOMElement('div'), 'foo')).to.be.false;
-			expect(isDOMElementOfType(createDOMElement('div'), {})).to.be.false;
-			expect(isDOMElementOfType(createDOMElement('div'), [])).to.be.false;
-			expect(isDOMElementOfType(createDOMElement('div'), 10)).to.be.false;
-			expect(isDOMElementOfType(createDOMElement('div'), undefined)).to.be.false;
-			expect(isDOMElementOfType(createDOMElement('div'), null)).to.be.false;
+			expect(isDOMElementOfType(createDOMElement('div'), 'foo')).toBe(false);
+			expect(isDOMElementOfType(createDOMElement('div'), {})).toBe(false);
+			expect(isDOMElementOfType(createDOMElement('div'), [])).toBe(false);
+			expect(isDOMElementOfType(createDOMElement('div'), 10)).toBe(false);
+			expect(isDOMElementOfType(createDOMElement('div'), undefined)).toBe(false);
+			expect(isDOMElementOfType(createDOMElement('div'), null)).toBe(false);
 		});
 	});
 
@@ -267,21 +267,21 @@ describe('Test Utils', () => {
 		it('should return true for rendered Class Components', () => {
 			expect(isRenderedClassComponent(
 				render(createClassVNode, createDOMElement('div'))
-			)).to.be.true;
+			)).toBe(true);
 			expect(isRenderedClassComponent(
 				render(extendClassVNode, createDOMElement('div'))
-			)).to.be.true;
+			)).toBe(true);
 		});
 
 		it('should return false for non-rendered Class Components', () => {
-			expect(isRenderedClassComponent(createClassVNode)).to.be.false;
-			expect(isRenderedClassComponent(extendClassVNode)).to.be.false;
+			expect(isRenderedClassComponent(createClassVNode)).toBe(false);
+			expect(isRenderedClassComponent(extendClassVNode)).toBe(false);
 			expect(isRenderedClassComponent(
 				render(functionalVNode, createDOMElement('div'))
-			)).to.be.false;
+			)).toBe(false);
 			expect(isRenderedClassComponent(
 				render(DOMVNode, createDOMElement('div'))
-			)).to.be.false;
+			)).toBe(false);
 		});
 	});
 
@@ -293,38 +293,38 @@ describe('Test Utils', () => {
 		it('should return true for rendered Class Components of specific type', () => {
 			expect(isRenderedClassComponentOfType(
 				render(createClassVNode, createDOMElement('div')),
-				CreateClassComponent)).to.be.true;
+				CreateClassComponent)).toBe(true);
 			expect(isRenderedClassComponentOfType(
 				render(extendClassVNode, createDOMElement('div')),
-				ExtendClassComponent)).to.be.true;
+				ExtendClassComponent)).toBe(true);
 		});
 
 		it('should return false for rendered Class Components of incorrect type', () => {
 			expect(isRenderedClassComponentOfType(
 				render(createClassVNode, createDOMElement('div')),
-				AnotherCreateClassComponent)).to.be.false;
+				AnotherCreateClassComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(createClassVNode, createDOMElement('div')),
-				ExtendClassComponent)).to.be.false;
+				ExtendClassComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(createClassVNode, createDOMElement('div')),
-				FunctionalComponent)).to.be.false;
+				FunctionalComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(createClassVNode, createDOMElement('div')),
-				'div')).to.be.false;
+				'div')).toBe(false);
 
 			expect(isRenderedClassComponentOfType(
 				render(extendClassVNode, createDOMElement('div')),
-				AnotherExtendClassComponent)).to.be.false;
+				AnotherExtendClassComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(extendClassVNode, createDOMElement('div')),
-				CreateClassComponent)).to.be.false;
+				CreateClassComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(extendClassVNode, createDOMElement('div')),
-				FunctionalComponent)).to.be.false;
+				FunctionalComponent)).toBe(false);
 			expect(isRenderedClassComponentOfType(
 				render(extendClassVNode, createDOMElement('div')),
-				'div')).to.be.false;
+				'div')).toBe(false);
 		});
 	});
 
@@ -333,16 +333,16 @@ describe('Test Utils', () => {
 		it('should return a rendered class component', () => {
 			expect(isRenderedClassComponent(
 				renderIntoDocument(createElement('div'))
-			)).to.be.true;
+			)).toBe(true);
 			expect(isRenderedClassComponent(
 				renderIntoDocument(createElement(FunctionalComponent))
-			)).to.be.true;
+			)).toBe(true);
 			expect(isRenderedClassComponent(
 				renderIntoDocument(createElement(CreateClassComponent))
-			)).to.be.true;
+			)).toBe(true);
 			expect(isRenderedClassComponent(
 				renderIntoDocument(createElement(ExtendClassComponent))
-			)).to.be.true;
+			)).toBe(true);
 		});
 	});
 
@@ -362,7 +362,7 @@ describe('Test Utils', () => {
 			const testValue = (value) => {
 				expect(() => {
 					findAllInRenderedTree(value, predicate);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue(createElement(CreateClassComponent));
 			testValue(createElement(ExtendClassComponent));
@@ -396,7 +396,7 @@ describe('Test Utils', () => {
 		it('should call predicate in the correct order', () => {
 			const types = [];
 			findAllInRenderedTree(tree, ({ type }) => types.push(type));
-			expect(types).to.eql([ 'section', FunctionalComponent, 'div' ]);
+			expect(types).toEqual([ 'section', FunctionalComponent, 'div' ]);
 		});
 
 		it('should work with interpolated text', () => {
@@ -430,7 +430,7 @@ describe('Test Utils', () => {
 			const testValue = (value) => {
 				expect(() => {
 					findAllInVNodeTree(value, predicate);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue(renderIntoDocument(<div/>));
 			testValue(CreateClassComponent);
@@ -459,7 +459,7 @@ describe('Test Utils', () => {
 		it('should call predicate in the correct order', () => {
 			const types = [];
 			findAllInVNodeTree(tree, ({ type }) => types.push(type));
-			expect(types).to.eql([ 'section', FunctionalComponent ]);
+			expect(types).toEqual([ 'section', FunctionalComponent ]);
 		});
 	});
 
@@ -478,37 +478,37 @@ describe('Test Utils', () => {
 
 		it('should return an array of matched DOM elements', () => {
 			const result1 = scryRenderedDOMElementsWithClass(tree, 'one');
-			expect(result1).to.be.instanceof(Array);
-			expect(result1).to.have.lengthOf(3);
+			expect(result1).toBeInstanceOf(Array);
+			expect(result1).toHaveLength(3);
 			result1.forEach((result) => {
-				expect(result).to.be.instanceof(window.HTMLDivElement);
+				expect(result).toBeInstanceOf(window.HTMLDivElement);
 			});
 
 			const result2 = scryRenderedDOMElementsWithClass(tree, 'two');
-			expect(result2).to.be.instanceof(Array);
-			expect(result2).to.have.lengthOf(2);
-			expect(result2[ 0 ]).to.be.instanceof(window.HTMLDivElement);
-			expect(result2[ 1 ]).to.be.instanceof(window.HTMLSpanElement);
+			expect(result2).toBeInstanceOf(Array);
+			expect(result2).toHaveLength(2);
+			expect(result2[ 0 ]).toBeInstanceOf(window.HTMLDivElement);
+			expect(result2[ 1 ]).toBeInstanceOf(window.HTMLSpanElement);
 
 			const result3 = scryRenderedDOMElementsWithClass(tree, 'three');
-			expect(result3).to.be.instanceof(Array);
-			expect(result3).to.have.lengthOf(0);
+			expect(result3).toBeInstanceOf(Array);
+			expect(result3).toHaveLength(0);
 		});
 
 		it('should accept a space separated string of class names', () => {
 			const result1 = scryRenderedDOMElementsWithClass(tree, 'level-2');
-			expect(result1).to.be.instanceof(Array);
-			expect(result1).to.have.lengthOf(2);
+			expect(result1).toBeInstanceOf(Array);
+			expect(result1).toHaveLength(2);
 
 			const result2 = scryRenderedDOMElementsWithClass(tree, 'level-2 one');
-			expect(result2).to.be.instanceof(Array);
-			expect(result2).to.have.lengthOf(1);
+			expect(result2).toBeInstanceOf(Array);
+			expect(result2).toHaveLength(1);
 		});
 
 		it('should accept an array of class names', () => {
 			const result = scryRenderedDOMElementsWithClass(tree, [ 'level-2', 'one' ]);
-			expect(result).to.be.instanceof(Array);
-			expect(result).to.have.lengthOf(1);
+			expect(result).toBeInstanceOf(Array);
+			expect(result).toHaveLength(1);
 		});
 	});
 
@@ -531,10 +531,10 @@ describe('Test Utils', () => {
 		it('should return an array of matched DOM elements', () => {
 			const testValue = (tagName, length, instance) => {
 				const result = scryRenderedDOMElementsWithTag(tree, tagName);
-				expect(result).to.be.instanceof(Array);
-				expect(result).to.have.lengthOf(length);
+				expect(result).toBeInstanceOf(Array);
+				expect(result).toHaveLength(length);
 				result.forEach((item) => {
-					expect(item).to.be.instanceof(instance);
+					expect(item).toBeInstanceOf(instance);
 				});
 			};
 			testValue('div', 1, window.HTMLDivElement);
@@ -560,12 +560,12 @@ describe('Test Utils', () => {
 		it('should return an array of matched VNodes', () => {
 			const testValue = (type, length) => {
 				const result = scryRenderedVNodesWithType(tree, type);
-				expect(result).to.be.instanceof(Array);
-				expect(result).to.have.lengthOf(length);
+				expect(result).toBeInstanceOf(Array);
+				expect(result).toHaveLength(length);
 				result.forEach((item) => {
-					expect(item).to.be.instanceof(Object);
-					expect(item).to.have.all.keys(VNodeKeys);
-					expect(isVNode(item)).to.be.true;
+					expect(item).toBeInstanceOf(Object);
+					expect(item).toEqual(expect.arrayContaining(VNodeKeys));
+					expect(isVNode(item)).toBe(true);
 				});
 			};
 			testValue('p', 0);
@@ -593,12 +593,12 @@ describe('Test Utils', () => {
 		it('should return an array of matched VNodes', () => {
 			const testValue = (type, length) => {
 				const result = scryVNodesWithType(tree, type);
-				expect(result).to.be.instanceof(Array);
-				expect(result).to.have.lengthOf(length);
+				expect(result).toBeInstanceOf(Array);
+				expect(result).toHaveLength(length);
 				result.forEach((item) => {
-					expect(item).to.be.instanceof(Object);
-					expect(item).to.have.all.keys(VNodeKeys);
-					expect(isVNode(item)).to.be.true;
+					expect(item).toBeInstanceOf(Object);
+					expect(item).toEqual(expect.arrayContaining(VNodeKeys));
+					expect(isVNode(item)).toBe(true);
 				});
 			};
 			testValue('p', 0);
@@ -628,7 +628,7 @@ describe('Test Utils', () => {
 			const testValue = (classNames) => {
 				expect(() => {
 					findRenderedDOMElementWithClass(tree, classNames);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue('level-2');
 			testValue('level-3');
@@ -637,7 +637,7 @@ describe('Test Utils', () => {
 		it('should return a matched DOM element', () => {
 			const testValue = (classNames, instance) => {
 				const result = findRenderedDOMElementWithClass(tree, classNames);
-				expect(result).to.be.instanceof(instance);
+				expect(result).toBeInstanceOf(instance);
 			};
 			testValue('level-1', window.HTMLDivElement);
 			testValue('level-2 one', window.HTMLDivElement);
@@ -649,7 +649,7 @@ describe('Test Utils', () => {
 			const Broken = () => <div className='dummy'><NoOp /></div>;
 			const renderedTree = renderIntoDocument(<Broken />);
 			const dummy = findRenderedDOMElementWithClass(renderedTree, 'dummy');
-			expect(dummy.className).to.equal('dummy');
+			expect(dummy.className).toBe('dummy');
 		});
 	});
 
@@ -676,7 +676,7 @@ describe('Test Utils', () => {
 			const testValue = (tagName) => {
 				expect(() => {
 					findRenderedDOMElementWithTag(tree, tagName);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue('h1');
 			testValue('p');
@@ -685,7 +685,7 @@ describe('Test Utils', () => {
 		it('should return a matched DOM element', () => {
 			const testValue = (tagName, instance) => {
 				const result = findRenderedDOMElementWithTag(tree, tagName);
-				expect(result).to.be.instanceof(instance);
+				expect(result).toBeInstanceOf(instance);
 			};
 			testValue('div', window.HTMLDivElement);
 			testValue('span', window.HTMLSpanElement);
@@ -710,7 +710,7 @@ describe('Test Utils', () => {
 			const testValue = (type) => {
 				expect(() => {
 					findRenderedVNodeWithType(tree, type);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue('div');
 			testValue(FunctionalComponent);
@@ -719,10 +719,10 @@ describe('Test Utils', () => {
 		it('should return a matched VNode #1', () => {
 			const testValue = (type) => {
 				const result = findRenderedVNodeWithType(tree, type);
-				expect(result).to.be.instanceof(Object);
-				expect(result).to.have.all.keys(VNodeKeys);
-				expect(isVNode(result)).to.be.true;
-				expect(result.type).to.equal(type);
+				expect(result).toBeInstanceOf(Object);
+				expect(result).toEqual(expect.arrayContaining(VNodeKeys));
+				expect(isVNode(result)).toBe(true);
+				expect(result.type).toBe(type);
 			};
 			testValue('h1');
 			testValue(CreateClassComponent);
@@ -749,7 +749,7 @@ describe('Test Utils', () => {
 			const testValue = (type) => {
 				expect(() => {
 					findVNodeWithType(tree, type);
-				}).to.throw(Error, errorRegex);
+				}).toThrowError(Error);
 			};
 			testValue('div');
 			testValue(FunctionalComponent);
@@ -758,10 +758,10 @@ describe('Test Utils', () => {
 		it('should return a matched VNode #2', () => {
 			const testValue = (type) => {
 				const result = findVNodeWithType(tree, type);
-				expect(result).to.be.instanceof(Object);
-				expect(result).to.have.all.keys(VNodeKeys);
-				expect(isVNode(result)).to.be.true;
-				expect(result.type).to.equal(type);
+				expect(result).toBeInstanceOf(Object);
+				expect(result).toEqual(expect.arrayContaining(VNodeKeys));
+				expect(isVNode(result)).toBe(true);
+				expect(result.type).toBe(type);
 			};
 			testValue('h1');
 			testValue(CreateClassComponent);
