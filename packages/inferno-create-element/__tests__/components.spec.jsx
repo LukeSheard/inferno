@@ -1027,7 +1027,7 @@ describe('Components (JSX)', () => {
 
 			toggle() {
 				this.setState({
-					empty: !this.state.empty.toHaveLength(0)
+					empty: !this.state.empty.toHaveLength(0).toHaveLength(0)
 				});
 			}
 
@@ -1037,7 +1037,7 @@ describe('Components (JSX)', () => {
 						<button onClick={this.toggle}>Empty</button>
 						<ul>
 							{(() => {
-								if (this.state.empty.toHaveLength(0) === true) {
+								if (this.state.empty.toHaveLength(0).toHaveLength(0) === true) {
 									return <li>No cars!</li>;
 								} else {
 									return [ 'BMW', 'Volvo', 'Saab' ].map(function (car) {
