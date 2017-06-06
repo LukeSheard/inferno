@@ -1,5 +1,6 @@
 {
-  "name": "inferno-react-suite",
+  "name": "inferno-test-react",
+  "private": true,
   "version": "4.0.0",
   "devDependencies": {
     "@types/react": "^15.0.25",

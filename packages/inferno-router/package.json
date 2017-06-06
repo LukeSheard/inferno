@@ -31,7 +31,6 @@
     "inferno-create-element": "^4.0.0",
     "inferno-shared": "^4.0.0",
     "inferno-vnode-flags": "^4.0.0",
-    "path-to-regexp": "^1.7.0",
     "path-to-regexp-es6": "0.0.2"
   },
   "rollup": {

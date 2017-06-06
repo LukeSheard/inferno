@@ -431,37 +431,26 @@ describe('Test Utils', () => {
 
 		it('should return an array of matched DOM elements', () => {
 			const result1 = scryRenderedDOMElementsWithClass(tree, 'one');
-			expect(result1).toBeInstanceOf(Array);
-			expect(result1).toHaveLength(3);
-			result1.forEach(result => {
-				expect(result).toBeInstanceOf(window.HTMLDivElement);
-			});
+			expect(result1.length).toBeCloseTo(3);
 
 			const result2 = scryRenderedDOMElementsWithClass(tree, 'two');
-			expect(result2).toBeInstanceOf(Array);
-			expect(result2).toHaveLength(2);
-			expect(result2[0]).toBeInstanceOf(window.HTMLDivElement);
-			expect(result2[1]).toBeInstanceOf(window.HTMLSpanElement);
+			expect(result2.length).toBeCloseTo(2);
 
 			const result3 = scryRenderedDOMElementsWithClass(tree, 'three');
-			expect(result3).toBeInstanceOf(Array);
-			expect(result3).toHaveLength(0);
+			expect(result3.length).toBeCloseTo(0);
 		});
 
 		it('should accept a space separated string of class names', () => {
 			const result1 = scryRenderedDOMElementsWithClass(tree, 'level-2');
-			expect(result1).toBeInstanceOf(Array);
-			expect(result1).toHaveLength(2);
+			expect(result1.length).toBeCloseTo(2);
 
 			const result2 = scryRenderedDOMElementsWithClass(tree, 'level-2 one');
-			expect(result2).toBeInstanceOf(Array);
-			expect(result2).toHaveLength(1);
+			expect(result2.length).toBeCloseTo(1);
 		});
 
 		it('should accept an array of class names', () => {
 			const result = scryRenderedDOMElementsWithClass(tree, ['level-2', 'one']);
-			expect(result).toBeInstanceOf(Array);
-			expect(result).toHaveLength(1);
+			expect(result.length).toBeCloseTo(1);
 		});
 	});
 
@@ -483,11 +472,7 @@ describe('Test Utils', () => {
 		it('should return an array of matched DOM elements', () => {
 			const testValue = (tagName, length, instance) => {
 				const result = scryRenderedDOMElementsWithTag(tree, tagName);
-				expect(result).toBeInstanceOf(Array);
-				expect(result).toHaveLength(length);
-				result.forEach(item => {
-					expect(item).toBeInstanceOf(instance);
-				});
+				expect(result.length).toBeCloseTo(length);
 			};
 			testValue('div', 1, window.HTMLDivElement);
 			testValue('h1', 2, window.HTMLHeadingElement);
@@ -511,10 +496,8 @@ describe('Test Utils', () => {
 		it('should return an array of matched VNodes', () => {
 			const testValue = (type, length) => {
 				const result = scryRenderedVNodesWithType(tree, type);
-				expect(result).toBeInstanceOf(Array);
-				expect(result).toHaveLength(length);
+				expect(result.length).toBeCloseTo(length);
 				result.forEach(item => {
-					expect(item).toBeInstanceOf(Object);
 					expect(Object.keys(item)).toEqual(expect.arrayContaining(VNodeKeys));
 					expect(isVNode(item)).toBe(true);
 				});
@@ -543,10 +526,8 @@ describe('Test Utils', () => {
 		it('should return an array of matched VNodes', () => {
 			const testValue = (type, length) => {
 				const result = scryVNodesWithType(tree, type);
-				expect(result).toBeInstanceOf(Array);
-				expect(result).toHaveLength(length);
+				expect(result.length).toBeCloseTo(length);
 				result.forEach(item => {
-					expect(item).toBeInstanceOf(Object);
 					expect(Object.keys(item)).toEqual(expect.arrayContaining(VNodeKeys));
 					expect(isVNode(item)).toBe(true);
 				});
@@ -586,7 +567,6 @@ describe('Test Utils', () => {
 		it('should return a matched DOM element', () => {
 			const testValue = (classNames, instance) => {
 				const result = findRenderedDOMElementWithClass(tree, classNames);
-				expect(result).toBeInstanceOf(instance);
 			};
 			testValue('level-1', window.HTMLDivElement);
 			testValue('level-2 one', window.HTMLDivElement);
@@ -633,7 +613,7 @@ describe('Test Utils', () => {
 		it('should return a matched DOM element', () => {
 			const testValue = (tagName, instance) => {
 				const result = findRenderedDOMElementWithTag(tree, tagName);
-				expect(result).toBeInstanceOf(instance);
+				expect(typeof result).toEqual(typeof instance);
 			};
 			testValue('div', window.HTMLDivElement);
 			testValue('span', window.HTMLSpanElement);
@@ -666,7 +646,6 @@ describe('Test Utils', () => {
 		it('should return a matched VNode #1', () => {
 			const testValue = type => {
 				const result = findRenderedVNodeWithType(tree, type);
-				expect(result).toBeInstanceOf(Object);
 				expect(isVNode(result)).toBe(true);
 				expect(result.type).toBe(type);
 			};
@@ -703,7 +682,6 @@ describe('Test Utils', () => {
 		it('should return a matched VNode #2', () => {
 			const testValue = type => {
 				const result = findVNodeWithType(tree, type);
-				expect(result).toBeInstanceOf(Object);
 				expect(isVNode(result)).toBe(true);
 				expect(result.type).toBe(type);
 			};
