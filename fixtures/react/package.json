@@ -2,6 +2,9 @@
   "name": "inferno-test-react",
   "private": true,
   "version": "4.0.0",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "@types/react": "^15.0.25",
     "@types/react-dom": "^15.5.0",

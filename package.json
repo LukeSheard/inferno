@@ -66,8 +66,9 @@
     "postinstall": "lerna bootstrap",
     "rollup": "lerna exec -- cross-env node ../../scripts/rollup/build.js",
     "test": "jest",
-    "test:react": "jest --config fixtures/react-suite/jest.config.js",
-    "test:package": "node fixtures/packaging/build-all.js",
+    "test:fixture:browser": "npm run --prefix fixtures/browser test",
+    "test:fixture:react": "npm run --prefix fixtures/react test",
+    "test:fixture:package": "node fixtures/packaging/build-all.js",
     "uninstall": "lerna clean && rm -rf node_modules"
   },
   "devDependencies": {
